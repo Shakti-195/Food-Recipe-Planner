@@ -1,80 +1,97 @@
 # 🍽️ Food Recipe Planner
 
-A full-stack Food Recipe Planner application that allows users to discover, create, manage, and save their favourite recipes. The project features secure user authentication, image uploads, recipe management, and a clean, responsive user interface.
+A modern full-stack Food Recipe Planner built using the MERN stack. Users can securely register, log in, create recipes with images, manage their own recipes, save favourites, and explore delicious dishes through a clean and responsive interface.
 
 ---
 
 ## 🚀 Features
 
-- 🔐 User Authentication (Signup & Login using JWT)
+### Authentication
+- 🔐 User Signup & Login
+- 🔑 JWT Authentication
+- 🔒 Protected API Routes
+- 🔓 Logout Functionality
+
+### Recipe Management
 - 🍲 Add New Recipes
-- ✏️ Edit Existing Recipes
+- ✏️ Edit Recipes
 - 🗑️ Delete Recipes
-- ❤️ Add Recipes to Favourites
 - 📷 Upload Recipe Images
 - 👤 View Your Own Recipes
-- 📱 Responsive User Interface
-- 🔒 Protected Routes
-- 💾 MongoDB Database Integration
+
+### User Experience
+- ❤️ Save Favourite Recipes
+- 📱 Fully Responsive Design
+- ⚡ Fast Loading with Vite
+- 🎨 Clean and Modern UI
+- 🍴 Recipe Details Page
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Tech Stack
 
-### Frontend
+## Frontend
 - React.js
 - React Router DOM
 - Axios
 - Vite
 - CSS3
+- React Icons
 
-### Backend
+## Backend
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
-- JWT Authentication
+- JWT
 - Bcrypt
 - Multer
+- Dotenv
+- CORS
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```
-Food-Recipe-Planner/
+Food Recipe Planner
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-│
-├── backend/
-│   ├── config/
-│   ├── controller/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── public/
+├── backend
+│   ├── config
+│   ├── controller
+│   ├── middleware
+│   ├── models
+│   ├── public
+│   │   └── images
+│   ├── routes
+│   ├── .env
 │   ├── server.js
 │   └── package.json
+│
+├── frontend
+│   └── food-blog-app
+│       ├── public
+│       ├── src
+│       │   ├── assets
+│       │   ├── components
+│       │   ├── Pages
+│       │   ├── App.jsx
+│       │   └── main.jsx
+│       ├── package.json
+│       └── vite.config.js
 │
 └── README.md
 ```
 
 ---
 
-## ⚙️ Installation
+# ⚙️ Installation
 
-### 1. Clone the Repository
+## Clone Repository
 
 ```bash
-git clone https://github.com/your-username/Food-Recipe-Planner.git
+git clone https://github.com/your-github-username/Food-Recipe-Planner.git
 ```
-
----
-
-### 2. Navigate to the Project
 
 ```bash
 cd Food-Recipe-Planner
@@ -82,46 +99,28 @@ cd Food-Recipe-Planner
 
 ---
 
-### 3. Install Backend Dependencies
+## Backend Setup
 
 ```bash
 cd backend
 npm install
 ```
 
----
-
-### 4. Install Frontend Dependencies
-
-```bash
-cd ../frontend
-npm install
-```
-
----
-
-## 🔑 Environment Variables
-
-Create a `.env` file inside the **backend** folder.
+Create a `.env` file inside the backend folder.
 
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-SECRET_KEY=your_jwt_secret_key
+SECRET_KEY=your_secret_key
 ```
 
----
-
-## ▶️ Run the Application
-
-### Start Backend
+Run backend
 
 ```bash
-cd backend
 npm start
 ```
 
-Backend runs on:
+Backend runs on
 
 ```
 http://localhost:5000
@@ -129,14 +128,20 @@ http://localhost:5000
 
 ---
 
-### Start Frontend
+## Frontend Setup
 
 ```bash
-cd frontend
+cd frontend/food-blog-app
+npm install
+```
+
+Run frontend
+
+```bash
 npm run dev
 ```
 
-Frontend runs on:
+Frontend runs on
 
 ```
 http://localhost:5173
@@ -144,78 +149,121 @@ http://localhost:5173
 
 ---
 
-## 📸 Screenshots
+# 📸 Application Screens
 
-Add screenshots of:
+Include screenshots of:
 
-- Home Page
-- Login Page
-- Signup Page
-- Add Recipe
-- My Recipes
-- Favourite Recipes
+- 🏠 Home Page
+- 🔑 Login
+- 📝 Signup
+- ➕ Add Recipe
+- ❤️ Favourite Recipes
+- 👤 My Recipes
+- 🍲 Recipe Details
 
 ---
 
-## 🔮 Future Improvements
+# 🔒 Authentication Flow
+
+- User signs up
+- Password is hashed using Bcrypt
+- JWT token generated after login
+- Token stored in Local Storage
+- Protected routes verify JWT before allowing access
+
+---
+
+# 📦 API Endpoints
+
+## Authentication
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/user/signup` | Register User |
+| POST | `/user/login` | Login User |
+| GET | `/user/:id` | Get User |
+
+## Recipes
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/recipe` | Get All Recipes |
+| GET | `/recipe/:id` | Get Single Recipe |
+| POST | `/recipe` | Add Recipe |
+| PUT | `/recipe/:id` | Update Recipe |
+| DELETE | `/recipe/:id` | Delete Recipe |
+
+---
+
+# ✨ Future Enhancements
 
 - ⭐ Recipe Ratings
-- 💬 Comments Section
-- 🔍 Advanced Search
-- 🏷️ Category Filters
+- 💬 Comments
+- 🔍 Search Recipes
+- 🏷️ Categories
 - 🌙 Dark Mode
 - 📊 User Dashboard
 - 📤 Share Recipes
 - 🍽️ Meal Planner
-- ❤️ Like System
+- 🔖 Bookmark Recipes
+- 🤖 AI Recipe Suggestions
 
 ---
 
-## 🤝 Contributing
+# 🤝 Contributing
 
-Contributions are welcome!
+Contributions are welcome.
 
-1. Fork the repository
-2. Create a new branch
+1. Fork this repository
+
+2. Create a branch
 
 ```bash
 git checkout -b feature-name
 ```
 
-3. Commit your changes
+3. Commit changes
 
 ```bash
-git commit -m "Added new feature"
+git commit -m "Add new feature"
 ```
 
-4. Push your branch
+4. Push branch
 
 ```bash
 git push origin feature-name
 ```
 
-5. Create a Pull Request
+5. Open a Pull Request
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-**Shakti Singh**
+### Shakti Singh
 
-- B.Tech Computer Science Engineering
-- Full Stack Developer
-- MERN Stack Enthusiast
+🎓 B.Tech Computer Science Engineering
 
----
+💻 Full Stack Developer
 
-## 📜 License
+🚀 Passionate about MERN Stack Development
 
-This project is licensed under the MIT License.
+📧 Feel free to connect and contribute!
 
 ---
 
-## ⭐ Support
+# ⭐ Show Your Support
 
-If you found this project helpful, consider giving it a ⭐ on GitHub.
+If you liked this project, don't forget to ⭐ star this repository.
 
-Happy Coding! 🚀
+It motivates me to build more open-source projects.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+**Made with ❤️ by Shakti Singh**
