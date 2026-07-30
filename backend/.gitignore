@@ -24,8 +24,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Uploaded images (optional)
-public/images/
+
 
 # Coverage
 coverage/
