@@ -42,14 +42,14 @@ export default function RecipeItems() {
                 {
                     allRecipes?.map((item, index) => {
                         return (
-                           <div
+                            <div
     key={index}
     className="card"
     onClick={() => navigate(`/recipe/${item._id}`)}
     style={{ cursor: "pointer" }}
 >
     <img
-        src={`${API_URL}/images/${item.coverImage}`}
+        src={item.coverImage}
         width="120px"
         height="100px"
         alt={item.title}

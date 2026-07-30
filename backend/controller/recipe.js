@@ -1,17 +1,19 @@
 const Recipes=require("../models/recipe")
-const multer  = require('multer')
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/images')
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "food-recipe-planner",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"],
+        public_id: (req, file) => Date.now() + "-" + file.originalname,
     },
-    filename: function (req, file, cb) {
-      const filename = Date.now() + '-' + file.fieldname
-      cb(null, filename)
-    }
-  })
-  
-  const upload = multer({ storage: storage })
+});
+
+const upload = multer({ storage });
 
 const getRecipes=async(req,res)=>{
     const recipes=await Recipes.find()
@@ -36,7 +38,7 @@ const addRecipe = async (req, res) => {
             ingredients,
             instructions,
             time,
-            coverImage: req.file.filename,
+            coverImage: req.file.path,
             createdBy: req.user.id
         });
 
@@ -53,7 +55,7 @@ const editRecipe=async(req,res)=>{
 
     try{
         if(recipe){
-            let coverImage=req.file?.filename ? req.file?.filename : recipe.coverImage
+            let coverImage = req.file?.path ? req.file.path : recipe.coverImage;
             await Recipes.findByIdAndUpdate(req.params.id,{...req.body,coverImage},{new:true})
             res.json({title,ingredients,instructions,time})
         }
