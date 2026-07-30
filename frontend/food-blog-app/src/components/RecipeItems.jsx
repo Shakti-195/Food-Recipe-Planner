@@ -22,7 +22,7 @@ export default function RecipeItems() {
     }, [recipes])
 
     const onDelete = async (id) => {
-        await axios.delete(`API_URL/recipe/${id}`)
+        await axios.delete(`${API_URL}/recipe/${id}`)
             .then((res) => console.log(res))
         setAllRecipes(recipes => recipes.filter(recipe => recipe._id !== id))
         let filterItem = favItems.filter(recipe => recipe._id !== id)
@@ -43,7 +43,7 @@ export default function RecipeItems() {
                     allRecipes?.map((item, index) => {
                         return (
                             <div key={index} className='card'onDoubleClick={()=>navigate(`/recipe/${item._id}`)}>
-                                <img src={`API_URL/images/${item.coverImage}`} width="120px" height="100px"></img>
+                                <img src={`${API_URL}/images/${item.coverImage}`} width="120px" height="100px"></img>
                                 <div className='card-body'>
                                     <div className='title'>{item.title}</div>
                                     <div className='icons'>

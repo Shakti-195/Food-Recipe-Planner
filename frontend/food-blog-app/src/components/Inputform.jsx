@@ -7,12 +7,14 @@ export default function Inputform({setIsOpen}) {
     const [password,setPassword] = useState("")
     const [isSignUp,setIsSignUp]=useState(false)
     const [error,setError] = useState("")
+    const API_URL = "https://food-recipe-planner.onrender.com";
+
     
 
     const handleOnSubmit=async(e)=>{
         e.preventDefault()
         let endpoint = (isSignUp)?"signUp":"login"
-        await axios.post(`http://localhost:5000/${endpoint}`,{email,password})
+        await axios.post(`${API_URL}/${endpoint}`,{email,password})
         .then((res)=>{
             localStorage.setItem("token",res.data.token)
             localStorage.setItem("user",JSON.stringify(res.data.user))

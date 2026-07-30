@@ -2,6 +2,7 @@ import React from 'react'
 import profileImg from '../assets/profile.png'
 import food from '../assets/cholebhature.jpg'
 import { useLoaderData } from 'react-router-dom'
+const API_URL = "https://food-recipe-planner.onrender.com";
 
 
 export default function RecipeDetails() {
@@ -18,7 +19,7 @@ export default function RecipeDetails() {
                 <h3 className='title'>{recipe.title}</h3>
 
                 <img
-                    src={`http://localhost:5000/images/${recipe.coverImage}`}
+                    src={`${API_URL}/images/${recipe.coverImage}`}
                     width="220"
                     height="200"
                     alt={recipe.title}

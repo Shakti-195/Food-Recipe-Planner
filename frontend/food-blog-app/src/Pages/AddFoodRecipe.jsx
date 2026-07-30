@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+const API_URL = "https://food-recipe-planner.onrender.com";
+
 
 export default function AddFoodRecipe() {
     const [recipeData, setRecipeData] = useState({})
@@ -22,7 +24,7 @@ export default function AddFoodRecipe() {
 
     try {
         const res = await axios.post(
-            "http://localhost:5000/recipe",
+            "${API_URL/recipe",
             formData,
             {
                 headers: {
