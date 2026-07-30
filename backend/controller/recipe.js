@@ -147,6 +147,8 @@ const addRating = async (req, res) => {
     }
 };
 
+const User = require("../models/user");
+
 const addComment = async (req, res) => {
   try {
     const { comment } = req.body;
@@ -165,15 +167,23 @@ const addComment = async (req, res) => {
       });
     }
 
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
     recipe.comments.push({
-      userId: req.user.id,
-      userName: req.user.name,
+      userId: user._id,
+      userName: user.email,   // ✅ use email
       comment,
     });
 
     await recipe.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Comment added successfully",
       comments: recipe.comments,
     });
@@ -181,7 +191,7 @@ const addComment = async (req, res) => {
   } catch (err) {
     console.error(err);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: err.message,
     });
   }
