@@ -13,6 +13,6 @@ app.use(express.static("public"))
 app.use("/",require("./routes/user"))
 app.use("/recipe",require("./routes/recipe"))
 
-app.listen(PORT,(err)=>{
+app.listen(PORT,()=>{
     console.log(`app is listening on port ${PORT}`)
 })
