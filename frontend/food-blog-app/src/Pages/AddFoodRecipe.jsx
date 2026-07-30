@@ -24,7 +24,7 @@ export default function AddFoodRecipe() {
 
     try {
         const res = await axios.post(
-            "${API_URL/recipe",
+            `${API_URL}/recipe`,
             formData,
             {
                 headers: {

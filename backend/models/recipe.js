@@ -3,15 +3,15 @@ const mongoose = require("mongoose")
 const recipeSchema = mongoose.Schema({
     title:{
         type:String,
-        require:true
+        required:true
     },
     ingredients:{
         type:String,
-        require:true
+        required:true
     },
     instructions:{
         type:String,
-        require:true
+        required:true
     },
     time:{
         type:String,
