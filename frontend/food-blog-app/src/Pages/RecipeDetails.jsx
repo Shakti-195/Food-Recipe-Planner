@@ -8,6 +8,10 @@ const API_URL = "https://food-recipe-planner.onrender.com";
 export default function RecipeDetails() {
     const recipe = useLoaderData();
 
+    if (!recipe) {
+    return <h2>Recipe not found.</h2>;
+}
+
     return (
         <>
             <div className='outer-container'>
