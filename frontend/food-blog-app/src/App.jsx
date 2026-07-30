@@ -4,8 +4,8 @@ import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import Home from './Pages/Home'
 import MainNavigation from './components/MainNavigation'
 import axios from 'axios'
-import  AddFoodRecipe  from './pages/AddFoodRecipe'
-import EditRecipe from './pages/EditRecipe'
+import  AddFoodRecipe  from './Pages/AddFoodRecipe'
+import EditRecipe from './Pages/EditRecipe'
 import RecipeDetails from './Pages/RecipeDetails.jsx'
 const API_URL = "https://food-recipe-planner.onrender.com";
 
