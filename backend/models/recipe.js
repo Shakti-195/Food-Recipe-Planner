@@ -38,6 +38,27 @@ const recipeSchema = mongoose.Schema({
     },
   },
 ],
+
+comments: [
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    userName: {
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+],
 },{timestamps:true})
 
 module.exports=mongoose.model("Recipes",recipeSchema)

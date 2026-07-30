@@ -147,4 +147,44 @@ const addRating = async (req, res) => {
     }
 };
 
-module.exports={getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating,upload}
+const addComment = async (req, res) => {
+  try {
+    const { comment } = req.body;
+
+    if (!comment || comment.trim() === "") {
+      return res.status(400).json({
+        message: "Comment cannot be empty",
+      });
+    }
+
+    const recipe = await Recipes.findById(req.params.id);
+
+    if (!recipe) {
+      return res.status(404).json({
+        message: "Recipe not found",
+      });
+    }
+
+    recipe.comments.push({
+      userId: req.user.id,
+      userName: req.user.name,
+      comment,
+    });
+
+    await recipe.save();
+
+    res.status(200).json({
+      message: "Comment added successfully",
+      comments: recipe.comments,
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+module.exports={getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating, addComment,upload}

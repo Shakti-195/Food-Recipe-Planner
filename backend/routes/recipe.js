@@ -1,11 +1,12 @@
 const express=require("express")
-const { getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating,upload} = require("../controller/recipe")
+const { getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating, addComment,upload} = require("../controller/recipe")
 const verifyToken = require("../middleware/auth")
 const router=express.Router()
 
 router.get("/",getRecipes) //Get all recipes
 router.get("/:id",getRecipe) //Get recipe by id
 router.post("/:id/rating", verifyToken, addRating);
+router.post("/:id/comment", verifyToken, addComment);
 //add recipe
 router.post("/", (req, res, next) => {
     upload.single("file")(req, res, function (err) {
