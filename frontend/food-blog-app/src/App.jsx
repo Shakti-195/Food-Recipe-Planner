@@ -7,6 +7,8 @@ import axios from 'axios'
 import AddFoodRecipe from './Pages/AddFoodRecipe'
 import EditRecipe from './Pages/EditRecipe'
 import RecipeDetails from './Pages/RecipeDetails.jsx'
+import NotFound from './Pages/NotFound';
+import BackToTop from "./components/BackToTop";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -123,6 +125,10 @@ const router = createBrowserRouter([
         path: "/recipe/:id",
         element: <RecipeDetails />,
         loader: getRecipe
+      },
+      {
+        path: "*",
+        element: <NotFound />
       }
     ]
   }
@@ -132,6 +138,7 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router}></RouterProvider>
+      <BackToTop />
     </>
   )
 }

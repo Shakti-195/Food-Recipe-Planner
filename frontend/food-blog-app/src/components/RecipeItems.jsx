@@ -1,107 +1,184 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useLoaderData, useNavigate } from 'react-router-dom'
-import foodImg from '../assets/cholebhature.jpg'
+import React, { useEffect, useState } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { BsStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import axios from 'axios';
+import axios from "axios";
+import toast from "react-hot-toast";
+
+
 const API_URL = "https://food-recipe-planner.onrender.com";
 
-export default function RecipeItems() {
-    const recipes = useLoaderData()
-    const [allRecipes, setAllRecipes] = useState()
-    let path = window.location.pathname === "/myRecipe" ? true : false
-    let favItems = JSON.parse(localStorage.getItem("fav")) ?? []
-    const [isFavRecipe, setIsFavRecipe] = useState(false)
-    const navigate=useNavigate()
-    console.log(allRecipes)
+export default function RecipeItems({ search }) {
+  const recipes = useLoaderData();
 
-    useEffect(() => {
-        setAllRecipes(recipes)
-    }, [recipes])
+  const [allRecipes, setAllRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-    const onDelete = async (id) => {
-        await axios.delete(`${API_URL}/recipe/${id}`)
-            .then((res) => console.log(res))
-        setAllRecipes(recipes => recipes.filter(recipe => recipe._id !== id))
-        let filterItem = favItems.filter(recipe => recipe._id !== id)
-        localStorage.setItem("fav", JSON.stringify(filterItem))
-    }
+  const path = window.location.pathname === "/myRecipe";
+  let favItems = JSON.parse(localStorage.getItem("fav")) ?? [];
 
-    const favRecipe = (item) => {
-        let filterItem = favItems.filter(recipe => recipe._id !== item._id)
-        favItems = favItems.filter(recipe => recipe._id === item._id).length === 0 ? [...favItems, item] : filterItem
-        localStorage.setItem("fav", JSON.stringify(favItems))
-        setIsFavRecipe(pre => !pre)
-    }
+  const [isFavRecipe, setIsFavRecipe] = useState(false);
 
-    return (
-        <>
-            <div className='card-container'>
-                {
-                    allRecipes?.map((item, index) => {
-                        return (
-                            <div
-    key={index}
-    className="card"
-    onClick={() => navigate(`/recipe/${item._id}`)}
-    style={{ cursor: "pointer" }}
->
-    <img
-        src={item.coverImage}
-        width="120px"
-        height="100px"
-        alt={item.title}
-    />
+useEffect(() => {
+  setLoading(true);
 
-    <div className="card-body">
-        <div className="title">{item.title}</div>
+  setAllRecipes(recipes);
 
-        <div className="icons">
-            <div className="timer">
-                <BsStopwatchFill />
-                {item.time}
+  setLoading(false);
+}, [recipes]);
+
+  const onDelete = async (id) => {
+  try {
+    await axios.delete(`${API_URL}/recipe/${id}`);
+
+    setAllRecipes((prev) =>
+      prev.filter((recipe) => recipe._id !== id)
+    );
+
+    const filterItem = favItems.filter(
+      (recipe) => recipe._id !== id
+    );
+
+    localStorage.setItem("fav", JSON.stringify(filterItem));
+
+    toast.success("Recipe deleted successfully! 🗑️");
+  } catch (err) {
+    toast.error("Failed to delete recipe.");
+    console.log(err);
+  }
+};
+
+const favRecipe = (item) => {
+  const alreadyExists = favItems.some(
+    (recipe) => recipe._id === item._id
+  );
+
+  const filterItem = favItems.filter(
+    (recipe) => recipe._id !== item._id
+  );
+
+  favItems = alreadyExists
+    ? filterItem
+    : [...favItems, item];
+
+  localStorage.setItem("fav", JSON.stringify(favItems));
+
+  setIsFavRecipe((prev) => !prev);
+
+  if (alreadyExists) {
+    toast("Removed from favorites 💔");
+  } else {
+    toast.success("Added to favorites ❤️");
+  }
+};
+
+if (loading) {
+  return (
+    <div className="flex justify-center items-center py-20">
+      <div className="h-14 w-14 animate-spin rounded-full border-4 border-orange-500 border-t-transparent"></div>
+    </div>
+  );
+}
+
+const filteredRecipes = allRecipes.filter((recipe) =>
+  recipe.title.toLowerCase().includes(search.toLowerCase())
+);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-10">
+
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+        {filteredRecipes.map((item) => (
+          <div
+            key={item._id}
+            onClick={() => navigate(`/recipe/${item._id}`)}
+            className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+          >
+
+            {/* Image */}
+
+            <div className="overflow-hidden">
+              <img
+                src={item.coverImage}
+                alt={item.title}
+                className="w-full h-64 object-cover group-hover:scale-110 transition duration-500"
+              />
             </div>
 
-            {!path ? (
-                <FaHeart
+            {/* Body */}
+
+            <div className="p-6">
+
+              <h2 className="text-2xl font-bold text-gray-800 mb-5 line-clamp-1">
+                {item.title}
+              </h2>
+
+              <div className="flex justify-between items-center">
+
+                <div className="flex items-center gap-2 text-orange-500 font-semibold">
+                  <BsStopwatchFill />
+                  <span>{item.time}</span>
+                </div>
+
+                {!path ? (
+                  <FaHeart
                     onClick={(e) => {
-                        e.stopPropagation();   // Prevent opening recipe when heart is clicked
-                        favRecipe(item);
+                      e.stopPropagation();
+                      favRecipe(item);
                     }}
-                    style={{
-                        color: favItems.some(res => res._id === item._id)
-                            ? "red"
-                            : ""
-                    }}
-                />
-            ) : (
-                <div className="action">
+                    className={`text-2xl transition ${
+                      favItems.some(
+                        (recipe) => recipe._id === item._id
+                      )
+                        ? "text-red-500"
+                        : "text-gray-400 hover:text-red-500"
+                    }`}
+                  />
+                ) : (
+                  <div className="flex items-center gap-4">
+
                     <Link
-                        to={`/editRecipe/${item._id}`}
-                        className="editIcon"
-                        onClick={(e) => e.stopPropagation()}
+                      to={`/editRecipe/${item._id}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-blue-500 hover:text-blue-700 text-2xl transition"
                     >
-                        <FaEdit />
+                      <FaEdit />
                     </Link>
 
                     <MdDelete
-                        className="deleteIcon"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onDelete(item._id);
-                        }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete(item._id);
+                      }}
+                      className="text-red-500 hover:text-red-700 text-2xl transition"
                     />
-                </div>
-            )}
-        </div>
-    </div>
-</div>
-                        )
-                    })
-                }
+
+                  </div>
+                )}
+
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/recipe/${item._id}`);
+                }}
+                className="mt-6 w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold transition duration-300"
+              >
+                View Recipe
+              </button>
+
             </div>
-        </>
-    )
+
+          </div>
+        ))}
+
+      </div>
+
+    </div>
+  );
 }

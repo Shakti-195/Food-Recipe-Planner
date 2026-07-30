@@ -24,7 +24,20 @@ const recipeSchema = mongoose.Schema({
     createdBy:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
-    }
+    },
+    ratings: [
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5,
+    },
+  },
+],
 },{timestamps:true})
 
 module.exports=mongoose.model("Recipes",recipeSchema)

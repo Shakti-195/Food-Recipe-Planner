@@ -93,4 +93,58 @@ const deleteRecipe=async(req,res)=>{
     }
 }
 
-module.exports={getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,upload}
+const addRating = async (req, res) => {
+    try {
+        const { rating } = req.body;
+
+        if (!rating || rating < 1 || rating > 5) {
+            return res.status(400).json({
+                message: "Rating must be between 1 and 5",
+            });
+        }
+
+        const recipe = await Recipes.findById(req.params.id);
+
+        if (!recipe) {
+            return res.status(404).json({
+                message: "Recipe not found",
+            });
+        }
+
+        // Check if this user has already rated
+        const existingRating = recipe.ratings.find(
+            (item) => item.userId.toString() === req.user.id
+        );
+
+        if (existingRating) {
+            existingRating.rating = rating;
+        } else {
+            recipe.ratings.push({
+                userId: req.user.id,
+                rating,
+            });
+        }
+
+        await recipe.save();
+
+        const totalRatings = recipe.ratings.length;
+
+        const averageRating =
+            recipe.ratings.reduce((sum, item) => sum + item.rating, 0) /
+            totalRatings;
+
+        return res.json({
+            message: "Rating submitted successfully",
+            averageRating: Number(averageRating.toFixed(1)),
+            totalRatings,
+        });
+    } catch (err) {
+        console.error(err);
+
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+};
+
+module.exports={getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating,upload}
