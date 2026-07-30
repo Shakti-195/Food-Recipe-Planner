@@ -38,7 +38,11 @@ export default function RecipeItems() {
 
     return (
         <>
-            <div
+            <div className='card-container'>
+                {
+                    allRecipes?.map((item, index) => {
+                        return (
+                           <div
     key={index}
     className="card"
     onClick={() => navigate(`/recipe/${item._id}`)}
@@ -94,6 +98,10 @@ export default function RecipeItems() {
         </div>
     </div>
 </div>
+                        )
+                    })
+                }
+            </div>
         </>
     )
 }
