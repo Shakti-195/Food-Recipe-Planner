@@ -266,4 +266,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-**Made with ❤️ by Shakti Singh**
+**Made with ❤️ by Shakti Singh ❤️**
