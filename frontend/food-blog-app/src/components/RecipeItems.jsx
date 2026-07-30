@@ -38,30 +38,62 @@ export default function RecipeItems() {
 
     return (
         <>
-            <div className='card-container'>
-                {
-                    allRecipes?.map((item, index) => {
-                        return (
-                            <div key={index} className='card'onDoubleClick={()=>navigate(`/recipe/${item._id}`)}>
-                                <img src={`${API_URL}/images/${item.coverImage}`} width="120px" height="100px"></img>
-                                <div className='card-body'>
-                                    <div className='title'>{item.title}</div>
-                                    <div className='icons'>
-                                        <div className='timer'><BsStopwatchFill />{item.time}</div>
-                                        {(!path) ? <FaHeart onClick={() => favRecipe(item)}
-                                            style={{ color: (favItems.some(res => res._id === item._id)) ? "red" : "" }} /> :
-                                            <div className='action'>
-                                                <Link to={`/editRecipe/${item._id}`} className="editIcon"><FaEdit /></Link>
-                                                <MdDelete onClick={() => onDelete(item._id)} className='deleteIcon' />
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
+            <div
+    key={index}
+    className="card"
+    onClick={() => navigate(`/recipe/${item._id}`)}
+    style={{ cursor: "pointer" }}
+>
+    <img
+        src={`${API_URL}/images/${item.coverImage}`}
+        width="120px"
+        height="100px"
+        alt={item.title}
+    />
+
+    <div className="card-body">
+        <div className="title">{item.title}</div>
+
+        <div className="icons">
+            <div className="timer">
+                <BsStopwatchFill />
+                {item.time}
             </div>
+
+            {!path ? (
+                <FaHeart
+                    onClick={(e) => {
+                        e.stopPropagation();   // Prevent opening recipe when heart is clicked
+                        favRecipe(item);
+                    }}
+                    style={{
+                        color: favItems.some(res => res._id === item._id)
+                            ? "red"
+                            : ""
+                    }}
+                />
+            ) : (
+                <div className="action">
+                    <Link
+                        to={`/editRecipe/${item._id}`}
+                        className="editIcon"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <FaEdit />
+                    </Link>
+
+                    <MdDelete
+                        className="deleteIcon"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onDelete(item._id);
+                        }}
+                    />
+                </div>
+            )}
+        </div>
+    </div>
+</div>
         </>
     )
 }
