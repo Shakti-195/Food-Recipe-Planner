@@ -4,7 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 const API_URL = "https://food-recipe-planner.onrender.com";
 
 export default function EditRecipe() {
-    const [recipeData, setRecipeData] = useState({})
+    const [recipeData, setRecipeData] = useState({
+    title: "",
+    time: "",
+    ingredients: "",
+    instructions: "",
+    file: null,
+});
     const navigate = useNavigate()
     const{id}=useParams()
 
@@ -15,7 +21,9 @@ export default function EditRecipe() {
                 let res=response.data
                 setRecipeData({
                     title:res.title,
-                    ingredients:res.ingredients.join(","),
+                    ingredients: Array.isArray(res.ingredients)
+                        ? res.ingredients.join(",")
+                        : res.ingredients,
                     instructions:res.instructions,
                     time:res.time
                 })
@@ -25,20 +33,36 @@ export default function EditRecipe() {
     },[])
 
     const onHandleChange = (e) => {
-        let val = (e.target.name === "ingredients") ? e.target.value.split(",") : (e.target.name === "file") ? e.target.files[0] : e.target.value
+        
+        let val =e.target.name === "file"? e.target.files[0]: e.target.value;
         setRecipeData(pre => ({ ...pre, [e.target.name]: val }))
     }
-    const onHandleSubmit = async (e) => {
-        e.preventDefault()
-        console.log(recipeData)
-        await axios.put(`${API_URL}/recipe/${id}`, recipeData,{
-            headers:{
-                'Content-Type':'multipart/form-data',
-                'authorization':'bearer '+localStorage.getItem("token")
-            }
-        })
-            .then(() => navigate("/myRecipe"))
+const onHandleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("title", recipeData.title);
+    formData.append("time", recipeData.time);
+    formData.append("ingredients", recipeData.ingredients);
+    formData.append("instructions", recipeData.instructions);
+
+    if (recipeData.file) {
+        formData.append("file", recipeData.file);
     }
+
+    await axios.put(
+        `${API_URL}/recipe/${id}`,
+        formData,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        }
+    );
+
+    navigate("/myRecipe");
+};
     return (
         <>
             <div className='container'>

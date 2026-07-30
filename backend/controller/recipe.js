@@ -52,22 +52,37 @@ const addRecipe = async (req, res) => {
     }
 };
 
-const editRecipe=async(req,res)=>{
-    const {title,ingredients,instructions,time}=req.body 
-    let recipe=await Recipes.findById(req.params.id)
+const editRecipe = async (req, res) => {
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
 
-    try{
-        if(recipe){
-            let coverImage = req.file?.path ? req.file.path : recipe.coverImage;
-            await Recipes.findByIdAndUpdate(req.params.id,{...req.body,coverImage},{new:true})
-            res.json({title,ingredients,instructions,time})
+    try {
+        const recipe = await Recipes.findById(req.params.id);
+
+        if (!recipe) {
+            return res.status(404).json({ message: "Recipe not found" });
         }
+
+        let coverImage = req.file?.path || recipe.coverImage;
+
+        const updatedRecipe = await Recipes.findByIdAndUpdate(
+            req.params.id,
+            {
+                ...req.body,
+                coverImage,
+            },
+            { new: true }
+        );
+
+        return res.json(updatedRecipe);
+
+    } catch (err) {
+        console.error("EDIT ERROR:", err);
+        return res.status(500).json({
+            message: err.message,
+        });
     }
-    catch(err){
-        return res.status(404).json({message:err})
-    }
-    
-}
+};
 const deleteRecipe=async(req,res)=>{
     try{
         await Recipes.deleteOne({_id:req.params.id})
