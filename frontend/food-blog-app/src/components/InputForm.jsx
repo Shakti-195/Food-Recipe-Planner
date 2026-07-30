@@ -7,7 +7,7 @@ export default function Inputform({setIsOpen}) {
     const [password,setPassword] = useState("")
     const [isSignUp,setIsSignUp]=useState(false)
     const [error,setError] = useState("")
-    const API_URL = "http://localhost:5000";
+    const API_URL = "https://food-recipe-planner.onrender.com";
 
     
 
