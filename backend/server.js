@@ -1,6 +1,10 @@
 const express = require("express")
 const app = express()
 const dotenv = require("dotenv").config()
+require("dotenv").config();
+
+// console.log("Cloud Name:", process.env.CLOUDINARY_CLOUD_NAME);
+// console.log("API Key:", process.env.CLOUDINARY_API_KEY);
 const connectDb=require("./config/connectionDb")
 const cors = require("cors")
 

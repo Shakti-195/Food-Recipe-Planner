@@ -123,7 +123,7 @@ npm start
 Backend runs on
 
 ```
-https://food-recipe-planner.onrender.com
+http://localhost:5000
 ```
 
 ---

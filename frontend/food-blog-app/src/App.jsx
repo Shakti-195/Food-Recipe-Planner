@@ -8,7 +8,7 @@ import AddFoodRecipe from './Pages/AddFoodRecipe'
 import EditRecipe from './Pages/EditRecipe'
 import RecipeDetails from './Pages/RecipeDetails.jsx'
 
-const API_URL = "https://food-recipe-planner.onrender.com";
+const API_URL = "http://localhost:5000";
 
 const getAllRecipes = async () => {
   let allRecipes = [];

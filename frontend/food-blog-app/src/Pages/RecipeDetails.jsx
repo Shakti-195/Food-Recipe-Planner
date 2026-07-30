@@ -2,7 +2,7 @@ import React from 'react'
 import profileImg from '../assets/profile.png'
 import food from '../assets/cholebhature.jpg'
 import { useLoaderData } from 'react-router-dom'
-const API_URL = "https://food-recipe-planner.onrender.com";
+const API_URL = "http://localhost:5000";
 
 
 export default function RecipeDetails() {

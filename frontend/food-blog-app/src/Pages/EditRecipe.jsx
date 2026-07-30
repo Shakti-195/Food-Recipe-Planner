@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-const API_URL = "https://food-recipe-planner.onrender.com";
+const API_URL = "http://localhost:5000";
 
 export default function EditRecipe() {
     const [recipeData, setRecipeData] = useState({})

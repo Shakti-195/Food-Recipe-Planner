@@ -1,16 +1,19 @@
 const Recipes=require("../models/recipe")
 
+
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary");
 
+const path = require("path");
+
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
+    cloudinary,
+    params: async (req, file) => ({
         folder: "food-recipe-planner",
-        allowed_formats: ["jpg", "jpeg", "png", "webp"],
-        public_id: (req, file) => Date.now() + "-" + file.originalname,
-    },
+        resource_type: "image",
+        public_id: Date.now() + "-" + path.parse(file.originalname).name,
+    }),
 });
 
 const upload = multer({ storage });

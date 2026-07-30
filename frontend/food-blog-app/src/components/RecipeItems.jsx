@@ -6,7 +6,7 @@ import { FaHeart } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
-const API_URL = "https://food-recipe-planner.onrender.com";
+const API_URL = "http://localhost:5000";
 
 export default function RecipeItems() {
     const recipes = useLoaderData()
