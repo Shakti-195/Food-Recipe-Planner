@@ -3,25 +3,43 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 const userSignUp = async (req, res) => {
-    const { email, password } = req.body
-    if (!email || !password) {
-        return res.status(400).json({ message: "Email and password is required" })
-    }
-    let user = await User.findOne({ email })
-    if (user) {
-        return res.status(400).json({ error: "Email is already exist" })
-    }
-    const hashPwd = await bcrypt.hash(password, 10)
-    const newUser = await User.create({
-        email, password: hashPwd
-    })
-    let token = jwt.sign({ email, id: newUser._id }, process.env.SECRET_KEY)
-    return res.status(200).json({ token, user:newUser })
+    const { name, email, password } = req.body
 
+    if (!name || !email || !password) {
+        return res.status(400).json({
+            message: "Name, email and password are required"
+        })
+    }
+
+    let user = await User.findOne({ email })
+
+    if (user) {
+        return res.status(400).json({
+            error: "Email is already exist"
+        })
+    }
+
+    const hashPwd = await bcrypt.hash(password, 10)
+
+    const newUser = await User.create({
+        name,
+        email,
+        password: hashPwd
+    })
+
+    let token = jwt.sign(
+        { email, id: newUser._id },
+        process.env.SECRET_KEY
+    )
+
+    return res.status(200).json({
+        token,
+        user: newUser
+    })
 }
 
 const userLogin = async (req, res) => {
-    const { email, password } = req.body
+    const { name, email, password } = req.body
     if (!email || !password) {
         return res.status(400).json({ message: "Email and password is required" })
     }
@@ -45,8 +63,9 @@ const getUser = async (req, res) => {
         }
 
         res.json({
-            email: user.email
-        });
+    name: user.name,
+    email: user.email
+});
 
     } catch (err) {
         console.error(err);

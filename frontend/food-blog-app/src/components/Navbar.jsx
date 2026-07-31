@@ -2,9 +2,15 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Modal from "./Modal";
 import InputForm from "./InputForm";
+import { MdRestaurantMenu } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(
@@ -46,14 +52,18 @@ export default function Navbar() {
 
           {/* Logo */}
           <NavLink
-            to="/"
-            className="text-3xl font-extrabold text-slate-900 tracking-tight"
-          >
-            🍽️ RecipeVerse
+             to="/"
+  className="flex items-center gap-2 text-3xl font-bold text-slate-900"
+>
+  <MdRestaurantMenu className="text-emerald-500 text-4xl" />
+  {/* <span className="tracking-tight">Recipe Verse</span> */}
+  <span className="font-extrabold tracking-tight">
+  RecipeVerse
+</span>
           </NavLink>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-4">
+          <nav className="hidden lg:flex items-center gap-4">
 
             <NavLink to="/" className={linkClass}>
               Home
@@ -68,12 +78,21 @@ export default function Navbar() {
             </NavLink>
 
             <NavLink
-              to={!isLogin ? "/favRecipe" : "/"}
-              className={linkClass}
-              onClick={() => isLogin && setIsOpen(true)}
-            >
-              Favorites
-            </NavLink>
+  to={!isLogin ? "/favRecipe" : "/"}
+  className={({ isActive }) =>
+    `group px-4 py-2 rounded-xl transition-all duration-300 ${
+      isActive
+        ? "bg-slate-900 text-white shadow-lg"
+        : "text-slate-600 hover:bg-slate-100"
+    }`
+  }
+>
+  <span className="flex items-center gap-2">
+    <FaRegHeart className="text-sm transition-colors duration-300 group-hover:text-red-500" />
+    Favorites
+  </span>
+</NavLink>
+
 
             <button
               onClick={checkLogin}
@@ -84,9 +103,94 @@ export default function Navbar() {
                 : `Logout (${user?.email})`}
             </button>
 
+            
+
           </nav>
+          <button
+  onClick={() => setMobileMenu(true)}
+  className="lg:hidden text-slate-800"
+>
+  <HiOutlineMenuAlt3 className="text-4xl" />
+</button>
         </div>
       </header>
+      {mobileMenu && (
+  <>
+    <div
+      onClick={() => setMobileMenu(false)}
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+    ></div>
+
+    <div className="fixed top-0 right-0 h-screen w-72 bg-white shadow-2xl z-50 p-6">
+
+  <div className="flex justify-between items-center mb-8">
+    {!isLogin && (
+  <div className="mt-4 mb-6 rounded-2xl bg-slate-100 p-4">
+    <p className="text-xs uppercase tracking-wider text-slate-500">
+      Logged in as
+    </p>
+
+    <p className="mt-1 break-all font-semibold text-slate-900">
+      {user?.email}
+    </p>
+  </div>
+)}
+    <h2 className="text-2xl font-bold text-slate-900">
+      RecipeVerse
+    </h2>
+
+    <button onClick={() => setMobileMenu(false)}>
+      <IoClose className="text-3xl text-slate-700" />
+    </button>
+  </div>
+
+  <div className="flex flex-col gap-3">
+
+    <NavLink
+      to="/"
+      className={linkClass}
+      onClick={() => setMobileMenu(false)}
+    >
+      Home
+    </NavLink>
+
+    <NavLink
+      to={!isLogin ? "/myRecipe" : "/"}
+      className={linkClass}
+      onClick={() => {
+        setMobileMenu(false);
+        if (isLogin) setIsOpen(true);
+      }}
+    >
+      My Recipes
+    </NavLink>
+
+    <NavLink
+      to={!isLogin ? "/favRecipe" : "/"}
+      className={linkClass}
+      onClick={() => {
+        setMobileMenu(false);
+        if (isLogin) setIsOpen(true);
+      }}
+    >
+      Favorites
+    </NavLink>
+
+    <button
+      onClick={() => {
+        setMobileMenu(false);
+        checkLogin();
+      }}
+      className="mt-4 bg-slate-900 hover:bg-black text-white py-3 rounded-xl"
+    >
+      {isLogin ? "Login" : "Logout"}
+    </button>
+
+  </div>
+
+</div>
+  </>
+)}
 
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>

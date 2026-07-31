@@ -1,5 +1,7 @@
 import React from "react";
 import { FaGithub, FaLinkedin, FaHeart } from "react-icons/fa";
+import { MdRestaurantMenu } from "react-icons/md";
+import { GiKnifeFork } from "react-icons/gi";
 
 export default function Footer() {
   return (
@@ -11,11 +13,17 @@ export default function Footer() {
           {/* Brand */}
 
           <div>
-            <h2 className="text-3xl font-bold text-orange-500">
-              🍽 Food Recipe Planner
-            </h2>
+            <h2 className="text-3xl font-bold text-white">
+<h2 className="flex items-center gap-2 text-3xl font-bold text-white">
+   <GiKnifeFork className="text-emerald-400 text-3xl"/>
+   Recipe Verse
+</h2>
+</h2>
 
-            <p className="mt-4 text-gray-400 leading-7">
+<p className="mt-2 text-emerald-400 font-medium tracking-wide">
+  Cook • Share • Discover
+</p>
+            <p className="mt-4 text-slate-400 leading-7">
               Discover, create and share delicious recipes with food lovers
               around the world.
             </p>
@@ -24,25 +32,25 @@ export default function Footer() {
           {/* Quick Links */}
 
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">
+            <h3 className="text-xl font-semibold text-slate-100 mb-4">
               Quick Links
             </h3>
 
             <ul className="space-y-2">
               <li>
-                <a href="/" className="hover:text-orange-500 transition">
+                <a href="/" className="hover:text-emerald-400 transition">
                   Home
                 </a>
               </li>
 
               <li>
-                <a href="/myRecipe" className="hover:text-orange-500 transition">
+                <a href="/myRecipe" className="hover:text-emerald-400 transition">
                   My Recipes
                 </a>
               </li>
 
               <li>
-                <a href="/favorites" className="hover:text-orange-500 transition">
+                <a href="/favRecipe" className="hover:text-emerald-400 transition">
                   Favorites
                 </a>
               </li>
@@ -60,7 +68,7 @@ export default function Footer() {
               Designed & Developed by
             </p>
 
-            <h4 className="text-orange-500 font-bold text-lg mt-1">
+            <h4 className="text-emerald-400 font-bold text-lg mt-1">
               Shakti Singh
             </h4>
 
@@ -72,7 +80,7 @@ export default function Footer() {
                 href="https://github.com/BugHunters195"
                 target="_blank"
                 rel="noreferrer"
-                className="text-2xl hover:text-orange-500 transition"
+                className="text-2xl text-slate-300 hover:text-emerald-400 transition-all duration-300 hover:-translate-y-1"
               >
                 <FaGithub />
               </a>
@@ -81,7 +89,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="text-2xl hover:text-orange-500 transition"
+                className="text-2xl text-slate-300 hover:text-emerald-400 transition-all duration-300 hover:-translate-y-1"
               >
                 <FaLinkedin />
               </a>
@@ -91,18 +99,18 @@ export default function Footer() {
 
         </div>
 
-        <hr className="border-gray-700 my-8" />
+        <hr  className="border-slate-700 my-8" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
 
           <p>
-            © 2026 Visionary Engineering. All Rights Reserved.
+            © 2026 Recipe Verse. All Rights Reserved.
           </p>
 
           <p className="flex items-center gap-2">
             Made with
-            <FaHeart className="text-red-500" />
-            using React, Node.js & MongoDB
+            <FaHeart className="text-red-600" />
+            by Shakti Singh using Mern-Stack
           </p>
 
         </div>
