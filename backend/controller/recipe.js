@@ -151,7 +151,10 @@ const User = require("../models/user");
 
 const addComment = async (req, res) => {
   try {
-    const { comment } = req.body;
+ 
+    const { comment, rating } = req.body;
+    console.log("Request Body:", req.body);
+    console.log("Rating:", req.body.rating);
 
     if (!comment || comment.trim() === "") {
       return res.status(400).json({
@@ -175,11 +178,32 @@ const addComment = async (req, res) => {
       });
     }
 
-    recipe.comments.push({
-      userId: user._id,
-      userName: user.email,   // ✅ use email
-      comment,
-    });
+    console.log("Comment:", comment);
+    console.log("Rating:", rating);
+
+  const review = {
+  userId: user._id,
+  userName: user.email,
+  rating,
+  comment,
+};
+
+console.log("Review Object:", review);
+
+recipe.comments.push(review);
+
+console.log(
+  "Last Comment Before Save:",
+  recipe.comments[recipe.comments.length - 1]
+);
+
+await recipe.save();
+
+
+console.log(
+  "Last Comment After Save:",
+  recipe.comments[recipe.comments.length - 1]
+);
 
     await recipe.save();
 
@@ -197,4 +221,112 @@ const addComment = async (req, res) => {
   }
 };
 
-module.exports={getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating, addComment,upload}
+const updateComment = async (req, res) => {
+  try {
+    const { recipeId, commentId } = req.params;
+    const { comment, rating } = req.body;
+
+    const recipe = await Recipes.findById(recipeId);
+
+    if (!recipe) {
+      return res.status(404).json({
+        message: "Recipe not found",
+      });
+    }
+
+    const review = recipe.comments.id(commentId);
+
+    if (!review) {
+      return res.status(404).json({
+        message: "Comment not found",
+      });
+    }
+
+    // Only owner can edit
+    if (review.userId.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "You can edit only your own review",
+      });
+    }
+
+    // Update comment
+    review.comment = comment;
+
+    // Update rating inside comment
+    review.rating = rating;
+
+    // Update rating inside ratings array
+    const existingRating = recipe.ratings.find(
+      (item) => item.userId.toString() === req.user.id
+    );
+
+    if (existingRating) {
+      existingRating.rating = rating;
+    }
+
+    await recipe.save();
+
+    res.status(200).json({
+      message: "Review updated successfully",
+      recipe,
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+const deleteComment = async (req, res) => {
+  try {
+    const { recipeId, commentId } = req.params;
+
+    const recipe = await Recipes.findById(recipeId);
+
+    if (!recipe) {
+      return res.status(404).json({
+        message: "Recipe not found",
+      });
+    }
+
+    const review = recipe.comments.id(commentId);
+
+    if (!review) {
+      return res.status(404).json({
+        message: "Comment not found",
+      });
+    }
+
+    // Only owner can delete
+    if (review.userId.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "You can delete only your own review",
+      });
+    }
+
+    // Delete comment
+    recipe.comments.pull(commentId);
+
+    // Delete rating of same user
+    recipe.ratings = recipe.ratings.filter(
+      (item) => item.userId.toString() !== req.user.id
+    );
+
+    await recipe.save();
+
+    res.status(200).json({
+      message: "Review deleted successfully",
+      recipe,
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+module.exports={getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating, addComment, updateComment,deleteComment,upload}

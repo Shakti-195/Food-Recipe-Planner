@@ -8,7 +8,14 @@ import toast from "react-hot-toast";
 const API_URL = "https://food-recipe-planner.onrender.com";
 
 export default function RecipeDetails() {
-  const recipe = useLoaderData();
+const loadedRecipe = useLoaderData();
+
+const [recipe, setRecipe] = useState(loadedRecipe);
+const [comment, setComment] = useState("");
+const [selectedRating, setSelectedRating] = useState(5);
+const [editingCommentId, setEditingCommentId] = useState(null);
+const [editedComment, setEditedComment] = useState("");
+const [editedRating, setEditedRating] = useState(5);
 
   const [averageRating, setAverageRating] = useState(
     recipe?.ratings?.length
@@ -64,39 +71,176 @@ export default function RecipeDetails() {
     }
   };
 
-  return (
+  const handleComment = async () => {
+    if (!comment.trim()) {
+  toast.error("Please enter a comment.");
+  return;
+}
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login to comment.");
+      return;
+    }
+
+    const res = await axios.post(
+  `${API_URL}/recipe/${recipe._id}/comment`,
+    {
+    comment,
+    rating: selectedRating,
+    },
+        {
+        headers: {
+        Authorization: `Bearer ${token}`,
+        },
+    }
+    );
+
+    setRecipe((prev) => ({
+    ...prev,
+    comments: res.data.comments,
+}));
+    setComment("");
+
+    toast.success("Comment added successfully!");
+} catch (err) {
+    console.log(err);
+    toast.error(err.response?.data?.message || "Failed to add comment.");
+    }
+};
+
+return (
     <div className="max-w-6xl mx-auto py-10 px-4">
 
       {/* Recipe Card */}
-      <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
 
         {/* Image */}
         <img
-          src={recipe.coverImage}
-          alt={recipe.title}
-          className="w-full h-[450px] object-cover"
+            src={recipe.coverImage}
+            alt={recipe.title}
+            className="w-full h-[450px] object-cover"
         />
 
         <div className="p-8">
 
           {/* User */}
-          <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6">
 
             <div className="bg-orange-100 p-3 rounded-full">
-              <FaUserCircle className="text-4xl text-orange-500" />
+                <FaUserCircle className="text-4xl text-orange-500" />
             </div>
 
             <div>
-              <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500">
                 Shared By
-              </p>
+                </p>
 
-              <h3 className="font-semibold text-lg">
+                <h3 className="font-semibold text-lg">
                 {recipe.email}
-              </h3>
+                </h3>
             </div>
 
-          </div>
+        </div>
+
+          {/* Comment Section */}
+
+<div className="mt-10">
+
+    <h2 className="text-2xl font-bold mb-4">
+    Comments
+    </h2>
+
+    <div className="flex gap-2 mb-4">
+  {[1, 2, 3, 4, 5].map((star) => (
+    <FaStar
+      key={star}
+      onClick={() => setSelectedRating(star)}
+      className={`text-3xl cursor-pointer transition ${
+        star <= selectedRating
+          ? "text-yellow-400"
+          : "text-gray-300"
+      }`}
+    />
+  ))}
+</div>
+
+    <textarea
+    rows="4"
+    value={comment}
+    onChange={(e) => setComment(e.target.value)}
+    placeholder="Write your comment..."
+    className="w-full border rounded-lg p-3"
+  />
+
+  <button
+    onClick={handleComment}
+    className="mt-3 bg-orange-500 text-white px-5 py-2 rounded-lg hover:bg-orange-600"
+  >
+    Post Comment
+  </button>
+
+  <div className="mt-6">
+  {recipe?.comments?.length > 0 ? (
+    recipe.comments.map((item) => (
+      <div
+        key={item._id}
+        className="border rounded-lg p-4 mb-3 bg-gray-50"
+      >
+        <div className="flex justify-between items-center">
+
+  <h3 className="font-semibold text-orange-600">
+    👤 {item.userName}
+  </h3>
+
+  <div className="flex gap-1">
+    {[1, 2, 3, 4, 5].map((star) => (
+      <FaStar
+        key={star}
+        className={`text-lg ${
+          star <= item.rating
+            ? "text-yellow-400"
+            : "text-gray-300"
+        }`}
+      />
+    ))}
+  </div>
+
+</div>
+
+        <p className="mt-2 text-gray-700">
+          {item.comment}
+        </p>
+        <div className="flex gap-3 mt-3">
+
+  <button
+    className="text-blue-600 hover:underline"
+  >
+    Edit
+  </button>
+
+  <button
+    className="text-red-600 hover:underline"
+  >
+    Delete
+  </button>
+
+</div>
+
+        <p className="text-xs text-gray-400 mt-2">
+          {new Date(item.createdAt).toLocaleString()}
+        </p>
+      </div>
+    ))
+  ) : (
+    <p className="text-gray-500 mt-4">
+      No comments yet.
+    </p>
+  )}
+</div>
+
+</div>
 
           {/* Title */}
           <h1 className="text-5xl font-extrabold text-gray-800 mb-6">

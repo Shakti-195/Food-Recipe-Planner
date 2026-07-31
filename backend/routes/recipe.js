@@ -1,5 +1,5 @@
 const express=require("express")
-const { getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating, addComment,upload} = require("../controller/recipe")
+const { getRecipes,getRecipe,addRecipe,editRecipe,deleteRecipe,addRating, addComment,updateComment,deleteComment,upload} = require("../controller/recipe")
 const verifyToken = require("../middleware/auth")
 const router=express.Router()
 
@@ -23,5 +23,16 @@ router.post("/", (req, res, next) => {
 
 router.put("/:id",upload.single('file'),editRecipe) //Edit recipe
 router.delete("/:id",deleteRecipe) //Delete recipe
+router.put(
+    "/:recipeId/comment/:commentId",
+    verifyToken,
+    updateComment
+);
+
+router.delete(
+    "/:recipeId/comment/:commentId",
+    verifyToken,
+    deleteComment
+);
 
 module.exports=router
