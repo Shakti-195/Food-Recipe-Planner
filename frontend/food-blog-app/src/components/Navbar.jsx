@@ -100,7 +100,7 @@ export default function Navbar() {
             >
               {isLogin
                 ? "Login"
-                : `Logout (${user?.email})`}
+                : `Logout (${user?.name})`}
             </button>
 
             
@@ -122,27 +122,31 @@ export default function Navbar() {
     ></div>
 
     <div className="fixed top-0 right-0 h-screen w-72 bg-white shadow-2xl z-50 p-6">
+<div className="flex justify-between items-center mb-8">
+  <h2 className="text-2xl font-bold text-slate-900">
+    RecipeVerse
+  </h2>
 
-  <div className="flex justify-between items-center mb-8">
-    {!isLogin && (
-  <div className="mt-4 mb-6 rounded-2xl bg-slate-100 p-4">
-    <p className="text-xs uppercase tracking-wider text-slate-500">
-      Logged in as
+  <button onClick={() => setMobileMenu(false)}>
+    <IoClose className="text-3xl text-slate-700" />
+  </button>
+</div>
+
+{!isLogin && (
+  <div className="mb-6 rounded-2xl bg-emerald-50 border border-emerald-100 p-4">
+    <p className="text-xs uppercase tracking-widest text-emerald-600">
+      Welcome
     </p>
 
-    <p className="mt-1 break-all font-semibold text-slate-900">
+    <p className="mt-1 text-xl font-bold text-slate-900">
+      {user?.name}
+    </p>
+
+    <p className="text-sm text-slate-500 break-all">
       {user?.email}
     </p>
   </div>
 )}
-    <h2 className="text-2xl font-bold text-slate-900">
-      RecipeVerse
-    </h2>
-
-    <button onClick={() => setMobileMenu(false)}>
-      <IoClose className="text-3xl text-slate-700" />
-    </button>
-  </div>
 
   <div className="flex flex-col gap-3">
 

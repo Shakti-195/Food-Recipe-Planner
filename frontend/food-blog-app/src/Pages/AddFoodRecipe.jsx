@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { MdRestaurantMenu } from "react-icons/md";
+import { IoAddCircleSharp } from "react-icons/io5";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -180,12 +181,13 @@ export default function AddFoodRecipe() {
 
           {/* Button */}
 
-          <button
-            type="submit"
-            className="w-full bg-slate-900 hover:bg-black text-white text-lg font-semibold py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1"
-          >
-            ➕ Add Recipe
-          </button>
+         <button
+  type="submit"
+  className="w-full bg-slate-900 hover:bg-black text-white text-lg font-semibold py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
+>
+  <IoAddCircleSharp className="text-2xl" />
+  Add Recipe
+</button>
 
         </form>
       </div>

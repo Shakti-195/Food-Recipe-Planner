@@ -6,6 +6,8 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { FaArrowRight } from "react-icons/fa";
+import { HiArrowRight } from "react-icons/hi";
 
 
 const API_URL = "https://food-recipe-planner.onrender.com";
@@ -180,7 +182,8 @@ const filteredRecipes = allRecipes.filter((recipe) =>
                 }}
                 className="mt-6 w-full bg-slate-900 hover:bg-black text-white py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg transition-all duration-300"
               >
-                View Recipe
+                <HiArrowRight className="text-lg" />
+View Recipe
               </button>
 
             </div>
