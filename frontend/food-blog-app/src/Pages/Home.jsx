@@ -83,9 +83,10 @@ export default function Home() {
 
       {/* Section Heading */}
       <div ref={recipeSectionRef} className="text-center my-16">
-        <h2 className="text-4xl font-extrabold text-slate-900">
-          🍲 Latest Recipes
-        </h2>
+        <h2 className="flex items-center justify-center gap-3 text-4xl font-extrabold text-slate-900">
+  <MdRestaurantMenu className="text-emerald-500 text-4xl" />
+  Latest Recipes
+</h2>
 
         <p className="text-slate-500 mt-3 text-lg">
           Fresh recipes shared by our community

@@ -77,7 +77,7 @@ export default function Footer() {
               {/* Replace with your links */}
 
               <a
-                href="https://github.com/BugHunters195"
+                href="https://github.com/Shakti-195"
                 target="_blank"
                 rel="noreferrer"
                 className="text-2xl text-slate-300 hover:text-emerald-400 transition-all duration-300 hover:-translate-y-1"
@@ -86,7 +86,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/shakti-singh-b9b6ba2a6/"
                 target="_blank"
                 rel="noreferrer"
                 className="text-2xl text-slate-300 hover:text-emerald-400 transition-all duration-300 hover:-translate-y-1"
