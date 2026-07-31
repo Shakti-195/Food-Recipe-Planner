@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { MdRestaurantMenu } from "react-icons/md";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -62,28 +63,39 @@ export default function AddFoodRecipe() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-50 py-12 px-4">
-      <div className="w-full max-w-3xl bg-white rounded-3xl shadow-xl p-8">
+    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-16 px-4">
+      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-[30px] shadow-xl p-10">
 
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-orange-500">
-            🍽 Add New Recipe
-          </h1>
 
-          <p className="text-gray-500 mt-2">
-            Share your delicious recipe with everyone.
-          </p>
-        </div>
+  <div className="flex items-center justify-center gap-4">
+   <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
+  <MdRestaurantMenu className="text-4xl text-emerald-600" />
+</div>
+
+
+    <h1 className="text-5xl font-extrabold text-slate-900">
+      Add New Recipe
+    </h1>
+  </div>
+
+  <div className="w-24 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
+
+  <p className="text-slate-500 mt-5 text-lg">
+    Share your delicious recipe with everyone.
+  </p>
+
+</div>
 
         <form
           onSubmit={onHandleSubmit}
-          className="space-y-6"
+         className="space-y-7"
         >
 
           {/* Title */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800">
               Recipe Title
             </label>
 
@@ -93,7 +105,7 @@ export default function AddFoodRecipe() {
               value={recipeData.title}
               onChange={onHandleChange}
               placeholder="Paneer Butter Masala"
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -110,7 +122,7 @@ export default function AddFoodRecipe() {
               value={recipeData.time}
               onChange={onHandleChange}
               placeholder="40 Minutes"
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -129,7 +141,7 @@ export default function AddFoodRecipe() {
                 : recipeData.ingredients}
               onChange={onHandleChange}
               placeholder="Paneer, Onion, Tomato, Butter..."
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all resize-none"
             />
           </div>
 
@@ -146,7 +158,7 @@ export default function AddFoodRecipe() {
               value={recipeData.instructions}
               onChange={onHandleChange}
               placeholder="Write recipe instructions..."
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all resize-none"
             />
           </div>
 
@@ -162,7 +174,7 @@ export default function AddFoodRecipe() {
               name="file"
               accept="image/*"
               onChange={onHandleChange}
-              className="block w-full rounded-xl border border-gray-300 p-3 file:mr-4 file:rounded-lg file:border-0 file:bg-orange-500 file:px-4 file:py-2 file:text-white hover:file:bg-orange-600"
+              className="block w-full rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-4 file:mr-4 file:rounded-xl file:border-0 file:bg-slate-900 file:px-5 file:py-2 file:text-white hover:file:bg-black"
             />
           </div>
 
@@ -170,7 +182,7 @@ export default function AddFoodRecipe() {
 
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold py-4 rounded-xl transition duration-300 shadow-lg hover:shadow-xl"
+            className="w-full bg-slate-900 hover:bg-black text-white text-lg font-semibold py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1"
           >
             ➕ Add Recipe
           </button>

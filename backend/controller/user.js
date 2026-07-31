@@ -31,7 +31,7 @@ const userLogin = async (req, res) => {
         return res.status(200).json({ token, user })
     }
     else {
-        return res.status(400).json({ error: "Invaild credientials" })
+        return res.status(400).json({ error: "Invalid email or password." })
     }
 }
 

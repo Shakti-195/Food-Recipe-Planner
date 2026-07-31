@@ -1,4 +1,5 @@
 import React from "react";
+import { IoClose } from "react-icons/io5";
 
 export default function Modal({ children, onClose }) {
   return (
@@ -7,21 +8,21 @@ export default function Modal({ children, onClose }) {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
         onClick={onClose}
       ></div>
 
       {/* Modal */}
       <div
-        className="relative z-10 w-full max-w-md mx-4 rounded-3xl bg-white p-8 shadow-2xl animate-[fadeIn_0.3s_ease]"
+        className="relative z-10 w-full max-w-md mx-4 rounded-[30px] border border-slate-200 bg-white p-8 shadow-2xl animate-[fadeIn_0.35s_ease]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
-          onClick={onClose}
-          className="absolute top-4 right-5 text-2xl text-gray-500 hover:text-red-500 transition"
+            onClick={onClose}
+            className="absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-red-100 hover:text-red-600 transition-all duration-300"
         >
-          ✕
+        <IoClose className="text-2xl" />
         </button>
 
         {children}

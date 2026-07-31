@@ -16,6 +16,9 @@ const [selectedRating, setSelectedRating] = useState(5);
 const [editingCommentId, setEditingCommentId] = useState(null);
 const [editedComment, setEditedComment] = useState("");
 const [editedRating, setEditedRating] = useState(5);
+const currentUserId = JSON.parse(
+  atob(localStorage.getItem("token").split(".")[1])
+).id;
 
   const [averageRating, setAverageRating] = useState(
     recipe?.ratings?.length
@@ -97,10 +100,17 @@ const [editedRating, setEditedRating] = useState(5);
     }
     );
 
-    setRecipe((prev) => ({
-    ...prev,
-    comments: res.data.comments,
-}));
+ setRecipe(res.data.recipe);
+
+const avg =
+  res.data.recipe.ratings.reduce(
+    (sum, item) => sum + item.rating,
+    0
+  ) / res.data.recipe.ratings.length;
+
+setAverageRating(avg.toFixed(1));
+setTotalRatings(res.data.recipe.ratings.length);
+
     setComment("");
 
     toast.success("Comment added successfully!");
@@ -110,26 +120,101 @@ const [editedRating, setEditedRating] = useState(5);
     }
 };
 
+const handleDeleteComment = async (commentId) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.delete(
+      `${API_URL}/recipe/${recipe._id}/comment/${commentId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setRecipe(res.data.recipe);
+
+    const ratings = res.data.recipe.ratings;
+
+    if (ratings.length) {
+      const avg =
+        ratings.reduce((sum, item) => sum + item.rating, 0) /
+        ratings.length;
+
+      setAverageRating(avg.toFixed(1));
+      setTotalRatings(ratings.length);
+    } else {
+      setAverageRating(0);
+      setTotalRatings(0);
+    }
+
+    toast.success("Review deleted successfully");
+
+  } catch (err) {
+    toast.error(err.response?.data?.message);
+  }
+};
+const handleEditComment = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.put(
+      `${API_URL}/recipe/${recipe._id}/comment/${editingCommentId}`,
+      {
+        comment: editedComment,
+        rating: editedRating,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setRecipe(res.data.recipe);
+
+    const ratings = res.data.recipe.ratings;
+
+    const avg =
+      ratings.reduce((sum, item) => sum + item.rating, 0) /
+      ratings.length;
+
+    setAverageRating(avg.toFixed(1));
+    setTotalRatings(ratings.length);
+
+    setEditingCommentId(null);
+
+    toast.success("Review updated");
+
+  } catch (err) {
+    toast.error(err.response?.data?.message);
+  }
+};
+
 return (
-    <div className="max-w-6xl mx-auto py-10 px-4">
+    <div className="max-w-7xl mx-auto py-12 px-6">
 
       {/* Recipe Card */}
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="bg-white rounded-[30px] border border-slate-200 shadow-xl overflow-hidden">
 
-        {/* Image */}
-        <img
-            src={recipe.coverImage}
-            alt={recipe.title}
-            className="w-full h-[450px] object-cover"
-        />
+       {/* Image */}
+<div className="relative">
+  <img
+    src={recipe.coverImage}
+    alt={recipe.title}
+    className="w-full h-[520px] object-cover"
+  />
 
+  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
+</div>
         <div className="p-8">
 
           {/* User */}
             <div className="flex items-center gap-3 mb-6">
 
-            <div className="bg-orange-100 p-3 rounded-full">
-                <FaUserCircle className="text-4xl text-orange-500" />
+            <div className="bg-emerald-100 p-3 rounded-full">
+                <FaUserCircle className="text-4xl text-emerald-600" />
             </div>
 
             <div>
@@ -137,7 +222,7 @@ return (
                 Shared By
                 </p>
 
-                <h3 className="font-semibold text-lg">
+                <h3 className="font-bold text-lg text-slate-800">
                 {recipe.email}
                 </h3>
             </div>
@@ -148,7 +233,7 @@ return (
 
 <div className="mt-10">
 
-    <h2 className="text-2xl font-bold mb-4">
+    <h2 className="text-3xl font-bold text-slate-900 mb-5">
     Comments
     </h2>
 
@@ -171,12 +256,12 @@ return (
     value={comment}
     onChange={(e) => setComment(e.target.value)}
     placeholder="Write your comment..."
-    className="w-full border rounded-lg p-3"
+    className="w-full border border-slate-300 rounded-2xl p-4 shadow-sm focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 outline-none"
   />
 
   <button
     onClick={handleComment}
-    className="mt-3 bg-orange-500 text-white px-5 py-2 rounded-lg hover:bg-orange-600"
+    className="mt-4 bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg transition-all"
   >
     Post Comment
   </button>
@@ -186,11 +271,11 @@ return (
     recipe.comments.map((item) => (
       <div
         key={item._id}
-        className="border rounded-lg p-4 mb-3 bg-gray-50"
+        className="bg-white border border-slate-200 rounded-2xl p-5 mb-5 shadow-sm hover:shadow-lg transition-all"
       >
         <div className="flex justify-between items-center">
 
-  <h3 className="font-semibold text-orange-600">
+  <h3 className="font-semibold text-slate-900">
     👤 {item.userName}
   </h3>
 
@@ -209,24 +294,76 @@ return (
 
 </div>
 
-        <p className="mt-2 text-gray-700">
-          {item.comment}
-        </p>
-        <div className="flex gap-3 mt-3">
+        {editingCommentId === item._id ? (
 
-  <button
-    className="text-blue-600 hover:underline"
-  >
-    Edit
-  </button>
+<>
 
-  <button
-    className="text-red-600 hover:underline"
-  >
-    Delete
-  </button>
+<div className="flex gap-2 mb-3">
+
+{[1,2,3,4,5].map((star)=>(
+
+<FaStar
+key={star}
+onClick={()=>setEditedRating(star)}
+className={`text-2xl cursor-pointer ${
+star<=editedRating
+?"text-yellow-400"
+:"text-gray-300"
+}`}
+/>
+
+))}
 
 </div>
+
+<textarea
+value={editedComment}
+onChange={(e)=>setEditedComment(e.target.value)}
+className="w-full border rounded p-2"
+/>
+
+<button
+onClick={handleEditComment}
+className="mt-3 bg-green-600 text-white px-4 py-2 rounded"
+>
+Update Review
+</button>
+
+</>
+
+):(
+
+<p className="mt-2 text-gray-700">
+{item.comment}
+</p>
+
+)}
+
+    {item.userId === currentUserId && (
+
+<div className="flex gap-3 mt-3">
+
+<button
+onClick={()=>{
+setEditingCommentId(item._id);
+setEditedComment(item.comment);
+setEditedRating(item.rating);
+}}
+className="text-emerald-600 font-medium hover:text-emerald-700"
+>
+Edit
+</button>
+
+<button
+onClick={()=>handleDeleteComment(item._id)}
+className="text-red-500 font-medium hover:text-red-700"
+>
+Delete
+</button>
+
+</div>
+
+)}
 
         <p className="text-xs text-gray-400 mt-2">
           {new Date(item.createdAt).toLocaleString()}
@@ -243,41 +380,40 @@ return (
 </div>
 
           {/* Title */}
-          <h1 className="text-5xl font-extrabold text-gray-800 mb-6">
+          <h1 className="text-5xl font-extrabold text-slate-900 mb-6">
             {recipe.title}
           </h1>
 
           {/* Time */}
-          <div className="flex items-center gap-2 text-orange-500 font-semibold text-lg mb-8">
+          <div className="flex items-center gap-2 text-emerald-600 font-semibold text-lg mb-8">
             <BsStopwatchFill />
             <span>{recipe.time}</span>
           </div>
 
           {/* Rating Section */}
-          <div className="bg-yellow-50 rounded-2xl p-6 mb-10 border border-yellow-200">
+          <div className="bg-slate-50 rounded-3xl p-8 mb-10 border border-slate-200 shadow-sm">
 
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              ⭐ Recipe Rating
+              ⭐ Recipe Ratings
             </h2>
 
             <div className="flex items-center gap-2 mb-3">
 
-              {[1, 2, 3, 4, 5].map((star) => (
-                <FaStar
-                  key={star}
-                  onClick={() => handleRating(star)}
-                  className={`text-3xl cursor-pointer transition duration-300 hover:scale-125 ${
-                    star <= Math.round(averageRating)
-                      ? "text-yellow-400"
-                      : "text-gray-300 hover:text-yellow-300"
-                  }`}
-                />
-              ))}
+             {[1, 2, 3, 4, 5].map((star) => (
+  <FaStar
+    key={star}
+    className={`text-3xl ${
+      star <= Math.round(averageRating)
+        ? "text-yellow-400"
+        : "text-gray-300"
+    }`}
+  />
+))}
 
             </div>
 
             <p className="text-lg text-gray-700">
-              <span className="font-bold text-orange-500">
+              <span className="font-bold text-emerald-600">
                 {averageRating}
               </span>{" "}
               / 5
@@ -288,8 +424,8 @@ return (
             </p>
 
             <p className="text-sm text-gray-400 mt-2">
-              Click on the stars to rate this recipe.
-            </p>
+  Ratings are based on user reviews.
+</p>
 
           </div>
 
@@ -297,9 +433,9 @@ return (
           <div className="grid md:grid-cols-2 gap-10">
 
             {/* Ingredients */}
-            <div className="bg-orange-50 rounded-2xl p-6">
+            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
 
-              <h2 className="text-2xl font-bold text-orange-600 mb-4">
+              <h2 className="text-2xl font-bold text-emerald-600 mb-4">
                 🥗 Ingredients
               </h2>
 
@@ -312,7 +448,7 @@ return (
                       key={index}
                       className="flex items-center gap-3 text-gray-700"
                     >
-                      <span className="text-orange-500 text-xl">
+                      <span className="text-emerald-600 text-xl">
                         •
                       </span>
 
@@ -325,7 +461,7 @@ return (
             </div>
 
             {/* Instructions */}
-            <div className="bg-gray-50 rounded-2xl p-6">
+            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
 
               <h2 className="text-2xl font-bold text-gray-800 mb-4">
                 👨‍🍳 Instructions

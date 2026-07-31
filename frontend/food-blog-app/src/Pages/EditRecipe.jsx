@@ -2,6 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { MdRestaurantMenu } from "react-icons/md";
+import { MdOutlineEdit } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
+import { FaPen } from "react-icons/fa";
+import { BiEditAlt } from "react-icons/bi";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -89,27 +94,39 @@ export default function EditRecipe() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-50 py-12 px-4">
-      <div className="w-full max-w-3xl bg-white rounded-3xl shadow-xl p-8">
+    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-16 px-4">
+      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-[30px] shadow-xl p-10">
 
         {/* Heading */}
 
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-orange-500">
-            ✏️ Edit Recipe
-          </h1>
 
-          <p className="text-gray-500 mt-2">
-            Update your recipe details and save the changes.
-          </p>
-        </div>
+  <div className="flex items-center justify-center gap-4">
 
-        <form onSubmit={onHandleSubmit} className="space-y-6">
+    <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
+      <MdRestaurantMenu className="text-4xl text-emerald-600" />
+    </div>
+
+    <h1 className="text-5xl font-extrabold text-slate-900">
+      Update Recipe
+    </h1>
+
+  </div>
+
+  <div className="w-24 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
+
+  <p className="mt-5 text-slate-500 text-lg">
+    Update your recipe details and save the changes.
+  </p>
+
+</div>
+
+        <form onSubmit={onHandleSubmit} className="space-y-7">
 
           {/* Title */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800">
               Recipe Title
             </label>
 
@@ -118,7 +135,7 @@ export default function EditRecipe() {
               name="title"
               value={recipeData.title}
               onChange={onHandleChange}
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -134,7 +151,7 @@ export default function EditRecipe() {
               name="time"
               value={recipeData.time}
               onChange={onHandleChange}
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 resize-none focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -150,7 +167,7 @@ export default function EditRecipe() {
               name="ingredients"
               value={recipeData.ingredients}
               onChange={onHandleChange}
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 resize-none focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -166,7 +183,7 @@ export default function EditRecipe() {
               name="instructions"
               value={recipeData.instructions}
               onChange={onHandleChange}
-              className="w-full rounded-xl border border-gray-300 p-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 resize-none focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -182,7 +199,7 @@ export default function EditRecipe() {
               name="file"
               accept="image/*"
               onChange={onHandleChange}
-              className="block w-full rounded-xl border border-gray-300 p-3 file:mr-4 file:rounded-lg file:border-0 file:bg-orange-500 file:px-4 file:py-2 file:text-white hover:file:bg-orange-600"
+            className="block w-full rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-4 file:mr-4 file:rounded-xl file:border-0 file:bg-slate-900 file:px-5 file:py-2 file:text-white hover:file:bg-black"
             />
           </div>
 
@@ -191,25 +208,30 @@ export default function EditRecipe() {
           <div className="flex gap-4 pt-2">
 
             <button
-              type="submit"
-              className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-xl text-lg font-semibold transition duration-300 shadow-lg hover:shadow-xl"
+                    type="submit"
+                    className="flex-1 bg-slate-900 hover:bg-black text-white py-4 rounded-2xl text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2"
             >
-              💾 Save Changes
+                    {/* <MdOutlineEdit className="text-2xl" /> */}
+                    {/* <FaCheckCircle className="text-xl" /> */}
+                    {/* <FaPen className="text-lg" /> */}
+                    <BiEditAlt className="text-2xl" />
+                Update!
             </button>
 
             <button
-              type="button"
-              onClick={() => navigate("/myRecipe")}
-              className="flex-1 border border-gray-300 hover:bg-gray-100 text-gray-700 py-4 rounded-xl text-lg font-semibold transition"
+                type="button"
+                onClick={() => navigate("/myRecipe")}
+                // className="flex-1 border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 py-4 rounded-2xl text-lg font-semibold transition-all duration-300"
+                className="flex-1 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800 py-4 rounded-2xl text-lg font-semibold transition-all duration-300"
             >
-              Cancel
+                Cancel
             </button>
 
-          </div>
+        </div>
 
         </form>
 
-      </div>
     </div>
-  );
+    </div>
+);
 }

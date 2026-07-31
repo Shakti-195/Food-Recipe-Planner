@@ -33,27 +33,27 @@ export default function Navbar() {
   };
 
   const linkClass = ({ isActive }) =>
-    `px-4 py-2 rounded-lg transition duration-300 ${
-      isActive
-        ? "bg-orange-500 text-white"
-        : "text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-    }`;
+  `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+    isActive
+      ? "bg-slate-900 text-white shadow-md"
+      : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+  }`;
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white shadow-md">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
           {/* Logo */}
           <NavLink
             to="/"
-            className="text-3xl font-bold text-orange-500"
+            className="text-3xl font-extrabold text-slate-900 tracking-tight"
           >
-            🍽️ Food Recipe Planner
+            🍽️ RecipeVerse
           </NavLink>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-3">
+          <nav className="flex items-center gap-4">
 
             <NavLink to="/" className={linkClass}>
               Home
@@ -77,7 +77,7 @@ export default function Navbar() {
 
             <button
               onClick={checkLogin}
-              className="ml-4 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg transition duration-300"
+              className="ml-4 bg-slate-900 hover:bg-slate-800 text-white px-5 py-2 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300"
             >
               {isLogin
                 ? "Login"

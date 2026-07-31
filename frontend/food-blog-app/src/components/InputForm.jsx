@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdRestaurantMenu } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+// import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUserCircle } from "react-icons/fa";
 
 export default function Inputform({ setIsOpen }) {
   const [email, setEmail] = useState("");
@@ -35,12 +38,24 @@ export default function Inputform({ setIsOpen }) {
     <div className="w-full max-w-md">
 
       <div className="text-center mb-8">
+         <div className="flex justify-center mb-6">
+    <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
+      {/* <MdRestaurantMenu className="text-4xl text-emerald-600" /> */}
+      <FaUserCircle className="text-5xl text-emerald-600" />
+    </div>
+     
+  </div>
+  <p className="mt-3 text-xs font-bold uppercase tracking-[0.3em] text-emerald-600">
+      Recipe Planner
+    </p>
 
-        <h2 className="text-3xl font-bold text-orange-500">
-          {isSignUp ? "Create Account 🍽️" : "Welcome Back 👋"}
+        <h2 className="text-4xl font-extrabold text-slate-900">
+          {isSignUp ? "Create Account" : "Welcome Back"}
         </h2>
 
-        <p className="text-gray-500 mt-2">
+        <div className="w-20 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
+
+        <p className="text-slate-500 mt-3">
           {isSignUp
             ? "Create your account to start sharing recipes."
             : "Login to continue your cooking journey."}
@@ -57,18 +72,18 @@ export default function Inputform({ setIsOpen }) {
 
         <div>
 
-          <label className="block text-gray-700 font-medium mb-2">
+          <label className="block text-slate-800 font-semibold mb-2">
             Email
           </label>
 
-          <div className="flex items-center border rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
 
-            <FaEnvelope className="text-gray-400 mr-3" />
+            <FaEnvelope className="text-slate-400 mr-3" />
 
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full outline-none"
+              className="w-full bg-transparent outline-none placeholder:text-slate-400"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -82,18 +97,18 @@ export default function Inputform({ setIsOpen }) {
 
         <div>
 
-          <label className="block text-gray-700 font-medium mb-2">
+          <label className="block text-slate-800 font-semibold mb-2">
             Password
           </label>
 
-          <div className="flex items-center border rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
 
-            <FaLock className="text-gray-400 mr-3" />
+            <FaLock className="text-slate-400 mr-3" />
 
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
-              className="w-full outline-none"
+              className="w-full bg-transparent outline-none placeholder:text-slate-400"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -102,7 +117,7 @@ export default function Inputform({ setIsOpen }) {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="text-gray-500"
+              className="text-slate-500 hover:text-slate-800 transition"
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -114,8 +129,8 @@ export default function Inputform({ setIsOpen }) {
         {/* Error */}
 
         {error && (
-          <div className="bg-red-100 text-red-600 rounded-lg p-3 text-sm">
-            {error}
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+           ⚠ {error}
           </div>
         )}
 
@@ -123,9 +138,9 @@ export default function Inputform({ setIsOpen }) {
 
         <button
           type="submit"
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold transition duration-300 shadow-md hover:shadow-lg"
+        className="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
         >
-          {isSignUp ? "Create Account" : "Login"}
+          {isSignUp ? "Create Account" : "Sign In"}
         </button>
 
         {/* Toggle */}
@@ -138,10 +153,10 @@ export default function Inputform({ setIsOpen }) {
               setError("");
               setIsSignUp((prev) => !prev);
             }}
-            className="text-orange-500 hover:underline font-medium"
+            className="text-emerald-600 hover:text-emerald-700 font-semibold transition"
           >
             {isSignUp
-              ? "Already have an account? Login"
+              ? "Already have an account? Sign In"
               : "Don't have an account? Sign Up"}
           </button>
 

@@ -78,7 +78,7 @@ const favRecipe = (item) => {
 if (loading) {
   return (
     <div className="flex justify-center items-center py-20">
-      <div className="h-14 w-14 animate-spin rounded-full border-4 border-orange-500 border-t-transparent"></div>
+      <div className="h-14 w-14 animate-spin rounded-full border-4 border-emerald-600 border-t-transparent"></div>
     </div>
   );
 }
@@ -96,7 +96,7 @@ const filteredRecipes = allRecipes.filter((recipe) =>
           <div
             key={item._id}
             onClick={() => navigate(`/recipe/${item._id}`)}
-            className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+            className="group bg-white rounded-[24px] overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
           >
 
             {/* Image */}
@@ -105,21 +105,32 @@ const filteredRecipes = allRecipes.filter((recipe) =>
               <img
                 src={item.coverImage}
                 alt={item.title}
-                className="w-full h-64 object-cover group-hover:scale-110 transition duration-500"
+                className="w-full h-64 object-cover group-hover:scale-105 transition-all duration-500"
               />
             </div>
 
             {/* Body */}
 
-            <div className="p-6">
+            <div className="p-7">
 
-              <h2 className="text-2xl font-bold text-gray-800 mb-5 line-clamp-1">
+              <h2 className="text-2xl font-bold text-slate-900 mb-5 line-clamp-1">
                 {item.title}
               </h2>
 
+              {/* rating badge */}
+              <div className="flex items-center justify-between mt-2 mb-4">
+  <span className="text-yellow-500 text-sm font-semibold">
+    ⭐ {item.averageRating?.toFixed(1) || "0.0"}
+  </span>
+
+  <span className="text-slate-500 text-sm">
+    {item.comments?.length || 0} Reviews
+  </span>
+</div>
+
               <div className="flex justify-between items-center">
 
-                <div className="flex items-center gap-2 text-orange-500 font-semibold">
+                <div className="flex items-center gap-2 text-emerald-600 font-semibold">
                   <BsStopwatchFill />
                   <span>{item.time}</span>
                 </div>
@@ -135,7 +146,7 @@ const filteredRecipes = allRecipes.filter((recipe) =>
                         (recipe) => recipe._id === item._id
                       )
                         ? "text-red-500"
-                        : "text-gray-400 hover:text-red-500"
+                        : "text-slate-400 hover:text-red-500"
                     }`}
                   />
                 ) : (
@@ -144,7 +155,7 @@ const filteredRecipes = allRecipes.filter((recipe) =>
                     <Link
                       to={`/editRecipe/${item._id}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="text-blue-500 hover:text-blue-700 text-2xl transition"
+                      className="text-emerald-600 hover:text-emerald-700 text-2xl transition"
                     >
                       <FaEdit />
                     </Link>
@@ -167,7 +178,7 @@ const filteredRecipes = allRecipes.filter((recipe) =>
                   e.stopPropagation();
                   navigate(`/recipe/${item._id}`);
                 }}
-                className="mt-6 w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold transition duration-300"
+                className="mt-6 w-full bg-slate-900 hover:bg-black text-white py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg transition-all duration-300"
               >
                 View Recipe
               </button>
