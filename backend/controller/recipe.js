@@ -151,14 +151,17 @@ const User = require("../models/user");
 
 const addComment = async (req, res) => {
   try {
- 
     const { comment, rating } = req.body;
-    console.log("Request Body:", req.body);
-    console.log("Rating:", req.body.rating);
 
     if (!comment || comment.trim() === "") {
       return res.status(400).json({
         message: "Comment cannot be empty",
+      });
+    }
+
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({
+        message: "Rating must be between 1 and 5",
       });
     }
 
@@ -178,38 +181,36 @@ const addComment = async (req, res) => {
       });
     }
 
-    console.log("Comment:", comment);
-    console.log("Rating:", rating);
+    // Prevent multiple reviews by the same user
+    const alreadyReviewed = recipe.comments.find(
+      (item) => item.userId.toString() === req.user.id
+    );
 
-  const review = {
-  userId: user._id,
-  userName: user.email,
-  rating,
-  comment,
-};
+    if (alreadyReviewed) {
+      return res.status(400).json({
+        message: "You have already reviewed this recipe. Please edit your review.",
+      });
+    }
 
-console.log("Review Object:", review);
+    // Add review
+    recipe.comments.push({
+      userId: user._id,
+      userName: user.email,
+      rating,
+      comment,
+    });
 
-recipe.comments.push(review);
-
-console.log(
-  "Last Comment Before Save:",
-  recipe.comments[recipe.comments.length - 1]
-);
-
-await recipe.save();
-
-
-console.log(
-  "Last Comment After Save:",
-  recipe.comments[recipe.comments.length - 1]
-);
+    // Add rating
+    recipe.ratings.push({
+      userId: user._id,
+      rating,
+    });
 
     await recipe.save();
 
     return res.status(200).json({
       message: "Comment added successfully",
-      comments: recipe.comments,
+      recipe,
     });
 
   } catch (err) {
@@ -220,7 +221,6 @@ console.log(
     });
   }
 };
-
 const updateComment = async (req, res) => {
   try {
     const { recipeId, commentId } = req.params;
