@@ -39,13 +39,13 @@ export default function Inputform({ setIsOpen }) {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md px-2 sm:px-0">
 
       <div className="text-center mb-8">
          <div className="flex justify-center mb-6">
-    <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
+    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
       {/* <MdRestaurantMenu className="text-4xl text-emerald-600" /> */}
-      <FaUserCircle className="text-5xl text-emerald-600" />
+     <FaUserCircle className="text-4xl md:text-5xl text-emerald-600" />
     </div>
      
   </div>
@@ -53,7 +53,7 @@ export default function Inputform({ setIsOpen }) {
        Recipe Verse
     </p>
 
-        <h2 className="text-4xl font-extrabold text-slate-900">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
           {isSignUp ? " Join  Recipe Verse " : "Welcome Back"}
         </h2>
 
@@ -81,7 +81,7 @@ export default function Inputform({ setIsOpen }) {
       Full Name
     </label>
 
-    <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
+   <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-3 md:px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
 
       <FaUserCircle className="text-slate-400 mr-3" />
 
@@ -102,7 +102,7 @@ export default function Inputform({ setIsOpen }) {
             Email
           </label>
 
-          <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
+          <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-3 md:px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
 
             <FaEnvelope className="text-slate-400 mr-3" />
 
@@ -127,7 +127,7 @@ export default function Inputform({ setIsOpen }) {
             Password
           </label>
 
-          <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
+         <div className="flex items-center rounded-2xl border border-slate-300 bg-slate-50 px-3 md:px-4 py-3 transition-all focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-200">
 
             <FaLock className="text-slate-400 mr-3" />
 
@@ -164,7 +164,7 @@ export default function Inputform({ setIsOpen }) {
 
         <button
   type="submit"
-  className="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+className="w-full bg-slate-900 hover:bg-black text-white py-3 md:py-4 text-base md:text-lg rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
 >
   {isSignUp ? (
     <>
@@ -191,7 +191,7 @@ export default function Inputform({ setIsOpen }) {
   setPassword("");
   setIsSignUp((prev) => !prev);
 }}
-            className="text-emerald-600 hover:text-emerald-700 font-semibold transition"
+            className="text-sm md:text-base text-emerald-600 hover:text-emerald-700 font-semibold transition"
           >
             {isSignUp
               ? "Already have an account? Sign In"

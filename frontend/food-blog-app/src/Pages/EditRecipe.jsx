@@ -94,20 +94,20 @@ export default function EditRecipe() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-16 px-4">
-      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-[30px] shadow-xl p-10">
+    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-8 md:py-16 px-4">
+      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10">
 
         {/* Heading */}
 
         <div className="text-center mb-10">
 
-  <div className="flex items-center justify-center gap-4">
+  <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 
     <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
       <MdRestaurantMenu className="text-4xl text-emerald-600" />
     </div>
 
-    <h1 className="text-5xl font-extrabold text-slate-900">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 text-center">
       Update Recipe
     </h1>
 
@@ -115,13 +115,13 @@ export default function EditRecipe() {
 
   <div className="w-24 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
 
-  <p className="mt-5 text-slate-500 text-lg">
+  <p className="mt-5 text-slate-500 text-base md:text-lg px-2">
     Update your recipe details and save the changes.
   </p>
 
 </div>
 
-        <form onSubmit={onHandleSubmit} className="space-y-7">
+        <form onSubmit={onHandleSubmit} className="space-y-6 md:space-y-7">
 
           {/* Title */}
 
@@ -163,7 +163,7 @@ export default function EditRecipe() {
             </label>
 
             <textarea
-              rows="5"
+              rows={4}
               name="ingredients"
               value={recipeData.ingredients}
               onChange={onHandleChange}
@@ -179,7 +179,7 @@ export default function EditRecipe() {
             </label>
 
             <textarea
-              rows="7"
+              rows={5}
               name="instructions"
               value={recipeData.instructions}
               onChange={onHandleChange}
@@ -205,11 +205,11 @@ export default function EditRecipe() {
 
           {/* Buttons */}
 
-          <div className="flex gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row gap-4 pt-2">
 
             <button
                     type="submit"
-                    className="flex-1 bg-slate-900 hover:bg-black text-white py-4 rounded-2xl text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2"
+                   className="flex-1 bg-slate-900 hover:bg-black text-white py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2"
             >
                     {/* <MdOutlineEdit className="text-2xl" /> */}
                     {/* <FaCheckCircle className="text-xl" /> */}
@@ -222,7 +222,7 @@ export default function EditRecipe() {
                 type="button"
                 onClick={() => navigate("/myRecipe")}
                 // className="flex-1 border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 py-4 rounded-2xl text-lg font-semibold transition-all duration-300"
-                className="flex-1 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800 py-4 rounded-2xl text-lg font-semibold transition-all duration-300"
+                className="flex-1 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800 py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold transition-all duration-300"
             >
                 Cancel
             </button>

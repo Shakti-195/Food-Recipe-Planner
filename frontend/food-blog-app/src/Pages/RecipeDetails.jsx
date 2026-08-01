@@ -4,6 +4,10 @@ import { FaUserCircle, FaStar } from "react-icons/fa";
 import { BsStopwatchFill } from "react-icons/bs";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { FaClipboardList } from "react-icons/fa";
+import { GiFruitBowl } from "react-icons/gi";
+import { LuChefHat } from "react-icons/lu";
+import { PiBowlFoodFill } from "react-icons/pi";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -193,28 +197,28 @@ const handleEditComment = async () => {
 };
 
 return (
-    <div className="max-w-7xl mx-auto py-12 px-6">
+    <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
 
       {/* Recipe Card */}
-            <div className="bg-white rounded-[30px] border border-slate-200 shadow-xl overflow-hidden">
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
 
        {/* Image */}
 <div className="relative">
   <img
     src={recipe.coverImage}
     alt={recipe.title}
-    className="w-full h-[520px] object-cover"
+    className="w-full h-64 sm:h-80 md:h-[520px] object-cover"
   />
 
   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
 </div>
-        <div className="p-8">
+        <div className="p-5 md:p-8">
 
           {/* User */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
 
             <div className="bg-emerald-100 p-3 rounded-full">
-                <FaUserCircle className="text-4xl text-emerald-600" />
+                <FaUserCircle className="text-3xl md:text-4xl text-emerald-600" />
             </div>
 
             <div>
@@ -233,7 +237,7 @@ return (
 
 <div className="mt-10">
 
-    <h2 className="text-3xl font-bold text-slate-900 mb-5">
+    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-5">
     Comments
     </h2>
 
@@ -252,7 +256,7 @@ return (
 </div>
 
     <textarea
-    rows="4"
+    rows={3}
     value={comment}
     onChange={(e) => setComment(e.target.value)}
     placeholder="Write your comment..."
@@ -261,7 +265,7 @@ return (
 
   <button
     onClick={handleComment}
-    className="mt-4 bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg transition-all"
+    className="mt-4 w-full sm:w-auto bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg transition-all"
   >
     Post Comment
   </button>
@@ -271,7 +275,7 @@ return (
     recipe.comments.map((item) => (
       <div
         key={item._id}
-        className="bg-white border border-slate-200 rounded-2xl p-5 mb-5 shadow-sm hover:shadow-lg transition-all"
+        className="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 mb-5 shadow-sm hover:shadow-lg transition-all"
       >
         <div className="flex justify-between items-center">
 
@@ -380,7 +384,7 @@ Delete
 </div>
 
           {/* Title */}
-          <h1 className="text-5xl font-extrabold text-slate-900 mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
             {recipe.title}
           </h1>
 
@@ -391,10 +395,11 @@ Delete
           </div>
 
           {/* Rating Section */}
-          <div className="bg-slate-50 rounded-3xl p-8 mb-10 border border-slate-200 shadow-sm">
+          <div className="bg-slate-50 rounded-3xl p-5 md:p-8 mb-10 border border-slate-200 shadow-sm">
 
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              ⭐ Recipe Ratings
+              <FaStar className="text-yellow-400 text-3xl" />
+              Recipe Ratings
             </h2>
 
             <div className="flex items-center gap-2 mb-3">
@@ -430,13 +435,15 @@ Delete
           </div>
 
           {/* Ingredients + Instructions */}
-          <div className="grid md:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
 
             {/* Ingredients */}
             <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
 
-              <h2 className="text-2xl font-bold text-emerald-600 mb-4">
-                🥗 Ingredients
+              <h2  className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-slate-900">
+                
+                <PiBowlFoodFill className="text-3xl text-emerald-500" />
+Ingredients
               </h2>
 
               <ul className="space-y-3">
@@ -463,9 +470,10 @@ Delete
             {/* Instructions */}
             <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
 
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                👨‍🍳 Instructions
-              </h2>
+              <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-slate-900">
+  <LuChefHat className="text-3xl text-emerald-500" />
+  Instructions
+</h2>
 
               <p className="leading-8 text-gray-700 whitespace-pre-line">
                 {recipe.instructions}

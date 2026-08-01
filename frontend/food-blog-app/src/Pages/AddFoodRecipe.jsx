@@ -64,25 +64,25 @@ export default function AddFoodRecipe() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-16 px-4">
-      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-[30px] shadow-xl p-10">
+    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-8 md:py-16 px-4">
+      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10">
 
         <div className="text-center mb-10">
 
-  <div className="flex items-center justify-center gap-4">
+  <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
    <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center shadow-lg">
   <MdRestaurantMenu className="text-4xl text-emerald-600" />
 </div>
 
 
-    <h1 className="text-5xl font-extrabold text-slate-900">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 text-center">
       Add New Recipe
     </h1>
   </div>
 
   <div className="w-24 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
 
-  <p className="text-slate-500 mt-5 text-lg">
+  <p className="text-slate-500 mt-5 text-base md:text-lg px-2">
     Share your delicious recipe with everyone.
   </p>
 
@@ -90,7 +90,7 @@ export default function AddFoodRecipe() {
 
         <form
           onSubmit={onHandleSubmit}
-         className="space-y-7"
+         className="space-y-6 md:space-y-7"
         >
 
           {/* Title */}
@@ -135,7 +135,7 @@ export default function AddFoodRecipe() {
             </label>
 
             <textarea
-              rows="5"
+             rows={4}
               name="ingredients"
               value={Array.isArray(recipeData.ingredients)
                 ? recipeData.ingredients.join(",")
@@ -154,7 +154,7 @@ export default function AddFoodRecipe() {
             </label>
 
             <textarea
-              rows="7"
+             rows={5}
               name="instructions"
               value={recipeData.instructions}
               onChange={onHandleChange}
@@ -183,7 +183,7 @@ export default function AddFoodRecipe() {
 
          <button
   type="submit"
-  className="w-full bg-slate-900 hover:bg-black text-white text-lg font-semibold py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
+className="w-full bg-slate-900 hover:bg-black text-white text-base md:text-lg font-semibold py-3 md:py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
 >
   <IoAddCircleSharp className="text-2xl" />
   Add Recipe

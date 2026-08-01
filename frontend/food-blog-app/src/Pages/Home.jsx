@@ -6,6 +6,7 @@ import InputForm from "../components/InputForm";
 import RecipeItems from "../components/RecipeItems";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { MdRestaurantMenu } from "react-icons/md";
+import { RiBookOpenLine } from "react-icons/ri";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -42,21 +43,21 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-6 md:py-12 lg:py-20 px-4">
 
         {/* Left */}
         <div className="flex flex-col justify-center lg:pt-10">
 
-  <span className="inline-flex items-center gap-2 w-fit bg-slate-900 text-white px-5 py-2 rounded-full font-semibold mb-6 shadow-md">
+  <span className="inline-flex items-center gap-2 w-fit bg-slate-900 text-white px-4 py-2 rounded-full text-sm md:text-base font-semibold mb-6 shadow-md">
     <MdRestaurantMenu className="text-emerald-400 text-lg" />
     Welcome to RecipeVerse
   </span>
-          <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
             Discover & Share
             <span className="text-emerald-600"> Delicious Recipes</span>
           </h1>
 
-          <p className="text-slate-600 mt-6 text-lg leading-8 max-w-xl">
+          <p className="text-slate-600 mt-6 text-base md:text-lg leading-7 md:leading-8 max-w-xl">
             Explore, create, and share amazing recipes with food lovers.
             Whether it's a quick breakfast, healthy lunch, or delicious
             dessert, you'll always find inspiration here.
@@ -64,7 +65,7 @@ export default function Home() {
 
         <button
   onClick={addRecipe}
-  className="mt-8 self-start inline-flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+  className="mt-8 w-full sm:w-auto self-start inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white px-8 py-4 rounded-2xl text-base md:text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
 >
   <IoAddCircleSharp className="text-2xl" />
   <span>Share Your Recipe</span>
@@ -76,15 +77,15 @@ export default function Home() {
           <img
             src={foodRecipe}
             alt="Food"
-            className="rounded-[28px] shadow-xl border border-slate-200 w-full max-w-md object-cover hover:scale-105 hover:shadow-2xl transition-all duration-500"
+            className="rounded-[28px] shadow-xl border border-slate-200 w-full max-w-sm sm:max-w-md object-cover hover:scale-105 hover:shadow-2xl transition-all duration-500"
           />
         </div>
       </section>
 
       {/* Section Heading */}
       <div ref={recipeSectionRef} className="text-center my-16">
-        <h2 className="flex items-center justify-center gap-3 text-4xl font-extrabold text-slate-900">
-  <MdRestaurantMenu className="text-emerald-500 text-4xl" />
+        <h2 className="flex items-center justify-center gap-3 text-3xl md:text-4xl font-extrabold text-slate-900">
+  <RiBookOpenLine className="text-emerald-500 text-3xl md:text-4xl" />
   Latest Recipes
 </h2>
 
@@ -93,7 +94,7 @@ export default function Home() {
         </p>
 
         {/* Search Bar */}
-        <div className="max-w-xl mx-auto mt-8 mb-12">
+        <div className="max-w-xl mx-auto mt-8 mb-12 px-4">
           <input
             type="text"
             placeholder="🔍 Search delicious recipes..."

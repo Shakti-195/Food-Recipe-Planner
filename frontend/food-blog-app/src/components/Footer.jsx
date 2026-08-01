@@ -6,19 +6,19 @@ import { GiKnifeFork } from "react-icons/gi";
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 mt-16">
-      <div className="max-w-7xl mx-auto px-6 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
           {/* Brand */}
 
-          <div>
-            <h2 className="text-3xl font-bold text-white">
-<h2 className="flex items-center gap-2 text-3xl font-bold text-white">
+         <div className="text-center sm:text-left">
+            
+<h2 className="flex items-center justify-center sm:justify-start gap-2 text-2xl md:text-3xl font-bold text-white">
    <GiKnifeFork className="text-emerald-400 text-3xl"/>
    Recipe Verse
 </h2>
-</h2>
+
 
 <p className="mt-2 text-emerald-400 font-medium tracking-wide">
   Cook • Share • Discover
@@ -31,7 +31,7 @@ export default function Footer() {
 
           {/* Quick Links */}
 
-          <div>
+          <div className="text-center sm:text-left">
             <h3 className="text-xl font-semibold text-slate-100 mb-4">
               Quick Links
             </h3>
@@ -59,7 +59,7 @@ export default function Footer() {
 
           {/* Developer */}
 
-          <div>
+          <div className="text-center sm:text-left">
             <h3 className="text-xl font-semibold text-white mb-4">
               Developer
             </h3>
@@ -72,7 +72,7 @@ export default function Footer() {
               Shakti Singh
             </h4>
 
-            <div className="flex gap-4 mt-5">
+            <div className="flex justify-center sm:justify-start gap-4 mt-5">
 
               {/* Replace with your links */}
 
@@ -101,7 +101,7 @@ export default function Footer() {
 
         <hr  className="border-slate-700 my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left text-sm">
 
           <p>
             © 2026 Recipe Verse. All Rights Reserved.
