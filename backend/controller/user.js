@@ -131,4 +131,4 @@ const getFavourites = async (req, res) => {
   }
 };
 
-module.exports = { userLogin, userSignUp, getUser,addFavourite, removeFavourite, getFavourites };
+module.exports = { userLogin, userSignUp, getUser,addFavourites, removeFavourites, getFavourites };
