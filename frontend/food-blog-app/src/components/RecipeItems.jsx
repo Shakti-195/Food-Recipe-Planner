@@ -21,17 +21,21 @@ export default function RecipeItems({ search }) {
   const navigate = useNavigate();
 
   const path = window.location.pathname === "/myRecipe";
-  let favItems = JSON.parse(localStorage.getItem("fav")) ?? [];
-
-  const [isFavRecipe, setIsFavRecipe] = useState(false);
+  const [favItems, setFavItems] = useState(
+  JSON.parse(localStorage.getItem("fav")) ?? []
+);
 
 useEffect(() => {
   setLoading(true);
 
-  setAllRecipes(recipes);
+  if (window.location.pathname === "/favRecipe") {
+    setAllRecipes(favItems);
+  } else {
+    setAllRecipes(recipes);
+  }
 
   setLoading(false);
-}, [recipes]);
+}, [recipes, favItems]);
 
   const onDelete = async (id) => {
   try {
@@ -45,7 +49,12 @@ useEffect(() => {
       (recipe) => recipe._id !== id
     );
 
-    localStorage.setItem("fav", JSON.stringify(filterItem));
+    setFavItems(filterItem);
+
+localStorage.setItem(
+  "fav",
+  JSON.stringify(filterItem)
+);
 
     toast.success("Recipe deleted successfully! 🗑️");
   } catch (err) {
@@ -59,22 +68,28 @@ const favRecipe = (item) => {
     (recipe) => recipe._id === item._id
   );
 
-  const filterItem = favItems.filter(
-    (recipe) => recipe._id !== item._id
-  );
-
-  favItems = alreadyExists
-    ? filterItem
-    : [...favItems, item];
-
-  localStorage.setItem("fav", JSON.stringify(favItems));
-
-  setIsFavRecipe((prev) => !prev);
+  let updatedFavs;
 
   if (alreadyExists) {
+    updatedFavs = favItems.filter(
+      (recipe) => recipe._id !== item._id
+    );
     toast("Removed from favorites 💔");
   } else {
+    updatedFavs = [...favItems, item];
     toast.success("Added to favorites ❤️");
+  }
+
+  setFavItems(updatedFavs);
+
+  localStorage.setItem(
+    "fav",
+    JSON.stringify(updatedFavs)
+  );
+
+  // 👇 Agar Favorites page open hai to card bhi turant remove ho
+  if (window.location.pathname === "/favRecipe") {
+    setAllRecipes(updatedFavs);
   }
 };
 
