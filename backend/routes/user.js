@@ -2,6 +2,7 @@ const express=require("express")
 const router = express.Router();
 
 const {userLogin,userSignUp,getUser,addFavorite,removeFavorite,getFavorites}=require("../controller/user")
+const verifyToken = require("../middleware/auth");
 
 router.post("/signUp",userSignUp)
 router.post("/login",userLogin)
