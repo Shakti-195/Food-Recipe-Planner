@@ -24,16 +24,36 @@ export default function RecipeItems({ search }) {
   const [favItems, setFavItems] = useState([]);
 
 useEffect(() => {
-  setLoading(true);
+  const loadData = async () => {
+    setLoading(true);
 
-  setAllRecipes(recipes);
+    setAllRecipes(recipes);
 
-  if (window.location.pathname === "/favRecipe") {
-    setFavItems(recipes);
-  }
+    const token = localStorage.getItem("token");
 
-  setLoading(false);
+    if (token) {
+      try {
+        const res = await axios.get(
+          `${API_URL}/user/favourites`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setFavItems(res.data);
+      } catch (err) {
+        console.error("Failed to load favourites", err);
+      }
+    }
+
+    setLoading(false);
+  };
+
+  loadData();
 }, [recipes]);
+
   const onDelete = async (id) => {
   try {
     await axios.delete(`${API_URL}/recipe/${id}`);
@@ -67,7 +87,7 @@ const favRecipe = async (item) => {
   try {
     if (alreadyExists) {
       await axios.delete(
-        `${API_URL}/user/favorites/${item._id}`,
+        `${API_URL}/user/favourites/${item._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -89,7 +109,7 @@ const favRecipe = async (item) => {
       toast("Removed from favorites 💔");
     } else {
       await axios.post(
-        `${API_URL}/user/favorites/${item._id}`,
+        `${API_URL}/user/favourites/${item._id}`,
         {},
         {
           headers: {

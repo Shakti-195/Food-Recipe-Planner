@@ -1,16 +1,20 @@
-const express=require("express")
+const express = require("express");
 const router = express.Router();
 
-const {userLogin,userSignUp,getUser,addFavorite,removeFavorite,getFavorites}=require("../controller/user")
+const {userLogin,userSignUp,getUser,addFavourites,removeFavourites,getFavourites} = require("../controller/user");
+
 const verifyToken = require("../middleware/auth");
 
-router.post("/signUp",userSignUp)
-router.post("/login",userLogin)
-router.get("/user/:id",getUser)
+// Auth
+router.post("/signUp", userSignUp);
+router.post("/login", userLogin);
 
+// Favourites
+router.get("/user/favourites", verifyToken, getFavourites);
+router.post("/user/favourites/:recipeId", verifyToken, addFavourites);
+router.delete("/user/favourites/:recipeId", verifyToken, removeFavourites);
 
-router.post("/user/favorites/:recipeId", verifyToken, addFavorite);
-router.delete("/user/favorites/:recipeId", verifyToken, removeFavorite);
-router.get("/user/favorites", verifyToken, getFavorites);
+// User
+router.get("/user/:id", getUser);
 
-module.exports=router
+module.exports = router;

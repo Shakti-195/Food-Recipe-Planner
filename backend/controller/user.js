@@ -76,59 +76,59 @@ const getUser = async (req, res) => {
     }
 }
 
-const addFavorite = async (req, res) => {
+const addFavourites = async (req, res) => {
   try {
     const { recipeId } = req.params;
 
     const user = await User.findById(req.user.id);
 
-    const alreadyExists = user.favorites.some(
+    const alreadyExists = user.favourites.some(
   (id) => id.toString() === recipeId
 );
 
 if (!alreadyExists) {
-  user.favorites.push(recipeId);
+  user.favourites.push(recipeId);
   await user.save();
 }
 
     res.status(200).json({
-      message: "Recipe added to favorites.",
-      favorites: user.favorites,
+      message: "Recipe added to favourites.",
+      favourites: user.favourites,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const removeFavorite = async (req, res) => {
+const removeFavourites = async (req, res) => {
   try {
     const { recipeId } = req.params;
 
     const user = await User.findById(req.user.id);
 
-    user.favorites = user.favorites.filter(
+    user.favourites = user.favourites.filter(
       (id) => id.toString() !== recipeId
     );
 
     await user.save();
 
     res.status(200).json({
-      message: "Recipe removed from favorites.",
-      favorites: user.favorites,
+      message: "Recipe removed from favourites.",
+      favourites: user.favourites,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const getFavorites = async (req, res) => {
+const getFavourites = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).populate("favorites");
+    const user = await User.findById(req.user.id).populate("favourites");
 
-    res.status(200).json(user.favorites);
+    res.status(200).json(user.favourites);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { userLogin, userSignUp, getUser,addFavorite, removeFavorite, getFavorites };
+module.exports = { userLogin, userSignUp, getUser,addFavourite, removeFavourite, getFavourites };

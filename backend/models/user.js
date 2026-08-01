@@ -14,7 +14,7 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true,
     },
-     favorites: [
+     favourites: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Recipes",
