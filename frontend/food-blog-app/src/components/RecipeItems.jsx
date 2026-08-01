@@ -21,22 +21,19 @@ export default function RecipeItems({ search }) {
   const navigate = useNavigate();
 
   const path = window.location.pathname === "/myRecipe";
-  const [favItems, setFavItems] = useState(
-  JSON.parse(localStorage.getItem("fav")) ?? []
-);
+  const [favItems, setFavItems] = useState([]);
 
 useEffect(() => {
   setLoading(true);
 
+  setAllRecipes(recipes);
+
   if (window.location.pathname === "/favRecipe") {
-    setAllRecipes(favItems);
-  } else {
-    setAllRecipes(recipes);
+    setFavItems(recipes);
   }
 
   setLoading(false);
-}, [recipes, favItems]);
-
+}, [recipes]);
   const onDelete = async (id) => {
   try {
     await axios.delete(`${API_URL}/recipe/${id}`);
@@ -45,15 +42,8 @@ useEffect(() => {
       prev.filter((recipe) => recipe._id !== id)
     );
 
-    const filterItem = favItems.filter(
-      (recipe) => recipe._id !== id
-    );
-
-    setFavItems(filterItem);
-
-localStorage.setItem(
-  "fav",
-  JSON.stringify(filterItem)
+   setFavItems((prev) =>
+  prev.filter((recipe) => recipe._id !== id)
 );
 
     toast.success("Recipe deleted successfully! 🗑️");
@@ -63,36 +53,65 @@ localStorage.setItem(
   }
 };
 
-const favRecipe = (item) => {
-  const alreadyExists = favItems.some(
-    (recipe) => recipe._id === item._id
-  );
+const favRecipe = async (item) => {
+  const token = localStorage.getItem("token");
 
-  let updatedFavs;
-
-  if (alreadyExists) {
-    updatedFavs = favItems.filter(
-      (recipe) => recipe._id !== item._id
-    );
-    toast("Removed from favorites 💔");
-  } else {
-    updatedFavs = [...favItems, item];
-    toast.success("Added to favorites ❤️");
+  if (!token) {
+    toast.error("Please login first.");
+    return;
   }
 
-  setFavItems(updatedFavs);
+  const alreadyExists = favItems.some(
+  (recipe) => String(recipe._id) === String(item._id)
+);
+  try {
+    if (alreadyExists) {
+      await axios.delete(
+        `${API_URL}/user/favorites/${item._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-  localStorage.setItem(
-    "fav",
-    JSON.stringify(updatedFavs)
-  );
+      const updatedFavs = favItems.filter(
+        (recipe) => recipe._id !== item._id
+      );
 
-  // 👇 Agar Favorites page open hai to card bhi turant remove ho
-  if (window.location.pathname === "/favRecipe") {
-    setAllRecipes(updatedFavs);
+      setFavItems(updatedFavs);
+      
+
+      if (window.location.pathname === "/favRecipe") {
+        setAllRecipes(updatedFavs);
+      }
+
+      toast("Removed from favorites 💔");
+    } else {
+      await axios.post(
+        `${API_URL}/user/favorites/${item._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedFavs = [...favItems, item];
+setFavItems(updatedFavs);
+
+if (window.location.pathname === "/favRecipe") {
+  setAllRecipes(updatedFavs);
+}
+
+      toast.success("Added to favorites ❤️");
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to update favorites.");
   }
 };
-
 if (loading) {
   return (
     <div className="flex justify-center items-center py-20">
@@ -185,12 +204,11 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
                     }}
                     className={`text-2xl md:text-3xl transition-all duration-300 ${
   favItems.some(
-    (recipe) => recipe._id === item._id
+    (recipe) => String(recipe._id) === String(item._id)
   )
     ? "text-red-500"
     : "text-slate-400 hover:text-red-500"
-}`}
-                  />
+}`}             />
                 ) : (
                   <div className="flex items-center gap-4">
 

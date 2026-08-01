@@ -1,6 +1,7 @@
 const User = require("../models/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const Recipe = require("../models/recipe");
 
 const userSignUp = async (req, res) => {
     const { name, email, password } = req.body
@@ -75,4 +76,59 @@ const getUser = async (req, res) => {
     }
 }
 
-module.exports = { userLogin, userSignUp, getUser }
+const addFavorite = async (req, res) => {
+  try {
+    const { recipeId } = req.params;
+
+    const user = await User.findById(req.user.id);
+
+    const alreadyExists = user.favorites.some(
+  (id) => id.toString() === recipeId
+);
+
+if (!alreadyExists) {
+  user.favorites.push(recipeId);
+  await user.save();
+}
+
+    res.status(200).json({
+      message: "Recipe added to favorites.",
+      favorites: user.favorites,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const removeFavorite = async (req, res) => {
+  try {
+    const { recipeId } = req.params;
+
+    const user = await User.findById(req.user.id);
+
+    user.favorites = user.favorites.filter(
+      (id) => id.toString() !== recipeId
+    );
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Recipe removed from favorites.",
+      favorites: user.favorites,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const getFavorites = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("favorites");
+
+    res.status(200).json(user.favorites);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { userLogin, userSignUp, getUser,addFavorite, removeFavorite, getFavorites };

@@ -13,7 +13,13 @@ const userSchema=mongoose.Schema({
     password:{
         type:String,
         required:true,
-    }
+    },
+     favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Recipes",
+      },
+    ],
 },{timestamps:true})
 
 module.exports=mongoose.model("User",userSchema)

@@ -50,15 +50,24 @@ const getMyRecipes = async () => {
   }
 }
 
-const getFavRecipes = () => {
+const getFavRecipes = async () => {
   try {
-    return JSON.parse(localStorage.getItem("fav")) ?? [];
+    const token = localStorage.getItem("token");
+
+    if (!token) return [];
+
+    const res = await axios.get(`${API_URL}/user/favorites`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching favorites:", err);
     return [];
   }
-}
-
+};
 const getRecipe = async ({ params }) => {
   try {
     let recipe;
