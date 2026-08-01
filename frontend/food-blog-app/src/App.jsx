@@ -56,7 +56,7 @@ const getFavRecipes = async () => {
 
     if (!token) return [];
 
-    const res = await axios.get(`${API_URL}/user/favorites`, {
+    const res = await axios.get(`${API_URL}/user/favourites`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
