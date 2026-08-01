@@ -89,6 +89,7 @@ const addFavourites = async (req, res) => {
 if (!alreadyExists) {
   user.favourites.push(recipeId);
   await user.save();
+  console.log("User favourites:", user.favourites);
 }
 
     res.status(200).json({
@@ -111,6 +112,7 @@ const removeFavourites = async (req, res) => {
     );
 
     await user.save();
+    console.log("Saved user after remove:", user);
 
     res.status(200).json({
       message: "Recipe removed from favourites.",
@@ -125,9 +127,17 @@ const getFavourites = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate("favourites");
 
+    console.log("User ID:", req.user.id);
+    console.log("User Document:", user);
+    console.log("Favourites:", user.favourites);
+
     res.status(200).json(user.favourites);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err);
+
+    res.status(500).json({
+      message: err.message,
+    });
   }
 };
 
