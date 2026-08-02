@@ -235,6 +235,7 @@ Protected API Routes
 ## 📸 Application Screenshots
 
 ## Application Screenshots
+## 📸 Application Screenshots
 
 <table>
 <tr>
@@ -257,7 +258,7 @@ Protected API Routes
 
 <td align="center">
 <b>Add Recipe</b><br><br>
-<img src="./screenshots/latestrecipes search.jpeg" width="450"/>
+<img src="./screenshots/latestrecipes%20search.jpeg" width="450"/>
 </td>
 </tr>
 
@@ -280,8 +281,20 @@ Protected API Routes
 </td>
 
 <td align="center">
-<b>Mobile View</b><br><br>
-<img src="./screenshots/Footer.jpeg" width="250"/>
+<b>Footer</b><br><br>
+<img src="./screenshots/Footer.jpeg" width="450"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>Recipe Comments</b><br><br>
+<img src="./screenshots/comment1.jpeg" width="450"/>
+</td>
+
+<td align="center">
+<b>Reviews & Comments</b><br><br>
+<img src="./screenshots/comment2.jpeg" width="450"/>
 </td>
 </tr>
 
@@ -292,7 +305,6 @@ Protected API Routes
 </td>
 </tr>
 </table>
-
 # 🚀 Roadmap
 
 - 🌙 Dark Mode
