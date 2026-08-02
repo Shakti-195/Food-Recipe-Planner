@@ -20,8 +20,12 @@ RecipeVerse lets users browse recipes, create and manage their own recipes, save
 
 # 🌐 Live Demo
 
+You can try the deployed app here:
+
 - Frontend: https://food-recipe-planner.vercel.app/
 - Backend API: https://food-recipe-planner.onrender.com/
+
+These links are also useful for testing the live UI and API endpoints.
 
 ---
 
@@ -134,13 +138,7 @@ npm install
 npm run dev
 ```
 
-The frontend will run at:
 
-```text
-http://localhost:5173
-```
-
-> The frontend currently points to the deployed backend API by default. For local testing, update the API URL in the frontend app if needed.
 
 ---
 
@@ -192,7 +190,21 @@ Users can:
 
 # 📸 Screenshots
 
-<table> <tr> <td align="center"> <b>Home</b><br><br> <img src="./screenshots/HomeRecipes.jpeg" width="450"/> </td> <td align="center"> <b>Login</b><br><br> <img src="./screenshots/login.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>Signup</b><br><br> <img src="./screenshots/signup.jpeg" width="450"/> </td> <td align="center"> <b>Add Recipe</b><br><br> <img src="./screenshots/latestreccipes%20search.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>Recipe Details</b><br><br> <img src="./screenshots/herosection.jpeg" width="450"/> </td> <td align="center"> <b>Favourite Recipes</b><br><br> <img src="./screenshots/favourites.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>My Recipes</b><br><br> <img src="./screenshots/myrecipes.jpeg" width="450"/> </td> <td align="center"> <b>Footer</b><br><br> <img src="./screenshots/Footer.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>Recipe Comments</b><br><br> <img src="./screenshots/comment1.jpeg" width="450"/> </td> <td align="center"> <b>Reviews & Comments</b><br><br> <img src="./screenshots/comment2.jpeg" width="450"/> </td> </tr> <tr> <td colspan="2" align="center"> <b>Custom 404 Page</b><br><br> <img src="./screenshots/404.jpeg" width="700"/> </td> </tr> </table>
+The project includes a dedicated screenshots folder with previews for the main UI flows and pages.
+
+You can view the available images here:
+- [screenshots/HomeRecipes.jpeg](screenshots/HomeRecipes.jpeg)
+- [screenshots/login.jpeg](screenshots/login.jpeg)
+- [screenshots/signup.jpeg](screenshots/signup.jpeg)
+- [screenshots/herosection.jpeg](screenshots/herosection.jpeg)
+- [screenshots/favourites.jpeg](screenshots/favourites.jpeg)
+- [screenshots/myrecipes.jpeg](screenshots/myrecipes.jpeg)
+- [screenshots/comment1.jpeg](screenshots/comment1.jpeg)
+- [screenshots/comment2.jpeg](screenshots/comment2.jpeg)
+- [screenshots/404.jpeg](screenshots/404.jpeg)
+
+The app source code is available in [backend](backend) and [frontend/food-blog-app](frontend/food-blog-app).
+
 ---
 
 # 🤝 Contributing
