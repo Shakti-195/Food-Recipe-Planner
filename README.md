@@ -232,10 +232,6 @@ Protected API Routes
 
 # 📸 Screenshots
 
-## 📸 Application Screenshots
-
-## Application Screenshots
-## 📸 Application Screenshots
 
 <table>
 <tr>
