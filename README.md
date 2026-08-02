@@ -234,63 +234,64 @@ Protected API Routes
 
 ## 📸 Application Screenshots
 
+## Application Screenshots
+
 <table>
 <tr>
 <td align="center">
-<b>🏠 Home</b><br><br>
-<img src="./screenshots/2.jpeg" width="450"/>
+<b>Home</b><br><br>
+<img src="./screenshots/HomeRecipes.jpeg" width="450"/>
 </td>
 
 <td align="center">
-<b>🔐 Login</b><br><br>
-<img src="./screenshots/3.jpeg" width="450"/>
-</td>
-</tr>
-
-<tr>
-<td align="center">
-<b>📝 Signup</b><br><br>
-<img src="./screenshots/4.jpeg" width="450"/>
-</td>
-
-<td align="center">
-<b>➕ Add Recipe</b><br><br>
-<img src="./screenshots/5.jpeg" width="450"/>
+<b>Login</b><br><br>
+<img src="./screenshots/login.jpeg" width="450"/>
 </td>
 </tr>
 
 <tr>
 <td align="center">
-<b>🍲 Recipe Details</b><br><br>
-<img src="./screenshots/6.jpeg" width="450"/>
+<b>Signup</b><br><br>
+<img src="./screenshots/signup.jpeg" width="450"/>
 </td>
 
 <td align="center">
-<b>❤️ Favourite Recipes</b><br><br>
-<img src="./screenshots/7.jpeg" width="450"/>
+<b>Add Recipe</b><br><br>
+<img src="./screenshots/latestrecipes search.jpeg" width="450"/>
 </td>
 </tr>
 
 <tr>
 <td align="center">
-<b>👤 My Recipes</b><br><br>
-<img src="./screenshots/8.jpeg" width="450"/>
+<b>Recipe Details</b><br><br>
+<img src="./screenshots/herosection.jpeg" width="450"/>
 </td>
 
 <td align="center">
-<b>📱 Mobile View</b><br><br>
-<img src="./screenshots/9.jpeg" width="250"/>
+<b>Favourite Recipes</b><br><br>
+<img src="./screenshots/favourites.jpeg" width="450"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>My Recipes</b><br><br>
+<img src="./screenshots/myrecipes.jpeg" width="450"/>
+</td>
+
+<td align="center">
+<b>Mobile View</b><br><br>
+<img src="./screenshots/Footer.jpeg" width="250"/>
 </td>
 </tr>
 
 <tr>
 <td colspan="2" align="center">
-<b>🚫 Custom 404 Page</b><br><br>
+<b>Custom 404 Page</b><br><br>
 <img src="./screenshots/404.jpeg" width="700"/>
 </td>
 </tr>
 </table>
----
 
 # 🚀 Roadmap
 
@@ -344,8 +345,8 @@ Full Stack Developer
 📧 Feel free to connect.
 
 - GitHub: https://github.com/Shakti-195
-- LinkedIn: *(Add your LinkedIn Profile)*
-- Portfolio: *(Add your Portfolio Link)*
+- LinkedIn: https://www.linkedin.com/in/shakti-singh-b9b6ba2a6/
+- 
 
 ---
 
