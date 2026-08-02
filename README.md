@@ -284,8 +284,8 @@ git push origin feature-name
 ### Connect with me
 
 - GitHub: https://github.com/Shakti-195
-- LinkedIn: https://www.linkedin.com/in/YOUR-LINKEDIN/
-- Portfolio: https://YOUR-PORTFOLIO.vercel.app/
+- LinkedIn: https://www.linkedin.com/in/shakti-singh-b9b6ba2a6/
+
 
 ---
 
