@@ -258,7 +258,7 @@ Protected API Routes
 
 <td align="center">
 <b>Add Recipe</b><br><br>
-<img src="./screenshots/latestrecipes%20search.jpeg" width="450"/>
+<img src="./screenshots/latestreccipes%20search.jpeg" width="450"/>
 </td>
 </tr>
 
