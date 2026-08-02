@@ -1,47 +1,66 @@
-# 🍽️ Food Recipe Planner
+# 🍽️ RecipeVerse – MERN Food Recipe Planner
 
-A modern full-stack Food Recipe Planner built using the MERN stack. Users can securely register, log in, create recipes with images, manage their own recipes, save favourites, and explore delicious dishes through a clean and responsive interface.
+A modern full-stack Recipe Management Web Application built using the **MERN Stack**. RecipeVerse allows users to securely create, manage, and discover recipes with features like authentication, favourites, ratings, reviews, and image uploads.
 
 ---
 
-## 🚀 Features
+## 🌐 Live Demo
 
-### Authentication
-- 🔐 User Signup & Login
-- 🔑 JWT Authentication
-- 🔒 Protected API Routes
-- 🔓 Logout Functionality
+**Frontend:** https://food-recipe-planner.vercel.app/
 
-### Recipe Management
-- 🍲 Add New Recipes
-- ✏️ Edit Recipes
-- 🗑️ Delete Recipes
-- 📷 Upload Recipe Images
-- 👤 View Your Own Recipes
+**Backend API:** https://food-recipe-planner.onrender.com/
 
-### User Experience
-- ❤️ Save Favourite Recipes
-- 📱 Fully Responsive Design
-- ⚡ Fast Loading with Vite
-- 🎨 Clean and Modern UI
-- 🍴 Recipe Details Page
+---
+
+## ✨ Features
+
+### 🔐 Authentication
+- User Signup & Login
+- JWT Authentication
+- Protected Routes
+- Secure Password Hashing using Bcrypt
+- Logout Functionality
+
+### 🍲 Recipe Management
+- Add New Recipes
+- Edit Existing Recipes
+- Delete Recipes
+- Upload Recipe Images
+- View Recipe Details
+- View My Recipes
+
+### ⭐ Community Features
+- Save Favourite Recipes
+- Rate Recipes
+- Add Reviews & Comments
+- Search Recipes
+- Responsive Design
+
+### 🎨 User Experience
+- Modern UI
+- Mobile Friendly
+- Fast Loading with Vite
+- Custom 404 Page
+- Responsive Navigation
 
 ---
 
 # 🛠️ Tech Stack
 
 ## Frontend
+
 - React.js
 - React Router DOM
 - Axios
 - Vite
-- CSS3
 - React Icons
+- CSS3
 
 ## Backend
+
 - Node.js
 - Express.js
-- MongoDB
+- MongoDB Atlas
 - Mongoose
 - JWT
 - Bcrypt
@@ -53,18 +72,16 @@ A modern full-stack Food Recipe Planner built using the MERN stack. Users can se
 
 # 📂 Project Structure
 
-```
-Food Recipe Planner
+```text
+Food-Recipe-Planner
 │
 ├── backend
 │   ├── config
 │   ├── controller
 │   ├── middleware
 │   ├── models
-│   ├── public
-│   │   └── images
 │   ├── routes
-│   ├── .env
+│   ├── public
 │   ├── server.js
 │   └── package.json
 │
@@ -77,20 +94,20 @@ Food Recipe Planner
 │       │   ├── Pages
 │       │   ├── App.jsx
 │       │   └── main.jsx
-│       ├── package.json
-│       └── vite.config.js
+│       ├── vite.config.js
+│       └── package.json
 │
 └── README.md
 ```
 
 ---
 
-# ⚙️ Installation
+# 🚀 Installation
 
 ## Clone Repository
 
 ```bash
-git clone https://github.com/your-github-username/Food-Recipe-Planner.git
+git clone https://github.com/YOUR_USERNAME/Food-Recipe-Planner.git
 ```
 
 ```bash
@@ -110,20 +127,14 @@ Create a `.env` file inside the backend folder.
 
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
-SECRET_KEY=your_secret_key
+CONNECTION_STRING=YOUR_MONGODB_CONNECTION_STRING
+SECRET_KEY=YOUR_SECRET_KEY
 ```
 
-Run backend
+Run Backend
 
 ```bash
 npm start
-```
-
-Backend runs on
-
-```
-https://food-recipe-planner.onrender.com
 ```
 
 ---
@@ -135,13 +146,13 @@ cd frontend/food-blog-app
 npm install
 ```
 
-Run frontend
+Run Frontend
 
 ```bash
 npm run dev
 ```
 
-Frontend runs on
+Frontend runs at
 
 ```
 http://localhost:5173
@@ -149,27 +160,21 @@ http://localhost:5173
 
 ---
 
-# 📸 Application Screens
+# 🔐 Authentication Flow
 
-Include screenshots of:
-
-- 🏠 Home Page
-- 🔑 Login
-- 📝 Signup
-- ➕ Add Recipe
-- ❤️ Favourite Recipes
-- 👤 My Recipes
-- 🍲 Recipe Details
-
----
-
-# 🔒 Authentication Flow
-
-- User signs up
-- Password is hashed using Bcrypt
-- JWT token generated after login
-- Token stored in Local Storage
-- Protected routes verify JWT before allowing access
+```
+User
+   │
+Signup / Login
+   │
+Password Hashing (Bcrypt)
+   │
+JWT Token Generated
+   │
+Stored in Local Storage
+   │
+Protected API Routes
+```
 
 ---
 
@@ -181,7 +186,19 @@ Include screenshots of:
 |---------|----------|-------------|
 | POST | `/user/signup` | Register User |
 | POST | `/user/login` | Login User |
-| GET | `/user/:id` | Get User |
+| GET | `/user/:id` | Get User Details |
+
+---
+
+## Favourites
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/user/favourites` | Get Favourite Recipes |
+| POST | `/user/favourites/:recipeId` | Add Favourite |
+| DELETE | `/user/favourites/:recipeId` | Remove Favourite |
+
+---
 
 ## Recipes
 
@@ -189,46 +206,62 @@ Include screenshots of:
 |---------|----------|-------------|
 | GET | `/recipe` | Get All Recipes |
 | GET | `/recipe/:id` | Get Single Recipe |
-| POST | `/recipe` | Add Recipe |
+| POST | `/recipe` | Create Recipe |
 | PUT | `/recipe/:id` | Update Recipe |
 | DELETE | `/recipe/:id` | Delete Recipe |
 
 ---
 
-# ✨ Future Enhancements
+# 📸 Screenshots
 
-- ⭐ Recipe Ratings
-- 💬 Comments
-- 🔍 Search Recipes
-- 🏷️ Categories
-- 🌙 Dark Mode
-- 📊 User Dashboard
-- 📤 Share Recipes
-- 🍽️ Meal Planner
-- 🔖 Bookmark Recipes
-- 🤖 AI Recipe Suggestions
+> Add screenshots of your application here.
+
+- 🏠 Home Page
+- 🔐 Login
+- 📝 Signup
+- ➕ Add Recipe
+- ❤️ Favourite Recipes
+- 👤 My Recipes
+- 🍲 Recipe Details
+- ⭐ Reviews & Ratings
+- 📱 Mobile View
+
+---
+
+# 🚀 Future Enhancements
+
+- Recipe Categories
+- Dark Mode
+- User Profile
+- Recipe Collections
+- Cooking Timer
+- AI Recipe Suggestions
+- Share Recipes
+- Infinite Scroll
+- Recipe Recommendation System
+- Recipe Challenge Mini Game
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome.
+Contributions, feature requests, and suggestions are welcome.
 
 1. Fork this repository
 
-2. Create a branch
+2. Create your feature branch
 
 ```bash
 git checkout -b feature-name
 ```
 
-3. Commit changes
+3. Commit your changes
 
 ```bash
 git commit -m "Add new feature"
 ```
 
-4. Push branch
+4. Push your branch
 
 ```bash
 git push origin feature-name
@@ -240,7 +273,7 @@ git push origin feature-name
 
 # 👨‍💻 Author
 
-### Shakti Singh
+## Shakti Singh
 
 🎓 B.Tech Computer Science Engineering
 
@@ -248,22 +281,28 @@ git push origin feature-name
 
 🚀 Passionate about MERN Stack Development
 
-📧 Feel free to connect and contribute!
+### Connect with me
+
+- GitHub: https://github.com/Shakti-195
+- LinkedIn: https://www.linkedin.com/in/YOUR-LINKEDIN/
+- Portfolio: https://YOUR-PORTFOLIO.vercel.app/
 
 ---
 
-# ⭐ Show Your Support
+# ⭐ Support
 
-If you liked this project, don't forget to ⭐ star this repository.
+If you found this project useful, consider giving it a ⭐ on GitHub.
 
-It motivates me to build more open-source projects.
+Your support motivates me to build more open-source projects.
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is licensed under the **MIT License**.
 
 ---
 
-**Made with ❤️ by Shakti Singh ❤️**
+<p align="center">
+Made with ❤️ by <b>Shakti Singh</b>
+</p>
