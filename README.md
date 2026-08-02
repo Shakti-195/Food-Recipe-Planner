@@ -2,9 +2,9 @@
 
 # 🍽️ RecipeVerse
 
-### A Modern Full-Stack Recipe Management Application built with the MERN Stack
+### A full-stack recipe planner built with React, Node.js, Express, MongoDB, and Cloudinary
 
-Discover, create, review, and save your favourite recipes with a clean and responsive user experience.
+RecipeVerse lets users browse recipes, create and manage their own recipes, save favorites, and leave ratings and comments.
 
 <br>
 
@@ -20,360 +20,201 @@ Discover, create, review, and save your favourite recipes with a clean and respo
 
 # 🌐 Live Demo
 
-### 🚀 Frontend
-
-https://food-recipe-planner.vercel.app/
-
-### ⚙️ Backend API
-
-https://food-recipe-planner.onrender.com/
+- Frontend: https://food-recipe-planner.vercel.app/
+- Backend API: https://food-recipe-planner.onrender.com/
 
 ---
 
-# 📖 About
+# ✨ What the app does
 
-RecipeVerse is a full-stack recipe management web application that allows users to create, manage, and explore delicious recipes. Users can securely register, upload recipes with images, mark favourites, leave reviews, and manage their own collection through an intuitive and responsive interface.
+RecipeVerse is a modern recipe management app with:
 
----
-
-# ✨ Features
-
-## 🔐 Authentication
-
-- User Registration
-- Secure Login
-- JWT Authentication
-- Protected Routes
-- Password Hashing using Bcrypt
-- Logout
+- user signup and login
+- JWT-based authentication
+- recipe creation, editing, and deletion
+- image uploads through Cloudinary
+- favorites management
+- recipe ratings and comments
+- search and browsing across recipes
+- a responsive UI built with React and Vite
 
 ---
 
-## 🍲 Recipe Management
+# 🛠 Tech stack
 
-- Create Recipes
-- Edit Recipes
-- Delete Recipes
-- Upload Recipe Images
-- View Recipe Details
-- View My Recipes
+## Frontend
+- React 19
+- Vite
+- React Router DOM
+- Axios
+- React Hot Toast
+- React Icons
+- Tailwind CSS v4
 
----
-
-## ❤️ Community Features
-
-- Favourite Recipes
-- Recipe Ratings
-- Reviews & Comments
-- Search Recipes
-
----
-
-## 🎨 User Experience
-
-- Responsive Design
-- Modern UI
-- Mobile Friendly
-- Fast Loading with Vite
-- Custom 404 Page
+## Backend
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT
+- Bcrypt
+- Multer + Cloudinary storage
+- CORS
 
 ---
 
-# 🛠 Tech Stack
-
-| Frontend | Backend | Database | Deployment |
-|----------|----------|-----------|------------|
-| React.js | Node.js | MongoDB Atlas | Vercel |
-| React Router | Express.js | Mongoose | Render |
-| Axios | JWT | | |
-| React Icons | Multer | | |
-| CSS3 | Bcrypt | | |
-
----
-
-# 📂 Folder Structure
+# 📂 Project structure
 
 ```text
-Food-Recipe-Planner
-│
-├── backend
-│   ├── config
-│   ├── controller
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   ├── public
+Food-Recipe-Planner/
+├── backend/
+│   ├── config/
+│   ├── controller/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── public/
 │   ├── server.js
 │   └── package.json
-│
-├── frontend
-│   └── food-blog-app
-│       ├── public
-│       ├── src
-│       │   ├── assets
-│       │   ├── components
-│       │   ├── Pages
+├── frontend/
+│   └── food-blog-app/
+│       ├── public/
+│       ├── src/
+│       │   ├── assets/
+│       │   ├── components/
+│       │   ├── Pages/
 │       │   ├── App.jsx
+│       │   ├── App.css
 │       │   └── main.jsx
+│       ├── package.json
 │       ├── vite.config.js
-│       └── package.json
-│
+│       └── eslint.config.js
 └── README.md
 ```
 
 ---
 
-# 🚀 Getting Started
+# 🚀 Getting started
 
-## Clone Repository
+## 1) Clone the repository
 
 ```bash
 git clone https://github.com/Shakti-195/Food-Recipe-Planner.git
-```
-
-```bash
 cd Food-Recipe-Planner
 ```
 
----
-
-## Backend
+## 2) Backend setup
 
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env`
+Create a `.env` file in the backend folder:
 
 ```env
 PORT=5000
 CONNECTION_STRING=YOUR_MONGODB_URI
 SECRET_KEY=YOUR_SECRET_KEY
+CLOUDINARY_CLOUD_NAME=YOUR_CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY=YOUR_CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET=YOUR_CLOUDINARY_API_SECRET
 ```
 
-Run backend
+Run the backend:
 
 ```bash
-npm start
-```
-
----
-
-## Frontend
-
-```bash
-cd frontend/food-blog-app
-
-npm install
-
 npm run dev
 ```
 
-Frontend
+## 3) Frontend setup
 
+```bash
+cd ../frontend/food-blog-app
+npm install
+npm run dev
 ```
+
+The frontend will run at:
+
+```text
 http://localhost:5173
 ```
 
----
-
-# 🔒 Authentication Flow
-
-```text
-User
-   │
-Signup / Login
-   │
-Password Encrypted (Bcrypt)
-   │
-JWT Generated
-   │
-Stored in Local Storage
-   │
-Protected API Routes
-```
+> The frontend currently points to the deployed backend API by default. For local testing, update the API URL in the frontend app if needed.
 
 ---
 
-# 🌐 REST API
+# 🔐 Authentication and user flow
 
-## Authentication
+Users can:
 
-| Method | Endpoint |
-|---------|----------|
-| POST | /user/signup |
-| POST | /user/login |
-| GET | /user/:id |
-
----
-
-## Favourites
-
-| Method | Endpoint |
-|---------|----------|
-| GET | /user/favourites |
-| POST | /user/favourites/:recipeId |
-| DELETE | /user/favourites/:recipeId |
+- sign up for an account
+- log in securely
+- access protected routes through JWT
+- save favorite recipes
+- manage their own recipes
 
 ---
+
+# 🌐 API overview
+
+## Auth
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| POST | /signUp | Register a user |
+| POST | /login | Log in a user |
+| GET | /user/:id | Get user details |
+
+## Favorites
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | /user/favourites | Get favorite recipes |
+| POST | /user/favourites/:recipeId | Add to favorites |
+| DELETE | /user/favourites/:recipeId | Remove from favorites |
 
 ## Recipes
 
-| Method | Endpoint |
-|---------|----------|
-| GET | /recipe |
-| GET | /recipe/:id |
-| POST | /recipe |
-| PUT | /recipe/:id |
-| DELETE | /recipe/:id |
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | /recipe | Get all recipes |
+| GET | /recipe/:id | Get one recipe |
+| POST | /recipe | Create a new recipe |
+| POST | /recipe/:id/rating | Rate a recipe |
+| POST | /recipe/:id/comment | Add a comment |
+| PUT | /recipe/:id | Edit a recipe |
+| DELETE | /recipe/:id | Delete a recipe |
+| PUT | /recipe/:recipeId/comment/:commentId | Edit a review |
+| DELETE | /recipe/:recipeId/comment/:commentId | Delete a review |
 
 ---
 
 # 📸 Screenshots
 
-
-<table>
-<tr>
-<td align="center">
-<b>Home</b><br><br>
-<img src="./screenshots/HomeRecipes.jpeg" width="450"/>
-</td>
-
-<td align="center">
-<b>Login</b><br><br>
-<img src="./screenshots/login.jpeg" width="450"/>
-</td>
-</tr>
-
-<tr>
-<td align="center">
-<b>Signup</b><br><br>
-<img src="./screenshots/signup.jpeg" width="450"/>
-</td>
-
-<td align="center">
-<b>Add Recipe</b><br><br>
-<img src="./screenshots/latestreccipes%20search.jpeg" width="450"/>
-</td>
-</tr>
-
-<tr>
-<td align="center">
-<b>Recipe Details</b><br><br>
-<img src="./screenshots/herosection.jpeg" width="450"/>
-</td>
-
-<td align="center">
-<b>Favourite Recipes</b><br><br>
-<img src="./screenshots/favourites.jpeg" width="450"/>
-</td>
-</tr>
-
-<tr>
-<td align="center">
-<b>My Recipes</b><br><br>
-<img src="./screenshots/myrecipes.jpeg" width="450"/>
-</td>
-
-<td align="center">
-<b>Footer</b><br><br>
-<img src="./screenshots/Footer.jpeg" width="450"/>
-</td>
-</tr>
-
-<tr>
-<td align="center">
-<b>Recipe Comments</b><br><br>
-<img src="./screenshots/comment1.jpeg" width="450"/>
-</td>
-
-<td align="center">
-<b>Reviews & Comments</b><br><br>
-<img src="./screenshots/comment2.jpeg" width="450"/>
-</td>
-</tr>
-
-<tr>
-<td colspan="2" align="center">
-<b>Custom 404 Page</b><br><br>
-<img src="./screenshots/404.jpeg" width="700"/>
-</td>
-</tr>
-</table>
-# 🚀 Roadmap
-
-- 🌙 Dark Mode
-- 🏷 Recipe Categories
-- 👤 User Profile
-- 📤 Share Recipes
-- 🍽 Meal Planner
-- 🤖 AI Recipe Suggestions
-- 📊 Dashboard
-- 🎮 Recipe Mini Game
-
+<table> <tr> <td align="center"> <b>Home</b><br><br> <img src="./screenshots/HomeRecipes.jpeg" width="450"/> </td> <td align="center"> <b>Login</b><br><br> <img src="./screenshots/login.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>Signup</b><br><br> <img src="./screenshots/signup.jpeg" width="450"/> </td> <td align="center"> <b>Add Recipe</b><br><br> <img src="./screenshots/latestreccipes%20search.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>Recipe Details</b><br><br> <img src="./screenshots/herosection.jpeg" width="450"/> </td> <td align="center"> <b>Favourite Recipes</b><br><br> <img src="./screenshots/favourites.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>My Recipes</b><br><br> <img src="./screenshots/myrecipes.jpeg" width="450"/> </td> <td align="center"> <b>Footer</b><br><br> <img src="./screenshots/Footer.jpeg" width="450"/> </td> </tr> <tr> <td align="center"> <b>Recipe Comments</b><br><br> <img src="./screenshots/comment1.jpeg" width="450"/> </td> <td align="center"> <b>Reviews & Comments</b><br><br> <img src="./screenshots/comment2.jpeg" width="450"/> </td> </tr> <tr> <td colspan="2" align="center"> <b>Custom 404 Page</b><br><br> <img src="./screenshots/404.jpeg" width="700"/> </td> </tr> </table>
 ---
 
 # 🤝 Contributing
 
-Contributions, issues and feature requests are welcome.
+Contributions are welcome.
 
 1. Fork the repository
-
-2. Create your feature branch
-
-```bash
-git checkout -b feature-name
-```
-
-3. Commit changes
-
-```bash
-git commit -m "Add feature"
-```
-
-4. Push your branch
-
-```bash
-git push origin feature-name
-```
-
-5. Open a Pull Request
+2. Create a feature branch
+3. Commit your changes
+4. Push the branch and open a pull request
 
 ---
 
 # 👨‍💻 Author
 
-## Shakti Singh
-
-**B.Tech Computer Science Engineering**
-
-Full Stack Developer
-
-📧 Feel free to connect.
+Shakti Singh
 
 - GitHub: https://github.com/Shakti-195
 - LinkedIn: https://www.linkedin.com/in/shakti-singh-b9b6ba2a6/
-- 
-
----
-
-# ⭐ Support
-
-If you like this project, consider giving it a ⭐ on GitHub.
-
-It motivates me to continue building open-source projects.
 
 ---
 
 # 📄 License
 
 This project is licensed under the MIT License.
-
----
-
-<div align="center">
-
-Made with ❤️ by **Shakti Singh**
-
-</div>
