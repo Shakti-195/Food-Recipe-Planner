@@ -232,20 +232,64 @@ Protected API Routes
 
 # 📸 Screenshots
 
-> Replace these with your project screenshots.
+## 📸 Application Screenshots
 
-| Home | Recipe Details |
-|------|----------------|
-| 📷 | 📷 |
+<table>
+<tr>
+<td align="center">
+<b>🏠 Home</b><br><br>
+<img src="./screenshots/2.jpeg" width="450"/>
+</td>
 
-| Add Recipe | Favourites |
-|------------|------------|
-| 📷 | 📷 |
+<td align="center">
+<b>🔐 Login</b><br><br>
+<img src="./screenshots/3.jpeg" width="450"/>
+</td>
+</tr>
 
-| Login | Mobile View |
-|--------|------------|
-| 📷 | 📷 |
+<tr>
+<td align="center">
+<b>📝 Signup</b><br><br>
+<img src="./screenshots/4.jpeg" width="450"/>
+</td>
 
+<td align="center">
+<b>➕ Add Recipe</b><br><br>
+<img src="./screenshots/5.jpeg" width="450"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>🍲 Recipe Details</b><br><br>
+<img src="./screenshots/6.jpeg" width="450"/>
+</td>
+
+<td align="center">
+<b>❤️ Favourite Recipes</b><br><br>
+<img src="./screenshots/7.jpeg" width="450"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>👤 My Recipes</b><br><br>
+<img src="./screenshots/8.jpeg" width="450"/>
+</td>
+
+<td align="center">
+<b>📱 Mobile View</b><br><br>
+<img src="./screenshots/9.jpeg" width="250"/>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<b>🚫 Custom 404 Page</b><br><br>
+<img src="./screenshots/404.jpeg" width="700"/>
+</td>
+</tr>
+</table>
 ---
 
 # 🚀 Roadmap
