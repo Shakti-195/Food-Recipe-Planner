@@ -1,76 +1,97 @@
-# 🍽️ RecipeVerse – MERN Food Recipe Planner
+<div align="center">
 
-A modern full-stack Recipe Management Web Application built using the **MERN Stack**. RecipeVerse allows users to securely create, manage, and discover recipes with features like authentication, favourites, ratings, reviews, and image uploads.
+# 🍽️ RecipeVerse
+
+### A Modern Full-Stack Recipe Management Application built with the MERN Stack
+
+Discover, create, review, and save your favourite recipes with a clean and responsive user experience.
+
+<br>
+
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Vite](https://img.shields.io/badge/Vite-Frontend-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)]()
+
+</div>
 
 ---
 
-## 🌐 Live Demo
+# 🌐 Live Demo
 
-**Frontend:** https://food-recipe-planner.vercel.app/
+### 🚀 Frontend
 
-**Backend API:** https://food-recipe-planner.onrender.com/
+https://food-recipe-planner.vercel.app/
+
+### ⚙️ Backend API
+
+https://food-recipe-planner.onrender.com/
 
 ---
 
-## ✨ Features
+# 📖 About
 
-### 🔐 Authentication
-- User Signup & Login
+RecipeVerse is a full-stack recipe management web application that allows users to create, manage, and explore delicious recipes. Users can securely register, upload recipes with images, mark favourites, leave reviews, and manage their own collection through an intuitive and responsive interface.
+
+---
+
+# ✨ Features
+
+## 🔐 Authentication
+
+- User Registration
+- Secure Login
 - JWT Authentication
 - Protected Routes
-- Secure Password Hashing using Bcrypt
-- Logout Functionality
+- Password Hashing using Bcrypt
+- Logout
 
-### 🍲 Recipe Management
-- Add New Recipes
-- Edit Existing Recipes
+---
+
+## 🍲 Recipe Management
+
+- Create Recipes
+- Edit Recipes
 - Delete Recipes
 - Upload Recipe Images
 - View Recipe Details
 - View My Recipes
 
-### ⭐ Community Features
-- Save Favourite Recipes
-- Rate Recipes
-- Add Reviews & Comments
-- Search Recipes
-- Responsive Design
+---
 
-### 🎨 User Experience
+## ❤️ Community Features
+
+- Favourite Recipes
+- Recipe Ratings
+- Reviews & Comments
+- Search Recipes
+
+---
+
+## 🎨 User Experience
+
+- Responsive Design
 - Modern UI
 - Mobile Friendly
 - Fast Loading with Vite
 - Custom 404 Page
-- Responsive Navigation
 
 ---
 
-# 🛠️ Tech Stack
+# 🛠 Tech Stack
 
-## Frontend
-
-- React.js
-- React Router DOM
-- Axios
-- Vite
-- React Icons
-- CSS3
-
-## Backend
-
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- JWT
-- Bcrypt
-- Multer
-- Dotenv
-- CORS
+| Frontend | Backend | Database | Deployment |
+|----------|----------|-----------|------------|
+| React.js | Node.js | MongoDB Atlas | Vercel |
+| React Router | Express.js | Mongoose | Render |
+| Axios | JWT | | |
+| React Icons | Multer | | |
+| CSS3 | Bcrypt | | |
 
 ---
 
-# 📂 Project Structure
+# 📂 Folder Structure
 
 ```text
 Food-Recipe-Planner
@@ -102,12 +123,12 @@ Food-Recipe-Planner
 
 ---
 
-# 🚀 Installation
+# 🚀 Getting Started
 
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Food-Recipe-Planner.git
+git clone https://github.com/Shakti-195/Food-Recipe-Planner.git
 ```
 
 ```bash
@@ -116,22 +137,22 @@ cd Food-Recipe-Planner
 
 ---
 
-## Backend Setup
+## Backend
 
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file inside the backend folder.
+Create a `.env`
 
 ```env
 PORT=5000
-CONNECTION_STRING=YOUR_MONGODB_CONNECTION_STRING
+CONNECTION_STRING=YOUR_MONGODB_URI
 SECRET_KEY=YOUR_SECRET_KEY
 ```
 
-Run Backend
+Run backend
 
 ```bash
 npm start
@@ -139,20 +160,17 @@ npm start
 
 ---
 
-## Frontend Setup
+## Frontend
 
 ```bash
 cd frontend/food-blog-app
+
 npm install
-```
 
-Run Frontend
-
-```bash
 npm run dev
 ```
 
-Frontend runs at
+Frontend
 
 ```
 http://localhost:5173
@@ -160,16 +178,16 @@ http://localhost:5173
 
 ---
 
-# 🔐 Authentication Flow
+# 🔒 Authentication Flow
 
-```
+```text
 User
    │
 Signup / Login
    │
-Password Hashing (Bcrypt)
+Password Encrypted (Bcrypt)
    │
-JWT Token Generated
+JWT Generated
    │
 Stored in Local Storage
    │
@@ -178,76 +196,76 @@ Protected API Routes
 
 ---
 
-# 📦 API Endpoints
+# 🌐 REST API
 
 ## Authentication
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/user/signup` | Register User |
-| POST | `/user/login` | Login User |
-| GET | `/user/:id` | Get User Details |
+| Method | Endpoint |
+|---------|----------|
+| POST | /user/signup |
+| POST | /user/login |
+| GET | /user/:id |
 
 ---
 
 ## Favourites
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/user/favourites` | Get Favourite Recipes |
-| POST | `/user/favourites/:recipeId` | Add Favourite |
-| DELETE | `/user/favourites/:recipeId` | Remove Favourite |
+| Method | Endpoint |
+|---------|----------|
+| GET | /user/favourites |
+| POST | /user/favourites/:recipeId |
+| DELETE | /user/favourites/:recipeId |
 
 ---
 
 ## Recipes
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/recipe` | Get All Recipes |
-| GET | `/recipe/:id` | Get Single Recipe |
-| POST | `/recipe` | Create Recipe |
-| PUT | `/recipe/:id` | Update Recipe |
-| DELETE | `/recipe/:id` | Delete Recipe |
+| Method | Endpoint |
+|---------|----------|
+| GET | /recipe |
+| GET | /recipe/:id |
+| POST | /recipe |
+| PUT | /recipe/:id |
+| DELETE | /recipe/:id |
 
 ---
 
 # 📸 Screenshots
 
-> Add screenshots of your application here.
+> Replace these with your project screenshots.
 
-- 🏠 Home Page
-- 🔐 Login
-- 📝 Signup
-- ➕ Add Recipe
-- ❤️ Favourite Recipes
-- 👤 My Recipes
-- 🍲 Recipe Details
-- ⭐ Reviews & Ratings
-- 📱 Mobile View
+| Home | Recipe Details |
+|------|----------------|
+| 📷 | 📷 |
+
+| Add Recipe | Favourites |
+|------------|------------|
+| 📷 | 📷 |
+
+| Login | Mobile View |
+|--------|------------|
+| 📷 | 📷 |
 
 ---
 
-# 🚀 Future Enhancements
+# 🚀 Roadmap
 
-- Recipe Categories
-- Dark Mode
-- User Profile
-- Recipe Collections
-- Cooking Timer
-- AI Recipe Suggestions
-- Share Recipes
-- Infinite Scroll
-- Recipe Recommendation System
-- Recipe Challenge Mini Game
+- 🌙 Dark Mode
+- 🏷 Recipe Categories
+- 👤 User Profile
+- 📤 Share Recipes
+- 🍽 Meal Planner
+- 🤖 AI Recipe Suggestions
+- 📊 Dashboard
+- 🎮 Recipe Mini Game
 
 ---
 
 # 🤝 Contributing
 
-Contributions, feature requests, and suggestions are welcome.
+Contributions, issues and feature requests are welcome.
 
-1. Fork this repository
+1. Fork the repository
 
 2. Create your feature branch
 
@@ -255,10 +273,10 @@ Contributions, feature requests, and suggestions are welcome.
 git checkout -b feature-name
 ```
 
-3. Commit your changes
+3. Commit changes
 
 ```bash
-git commit -m "Add new feature"
+git commit -m "Add feature"
 ```
 
 4. Push your branch
@@ -275,34 +293,34 @@ git push origin feature-name
 
 ## Shakti Singh
 
-🎓 B.Tech Computer Science Engineering
+**B.Tech Computer Science Engineering**
 
-💻 Full Stack Developer
+Full Stack Developer
 
-🚀 Passionate about MERN Stack Development
-
-### Connect with me
+📧 Feel free to connect.
 
 - GitHub: https://github.com/Shakti-195
-- LinkedIn: https://www.linkedin.com/in/shakti-singh-b9b6ba2a6/
-
+- LinkedIn: *(Add your LinkedIn Profile)*
+- Portfolio: *(Add your Portfolio Link)*
 
 ---
 
 # ⭐ Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you like this project, consider giving it a ⭐ on GitHub.
 
-Your support motivates me to build more open-source projects.
+It motivates me to continue building open-source projects.
 
 ---
 
 # 📄 License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the MIT License.
 
 ---
 
-<p align="center">
-Made with ❤️ by <b>Shakti Singh</b>
-</p>
+<div align="center">
+
+Made with ❤️ by **Shakti Singh**
+
+</div>
