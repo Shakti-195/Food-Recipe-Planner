@@ -64,8 +64,8 @@ export default function AddFoodRecipe() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-8 md:py-16 px-4">
-      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10">
+    <div className="min-h-screen flex justify-center items-center bg-slate-50 dark:bg-slate-950 py-8 md:py-16 px-4 transition-colors duration-300">
+      <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10 transition-colors duration-300">
 
         <div className="text-center mb-10">
 
@@ -75,14 +75,14 @@ export default function AddFoodRecipe() {
 </div>
 
 
-    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 text-center">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white text-center transition-colors duration-300">
       Add New Recipe
     </h1>
   </div>
 
   <div className="w-24 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
 
-  <p className="text-slate-500 mt-5 text-base md:text-lg px-2">
+  <p className="text-slate-500 dark:text-slate-400 mt-5 text-base md:text-lg px-2 transition-colors duration-300">
     Share your delicious recipe with everyone.
   </p>
 
@@ -96,7 +96,7 @@ export default function AddFoodRecipe() {
           {/* Title */}
 
           <div>
-            <label className="block mb-2 font-semibold text-slate-800">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Recipe Title
             </label>
 
@@ -106,14 +106,14 @@ export default function AddFoodRecipe() {
               value={recipeData.title}
               onChange={onHandleChange}
               placeholder="Paneer Butter Masala"
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Time */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Cooking Time
             </label>
 
@@ -123,14 +123,14 @@ export default function AddFoodRecipe() {
               value={recipeData.time}
               onChange={onHandleChange}
               placeholder="40 Minutes"
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Ingredients */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Ingredients
             </label>
 
@@ -142,14 +142,14 @@ export default function AddFoodRecipe() {
                 : recipeData.ingredients}
               onChange={onHandleChange}
               placeholder="Paneer, Onion, Tomato, Butter..."
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all resize-none"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Instructions */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Instructions
             </label>
 
@@ -159,14 +159,14 @@ export default function AddFoodRecipe() {
               value={recipeData.instructions}
               onChange={onHandleChange}
               placeholder="Write recipe instructions..."
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all resize-none"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Image */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Upload Recipe Image
             </label>
 
@@ -175,15 +175,22 @@ export default function AddFoodRecipe() {
               name="file"
               accept="image/*"
               onChange={onHandleChange}
-              className="block w-full rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-4 file:mr-4 file:rounded-xl file:border-0 file:bg-slate-900 file:px-5 file:py-2 file:text-white hover:file:bg-black"
+              className="block w-full rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-slate-300 p-4 file:mr-4 file:rounded-xl file:border-0 file:bg-slate-900 dark:file:bg-emerald-600 file:px-5 file:py-2 file:text-white hover:file:bg-black dark:hover:file:bg-emerald-700 transition-all"
             />
           </div>
+          {recipeData.file && (
+  <img
+    src={URL.createObjectURL(recipeData.file)}
+    alt="Preview"
+    className="mt-4 h-52 w-full object-cover rounded-2xl border border-slate-300 dark:border-slate-700"
+  />
+)}
 
           {/* Button */}
 
          <button
   type="submit"
-className="w-full bg-slate-900 hover:bg-black text-white text-base md:text-lg font-semibold py-3 md:py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
+className="w-full bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white text-base md:text-lg font-semibold py-3 md:py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
 >
   <IoAddCircleSharp className="text-2xl" />
   Add Recipe

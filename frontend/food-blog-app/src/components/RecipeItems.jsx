@@ -9,6 +9,9 @@ import toast from "react-hot-toast";
 import { FaArrowRight } from "react-icons/fa";
 import { HiArrowRight } from "react-icons/hi";
 import { FaRegHeart } from "react-icons/fa";
+import Modal from "./Modal";
+import InputForm from "./InputForm";
+import { MdRestaurantMenu } from "react-icons/md";
 
 
 const API_URL = "https://food-recipe-planner.onrender.com";
@@ -22,6 +25,7 @@ export default function RecipeItems({ search }) {
 
   const path = window.location.pathname === "/myRecipe";
   const [favItems, setFavItems] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
 useEffect(() => {
   const loadData = async () => {
@@ -146,17 +150,18 @@ const filteredRecipes = allRecipes.filter((recipe) =>
 const isFavoritesPage = window.location.pathname === "/favRecipe";
 
   return (
+  <div className="w-full bg-white dark:bg-slate-950 transition-colors duration-300 min-h-screen">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
       {filteredRecipes.length === 0 && isFavoritesPage ? (
-  <div className="flex flex-col items-center justify-center py-20 text-center">
+ <div className="flex flex-col items-center justify-center py-20 text-center">
 
-    <FaRegHeart className="text-7xl text-slate-300 mb-6" />
+    <FaRegHeart className="text-7xl text-slate-300 dark:text-slate-600 mb-6 transition-colors duration-300" />
 
-    <h2 className="text-3xl font-bold text-slate-900">
+    <h2 className="text-3xl font-bold text-slate-900 dark:text-white transition-colors duration-300">
       No Favorite Recipes Yet
     </h2>
 
-    <p className="mt-3 text-slate-500 max-w-md">
+    <p className="mt-3 text-slate-500 dark:text-slate-400 max-w-md transition-colors duration-300">
       You haven't added any recipes to your favorites.
       Start exploring and save recipes you love.
     </p>
@@ -176,8 +181,22 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
         {filteredRecipes.map((item) => (
           <div
             key={item._id}
-            onClick={() => navigate(`/recipe/${item._id}`)}
-            className="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+            onClick={(e) => {
+  e.stopPropagation();
+
+  const token = localStorage.getItem("token");
+if (!token) {
+  localStorage.setItem("redirectRecipe", item._id);
+
+  if (!isOpen) {
+    setIsOpen(true);
+  }
+
+  return;
+}
+  navigate(`/recipe/${item._id}`);
+}}
+            className="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
           >
 
             {/* Image */}
@@ -194,7 +213,7 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
 
             <div className="p-5 md:p-7">
 
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 line-clamp-1">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-1 transition-colors duration-300">
                 {item.title}
               </h2>
 
@@ -204,7 +223,7 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
     ⭐ {item.averageRating?.toFixed(1) || "0.0"}
   </span>
 
-  <span className="text-slate-500 text-sm">
+  <span className="text-slate-500 dark:text-slate-400 text-sm transition-colors duration-300">
     {item.comments?.length || 0} Reviews
   </span>
 </div>
@@ -255,10 +274,40 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
 
               <button
                 onClick={(e) => {
-                  e.stopPropagation();
-                  navigate(`/recipe/${item._id}`);
-                }}
-                className="mt-5 w-full bg-slate-900 hover:bg-black text-white py-3 rounded-2xl text-sm md:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+  e.stopPropagation();
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+   if (!token) {
+  localStorage.setItem("redirectRecipe", item._id);
+
+  if (!isOpen) {
+    setIsOpen(true);
+  }
+
+  return;
+}
+toast(
+  <div className="flex items-center gap-2">
+    <MdRestaurantMenu className="text-emerald-500 text-xl" />
+    <span className="font-medium">
+      Sign in to explore this delicious recipe.
+    </span>
+  </div>,
+  {
+    icon: null,
+  }
+);
+    if (!isOpen) {
+  setIsOpen(true);
+}
+    return;
+  }
+
+  navigate(`/recipe/${item._id}`);
+}}
+                className="mt-5 w-full bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white py-3 rounded-2xl text-sm md:text-base font-semibold shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 border border-slate-800 dark:border-emerald-500"
               >
                 <HiArrowRight className="text-lg" />
 View Recipe
@@ -272,6 +321,17 @@ View Recipe
       </div>
         )}
 
-    </div>
-  );
+        {isOpen && (
+  <Modal onClose={() => setIsOpen(false)}>
+  <InputForm
+    setIsOpen={() => setIsOpen(false)}
+    message="Sign in to explore this delicious recipe."
+  />
+</Modal>
+)}
+
+        </div>
+        
+  </div>
+);
 }

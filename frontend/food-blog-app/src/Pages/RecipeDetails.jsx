@@ -8,6 +8,8 @@ import { FaClipboardList } from "react-icons/fa";
 import { GiFruitBowl } from "react-icons/gi";
 import { LuChefHat } from "react-icons/lu";
 import { PiBowlFoodFill } from "react-icons/pi";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaPaperPlane } from "react-icons/fa";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -15,6 +17,8 @@ export default function RecipeDetails() {
 const loadedRecipe = useLoaderData();
 
 const [recipe, setRecipe] = useState(loadedRecipe);
+console.log(recipe);
+console.log(recipe.email);
 const [comment, setComment] = useState("");
 const [selectedRating, setSelectedRating] = useState(5);
 const [editingCommentId, setEditingCommentId] = useState(null);
@@ -197,10 +201,11 @@ const handleEditComment = async () => {
 };
 
 return (
-    <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="w-full bg-white dark:bg-slate-950 transition-colors duration-300">
+  <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
 
       {/* Recipe Card */}
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden transition-colors duration-300">
 
        {/* Image */}
 <div className="relative">
@@ -222,11 +227,11 @@ return (
             </div>
 
             <div>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-slate-400">
                 Shared By
                 </p>
 
-                <h3 className="font-bold text-lg text-slate-800">
+                <h3 className="font-bold text-lg text-slate-800 dark:text-white">
                 {recipe.email}
                 </h3>
             </div>
@@ -237,7 +242,7 @@ return (
 
 <div className="mt-10">
 
-    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-5">
+    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-5">
     Comments
     </h2>
 
@@ -260,34 +265,41 @@ return (
     value={comment}
     onChange={(e) => setComment(e.target.value)}
     placeholder="Write your comment..."
-    className="w-full border border-slate-300 rounded-2xl p-4 shadow-sm focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 outline-none"
+   className="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 rounded-2xl p-4 shadow-sm focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 outline-none transition-colors duration-300"
   />
 
-  <button
-    onClick={handleComment}
-    className="mt-4 w-full sm:w-auto bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-lg transition-all"
-  >
-    Post Comment
-  </button>
+<button
+  onClick={handleComment}
+  className="mt-4 w-full sm:w-auto bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-xl border border-slate-800 dark:border-emerald-500 transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-2"
+>
+  <FaPaperPlane className="text-sm" />
+  Post Comment
+</button>
 
   <div className="mt-6">
   {recipe?.comments?.length > 0 ? (
     recipe.comments.map((item) => (
       <div
         key={item._id}
-        className="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 mb-5 shadow-sm hover:shadow-lg transition-all"
+        className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 md:p-5 mb-5 shadow-sm hover:shadow-lg transition-all"
       >
-        <div className="flex justify-between items-center">
+    <div className="flex items-start justify-between gap-4">
 
-  <h3 className="font-semibold text-slate-900">
-    👤 {item.userName}
-  </h3>
+  {/* User */}
+  <div className="flex items-center gap-2 flex-1 min-w-0">
+    <FaUserCircle className="text-emerald-500 text-lg flex-shrink-0" />
 
-  <div className="flex gap-1">
+    <h3 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-white truncate">
+      {item.userName}
+    </h3>
+  </div>
+
+  {/* Rating */}
+  <div className="flex gap-0.5 flex-shrink-0">
     {[1, 2, 3, 4, 5].map((star) => (
       <FaStar
         key={star}
-        className={`text-lg ${
+        className={`text-[10px] sm:text-xs md:text-sm ${
           star <= item.rating
             ? "text-yellow-400"
             : "text-gray-300"
@@ -298,80 +310,89 @@ return (
 
 </div>
 
-        {editingCommentId === item._id ? (
 
-<>
+     {editingCommentId === item._id ? (
+  <>
+    <div className="flex gap-1 mt-2 mb-3">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <FaStar
+          key={star}
+          onClick={() => setEditedRating(star)}
+          className={`text-lg sm:text-xl cursor-pointer transition ${
+            star <= editedRating
+              ? "text-yellow-400"
+              : "text-gray-300"
+          }`}
+        />
+      ))}
+    </div>
 
-<div className="flex gap-2 mb-3">
+    <textarea
+      value={editedComment}
+      onChange={(e) => setEditedComment(e.target.value)}
+      className="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded p-2"
+    />
 
-{[1,2,3,4,5].map((star)=>(
-
-<FaStar
-key={star}
-onClick={()=>setEditedRating(star)}
-className={`text-2xl cursor-pointer ${
-star<=editedRating
-?"text-yellow-400"
-:"text-gray-300"
-}`}
-/>
-
-))}
-
-</div>
-
-<textarea
-value={editedComment}
-onChange={(e)=>setEditedComment(e.target.value)}
-className="w-full border rounded p-2"
-/>
-
-<button
-onClick={handleEditComment}
-className="mt-3 bg-green-600 text-white px-4 py-2 rounded"
+    <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-4">
+      <button
+  onClick={handleEditComment}
+  className="w-full sm:w-auto bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-semibold shadow-md hover:shadow-xl border border-slate-800 dark:border-emerald-500 transition-all duration-300"
 >
-Update Review
+  Update Review
+</button>
+<div className="flex justify-end gap-3 w-full sm:w-auto">
+        <button
+  onClick={() => setEditingCommentId(null)}
+  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md"
+>
+  <FaEdit />
+  Cancel
 </button>
 
-</>
+        <button
+  onClick={() => handleDeleteComment(item._id)}
+  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold shadow-md"
+>
+  <FaTrashAlt />
+  Delete
+</button>
+      </div>
+    </div>
+  </>
+) : (
+  <p className="mt-2 text-gray-700 dark:text-slate-300">
+    {item.comment}
+  </p>
+)}
+{item.userId === currentUserId && editingCommentId !== item._id && (
+  <div className="flex justify-end gap-3 mt-4">
+    <button
+      onClick={() => {
+        setEditingCommentId(item._id);
+        setEditedComment(item.comment);
+        setEditedRating(item.rating);
+      }}
+      className="flex items-center gap-2 px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+    >
+      <FaEdit />
+      Edit
+    </button>
 
-):(
-
-<p className="mt-2 text-gray-700">
-{item.comment}
-</p>
-
+    <button
+      onClick={() => handleDeleteComment(item._id)}
+      className="flex items-center gap-2 px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold"
+    >
+      <FaTrashAlt />
+      Delete
+    </button>
+  </div>
 )}
 
-    {item.userId === currentUserId && (
-
-<div className="flex gap-3 mt-3">
-
-<button
-onClick={()=>{
-setEditingCommentId(item._id);
-setEditedComment(item.comment);
-setEditedRating(item.rating);
-}}
-className="text-emerald-600 font-medium hover:text-emerald-700"
->
-Edit
-</button>
-
-<button
-onClick={()=>handleDeleteComment(item._id)}
-className="text-red-500 font-medium hover:text-red-700"
->
-Delete
-</button>
-
-</div>
-
+        {editingCommentId !== item._id && (
+  <p className="text-xs text-gray-400 dark:text-slate-500 mt-2">
+    {new Date(item.createdAt).toLocaleString()}
+  </p>
 )}
-
-        <p className="text-xs text-gray-400 mt-2">
-          {new Date(item.createdAt).toLocaleString()}
-        </p>
       </div>
     ))
   ) : (
@@ -384,7 +405,7 @@ Delete
 </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
             {recipe.title}
           </h1>
 
@@ -395,9 +416,9 @@ Delete
           </div>
 
           {/* Rating Section */}
-          <div className="bg-slate-50 rounded-3xl p-5 md:p-8 mb-10 border border-slate-200 shadow-sm">
+          <div className="bg-slate-50 dark:bg-slate-800 rounded-3xl p-5 md:p-8 mb-10 border dark:border-slate-700 shadow-sm">
 
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
               <FaStar className="text-yellow-400 text-3xl" />
               Recipe Ratings
             </h2>
@@ -417,14 +438,14 @@ Delete
 
             </div>
 
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 dark:text-slate-300">
               <span className="font-bold text-emerald-600">
                 {averageRating}
               </span>{" "}
               / 5
             </p>
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-slate-400">
               {totalRatings} Rating{totalRatings !== 1 ? "s" : ""}
             </p>
 
@@ -438,9 +459,9 @@ Delete
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
 
             {/* Ingredients */}
-            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
+            <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-2xl p-6">
 
-              <h2  className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-slate-900">
+              <h2  className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
                 
                 <PiBowlFoodFill className="text-3xl text-emerald-500" />
 Ingredients
@@ -453,7 +474,7 @@ Ingredients
                   .map((item, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-3 text-gray-700"
+                      className="flex items-center gap-3 text-gray-700 dark:text-slate-300"
                     >
                       <span className="text-emerald-600 text-xl">
                         •
@@ -468,14 +489,13 @@ Ingredients
             </div>
 
             {/* Instructions */}
-            <div className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6">
-
-              <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-slate-900">
+            <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-2xl p-6">
+              <h2  className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
   <LuChefHat className="text-3xl text-emerald-500" />
   Instructions
 </h2>
 
-              <p className="leading-8 text-gray-700 whitespace-pre-line">
+              <p className="leading-8 text-gray-700 dark:text-slate-300 whitespace-pre-line">
                 {recipe.instructions}
               </p>
 
@@ -487,6 +507,7 @@ Ingredients
 
       </div>
 
-    </div>
-  );
+       </div>
+  </div>
+);
 }

@@ -94,8 +94,8 @@ export default function EditRecipe() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-slate-50 py-8 md:py-16 px-4">
-      <div className="w-full max-w-4xl bg-white border border-slate-200 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10">
+    <div className="min-h-screen flex justify-center items-center bg-slate-50 dark:bg-slate-950 py-8 md:py-16 px-4 transition-colors duration-300">
+      <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10 transition-colors duration-300">
 
         {/* Heading */}
 
@@ -107,7 +107,7 @@ export default function EditRecipe() {
       <MdRestaurantMenu className="text-4xl text-emerald-600" />
     </div>
 
-    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 text-center">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white text-center transition-colors duration-300">
       Update Recipe
     </h1>
 
@@ -115,7 +115,7 @@ export default function EditRecipe() {
 
   <div className="w-24 h-1 bg-emerald-500 rounded-full mx-auto mt-4"></div>
 
-  <p className="mt-5 text-slate-500 text-base md:text-lg px-2">
+  <p className="mt-5 text-slate-500 dark:text-slate-400 text-base md:text-lg px-2 transition-colors duration-300">
     Update your recipe details and save the changes.
   </p>
 
@@ -126,7 +126,7 @@ export default function EditRecipe() {
           {/* Title */}
 
           <div>
-            <label className="block mb-2 font-semibold text-slate-800">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
               Recipe Title
             </label>
 
@@ -135,14 +135,14 @@ export default function EditRecipe() {
               name="title"
               value={recipeData.title}
               onChange={onHandleChange}
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
+             className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Time */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300 dark:text-slate-200 transition-colors duration-300">
               Cooking Time
             </label>
 
@@ -151,14 +151,14 @@ export default function EditRecipe() {
               name="time"
               value={recipeData.time}
               onChange={onHandleChange}
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 resize-none focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Ingredients */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300 dark:text-slate-200 transition-colors duration-300">
               Ingredients
             </label>
 
@@ -167,14 +167,14 @@ export default function EditRecipe() {
               name="ingredients"
               value={recipeData.ingredients}
               onChange={onHandleChange}
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 resize-none focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Instructions */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300 dark:text-slate-200 transition-colors duration-300">
               Instructions
             </label>
 
@@ -183,14 +183,14 @@ export default function EditRecipe() {
               name="instructions"
               value={recipeData.instructions}
               onChange={onHandleChange}
-              className="w-full rounded-2xl border border-slate-300 bg-slate-50 p-4 resize-none focus:outline-none focus:ring-4 focus:ring-emerald-200 focus:border-emerald-500 transition-all"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
           {/* Image */}
 
           <div>
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300 dark:text-slate-200 transition-colors duration-300">
               Change Recipe Image (Optional)
             </label>
 
@@ -199,9 +199,16 @@ export default function EditRecipe() {
               name="file"
               accept="image/*"
               onChange={onHandleChange}
-            className="block w-full rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-4 file:mr-4 file:rounded-xl file:border-0 file:bg-slate-900 file:px-5 file:py-2 file:text-white hover:file:bg-black"
+            className="block w-full rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-slate-300 p-4 file:mr-4 file:rounded-xl file:border-0 file:bg-slate-900 dark:file:bg-emerald-600 file:px-5 file:py-2 file:text-white hover:file:bg-black dark:hover:file:bg-emerald-700 transition-all"
             />
           </div>
+          {recipeData.file && (
+  <img
+    src={URL.createObjectURL(recipeData.file)}
+    alt="Preview"
+    className="mt-4 h-52 w-full object-cover rounded-2xl border border-slate-300 dark:border-slate-700"
+  />
+)}
 
           {/* Buttons */}
 
@@ -209,7 +216,7 @@ export default function EditRecipe() {
 
             <button
                     type="submit"
-                   className="flex-1 bg-slate-900 hover:bg-black text-white py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2"
+                   className="flex-1 bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2"
             >
                     {/* <MdOutlineEdit className="text-2xl" /> */}
                     {/* <FaCheckCircle className="text-xl" /> */}
@@ -222,7 +229,7 @@ export default function EditRecipe() {
                 type="button"
                 onClick={() => navigate("/myRecipe")}
                 // className="flex-1 border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 py-4 rounded-2xl text-lg font-semibold transition-all duration-300"
-                className="flex-1 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800 py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold transition-all duration-300"
+                className="flex-1 border border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold transition-all duration-300"
             >
                 Cancel
             </button>
