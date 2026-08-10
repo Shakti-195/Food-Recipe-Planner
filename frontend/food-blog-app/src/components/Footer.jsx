@@ -57,7 +57,7 @@ export default function Footer() {
 
               <li>
                 <a href="/favRecipe" className="hover:text-emerald-400 transition">
-                  Favorites
+                  Favourites
                 </a>
               </li>
             </ul>
