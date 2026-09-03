@@ -7,6 +7,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaPen } from "react-icons/fa";
 import { BiEditAlt } from "react-icons/bi";
+import { IoClose } from "react-icons/io5";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -95,9 +96,21 @@ export default function EditRecipe() {
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-slate-50 dark:bg-slate-950 py-8 md:py-16 px-4 transition-colors duration-300">
-      <div className="w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10 transition-colors duration-300">
+      <div className="relative w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl shadow-xl p-5 sm:p-8 md:p-10 transition-colors duration-300">
 
         {/* Heading */}
+        {/* Close Button */}
+<button
+  type="button"
+   onClick={() => {
+  console.log("clicked");
+  navigate("/myrecipe");
+}}
+  className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-red-100 hover:text-red-500 dark:hover:bg-red-500/20 transition-all duration-300"
+  title="Close"
+>
+  <IoClose className="text-2xl" />
+</button>
 
         <div className="text-center mb-10">
 
@@ -135,7 +148,7 @@ export default function EditRecipe() {
               name="title"
               value={recipeData.title}
               onChange={onHandleChange}
-             className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
+              className="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 dark:text-white p-4 focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
             />
           </div>
 
@@ -216,7 +229,7 @@ export default function EditRecipe() {
 
             <button
                     type="submit"
-                   className="flex-1 bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2"
+                  className="flex-1 bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white py-3 md:py-4 rounded-2xl text-base md:text-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-2"
             >
                     {/* <MdOutlineEdit className="text-2xl" /> */}
                     {/* <FaCheckCircle className="text-xl" /> */}
