@@ -1,4 +1,5 @@
 const Recipes=require("../models/recipe")
+const User = require("../models/user");
 
 
 const multer = require("multer");
@@ -23,11 +24,42 @@ const getRecipes=async(req,res)=>{
     return res.json(recipes)
 }
 
-const getRecipe=async(req,res)=>{
-    const recipe=await Recipes.findById(req.params.id)
-    res.json(recipe)
-}
+const getRecipe = async (req, res) => {
+    try {
+        const recipe = await Recipes.findById(req.params.id);
 
+        if (!recipe) {
+            return res.status(404).json({
+                message: "Recipe not found"
+            });
+        }
+
+        const comments = await Promise.all(
+            recipe.comments.map(async (comment) => {
+                const user = await User.findById(comment.userId).select("name");
+
+                return {
+                    ...comment.toObject(),
+                    userName: user ? user.name : "Unknown User"
+                };
+            })
+        );
+
+        const recipeData = {
+            ...recipe.toObject(),
+            comments
+        };
+
+        return res.json(recipeData);
+
+    } catch (err) {
+        console.error("GET RECIPE ERROR:", err);
+
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+};
 const getMyRecipeCount = async (req, res) => {
     try {
         const count = await Recipes.countDocuments({
@@ -184,7 +216,7 @@ const addRating = async (req, res) => {
     }
 };
 
-const User = require("../models/user");
+
 
 const addComment = async (req, res) => {
   try {
