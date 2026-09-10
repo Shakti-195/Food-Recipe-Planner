@@ -76,6 +76,47 @@ const getUser = async (req, res) => {
     }
 }
 
+const getPublicProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("name createdAt");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    // Total recipes created by this user
+    const recipeCount = await Recipe.countDocuments({
+      createdBy: user._id
+    });
+
+    // Total ratings given by this user
+    const ratingCount = await Recipe.countDocuments({
+      "ratings.userId": user._id
+    });
+
+    return res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        createdAt: user.createdAt
+      },
+      stats: {
+        recipes: recipeCount,
+        ratings: ratingCount
+      }
+    });
+
+  } catch (err) {
+    console.error("PUBLIC PROFILE ERROR:", err);
+
+    return res.status(500).json({
+      message: err.message
+    });
+  }
+};
+
 const addFavourites = async (req, res) => {
   try {
     const { recipeId } = req.params;
@@ -181,4 +222,4 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { userLogin, userSignUp, getUser, updateProfile,addFavourites, removeFavourites, getFavourites };
+module.exports = { userLogin, userSignUp, getUser,getPublicProfile, updateProfile,addFavourites, removeFavourites, getFavourites };

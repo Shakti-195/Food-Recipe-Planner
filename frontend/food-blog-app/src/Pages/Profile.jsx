@@ -13,6 +13,7 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [myRecipeCount, setMyRecipeCount] = useState(0);
   const [favouriteCount, setFavouriteCount] = useState(0);
+  const [ratingCount, setRatingCount] = useState(0);
 
 useEffect(() => {
   const fetchActivityStats = async () => {
@@ -42,6 +43,18 @@ useEffect(() => {
       );
 
       setFavouriteCount(favRes.data.length);
+
+      // Ratings count
+const ratingRes = await axios.get(
+  "https://food-recipe-planner.onrender.com/recipe/my/ratings/count",
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+setRatingCount(ratingRes.data.count);
 
     } catch (error) {
       console.error("Failed to fetch activity stats:", error);
@@ -249,7 +262,7 @@ const handleUpdateProfile = async () => {
       <div className="text-3xl mb-2">⭐</div>
 
       <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
-        0
+        {ratingCount}
       </p>
 
       <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">

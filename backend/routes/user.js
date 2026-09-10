@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {userLogin,userSignUp,getUser,updateProfile,addFavourites,removeFavourites,getFavourites} = require("../controller/user");
+const {userLogin,userSignUp,getUser,getPublicProfile,updateProfile,addFavourites,removeFavourites,getFavourites} = require("../controller/user");
 
 const verifyToken = require("../middleware/auth");
 
@@ -15,6 +15,7 @@ router.post("/user/favourites/:recipeId", verifyToken, addFavourites);
 router.delete("/user/favourites/:recipeId", verifyToken, removeFavourites);
 
 // User
+router.get("/profile/:id", getPublicProfile);
 router.get("/user/:id", getUser);
 router.put("/user/profile", verifyToken, updateProfile);
 
