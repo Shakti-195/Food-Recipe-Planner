@@ -140,6 +140,8 @@ const addRating = async (req, res) => {
         }
 
         const recipe = await Recipes.findById(req.params.id);
+        console.log("COMMENT USER ID:", req.user.id);
+        console.log("COMMENT USER:", user);
 
         if (!recipe) {
             return res.status(404).json({
@@ -231,7 +233,7 @@ const addComment = async (req, res) => {
     // Add review
     recipe.comments.push({
       userId: user._id,
-      userName: user.email,
+      userName: user.name,,
       rating,
       comment,
     });

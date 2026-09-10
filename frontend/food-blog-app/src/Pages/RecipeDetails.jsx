@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import { FaUserCircle, FaStar } from "react-icons/fa";
 import { BsStopwatchFill } from "react-icons/bs";
 import axios from "axios";
@@ -231,9 +231,12 @@ return (
                 Shared By
                 </p>
 
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">
-                {recipe.email}
-                </h3>
+                <Link
+                        to={`/profile/${recipe.createdBy}`}
+                        className="font-bold text-lg text-slate-800 dark:text-white hover:text-emerald-500 transition-colors"
+                >
+                      {recipe.creatorName || recipe.email}
+                </Link>
             </div>
 
         </div>
@@ -289,9 +292,12 @@ return (
   <div className="flex items-center gap-2 flex-1 min-w-0">
     <FaUserCircle className="text-emerald-500 text-lg flex-shrink-0" />
 
-    <h3 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-white truncate">
-      {item.userName}
-    </h3>
+    <Link
+  to={`/profile/${recipe.createdBy}`}
+  className="font-bold text-lg text-slate-800 dark:text-white hover:text-emerald-500 transition-colors"
+>
+  {recipe.creatorName || "Unknown User"}
+</Link>
   </div>
 
   {/* Rating */}

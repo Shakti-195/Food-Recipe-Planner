@@ -10,6 +10,7 @@ import RecipeDetails from './Pages/RecipeDetails.jsx'
 import NotFound from './Pages/NotFound';
 import BackToTop from "./components/BackToTop";
 import Profile from "./Pages/Profile";
+import PublicProfile from "./Pages/PublicProfile";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -78,11 +79,13 @@ const getRecipe = async ({ params }) => {
 
     if (recipe.createdBy) {
       try {
-        const userRes = await axios.get(`${API_URL}/user/${recipe.createdBy}`);
+        const userRes = await axios.get(
+          `${API_URL}/user/${recipe.createdBy}`
+        );
 
         recipe = {
           ...recipe,
-          email: userRes.data.email
+          creatorName: userRes.data.name
         };
 
       } catch (err) {
@@ -90,7 +93,7 @@ const getRecipe = async ({ params }) => {
 
         recipe = {
           ...recipe,
-          email: "Unknown"
+          creatorName: "Unknown User"
         };
       }
     }
@@ -102,7 +105,6 @@ const getRecipe = async ({ params }) => {
     return null;
   }
 }
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -143,7 +145,11 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />
-      }
+      },
+      {
+        path: "/profile/:id",
+        element: <PublicProfile />
+}
     ]
   }
 ])
@@ -153,6 +159,7 @@ export default function App() {
     <>
       <RouterProvider router={router}></RouterProvider>
       <BackToTop />
+      
     </>
   )
 }
