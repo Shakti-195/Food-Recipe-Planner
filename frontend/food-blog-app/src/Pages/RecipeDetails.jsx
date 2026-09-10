@@ -293,10 +293,10 @@ return (
     <FaUserCircle className="text-emerald-500 text-lg flex-shrink-0" />
 
     <Link
-  to={`/profile/${recipe.createdBy}`}
+  to={`/profile/${item.userId}`}
   className="font-bold text-lg text-slate-800 dark:text-white hover:text-emerald-500 transition-colors"
 >
-  {recipe.creatorName || "Unknown User"}
+  {item.userName || "Unknown User"}
 </Link>
   </div>
 
