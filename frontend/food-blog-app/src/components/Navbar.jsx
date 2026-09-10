@@ -15,7 +15,7 @@ import { RiMoonClearLine, RiSunLine } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 
 
-
+// navbar functions
 export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
