@@ -4,52 +4,58 @@ import toast from "react-hot-toast";
 import { FaUserCircle, FaEdit } from "react-icons/fa";
 
 export default function Profile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+      const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
 
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user?.name || "");
   const [saving, setSaving] = useState(false);
+  
 
-    const handleUpdateProfile = async () => {
-    if (!name.trim()) {
-      toast.error("Name is required");
-      return;
-    }
+const handleUpdateProfile = async () => {
+  if (!name.trim()) {
+    toast.error("Name is required");
+    return;
+  }
 
-    try {
-      setSaving(true);
+  try {
+    setSaving(true);
 
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-      const res = await axios.put(
-        "https://food-recipe-planner.onrender.com/user/profile",
-        {
-          name: name.trim(),
+    const res = await axios.put(
+      "https://food-recipe-planner.onrender.com/user/profile",
+      {
+        name: name.trim(),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      }
+    );
 
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+    const updatedUser = res.data.user;
 
-      setUser(res.data.user);
-      setName(res.data.user.name);
-      setIsEditing(false);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
 
-      toast.success("Profile updated successfully!");
-    } catch (error) {
-      console.error(error);
+    setUser(updatedUser);
+    setName(updatedUser.name);
+    setIsEditing(false);
+    window.dispatchEvent(new Event("userUpdated"));
 
-      toast.error(
-        error.response?.data?.message || "Failed to update profile"
-      );
-    } finally {
-      setSaving(false);
-    }
-  };
+    toast.success("Profile updated successfully!");
+  } catch (error) {
+    console.error("Profile update error:", error);
+
+    toast.error(
+      error.response?.data?.message || "Failed to update profile"
+    );
+  } finally {
+    setSaving(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex justify-center items-start bg-slate-50 dark:bg-slate-950 px-4 py-10 md:py-16 transition-colors duration-300">

@@ -28,10 +28,20 @@ export default function Navbar() {
     JSON.parse(localStorage.getItem("user"))
   );
 
-  useEffect(() => {
+ useEffect(() => {
+  const updateUser = () => {
     setToken(localStorage.getItem("token"));
     setUser(JSON.parse(localStorage.getItem("user")));
-  }, [isOpen]);
+  };
+
+  updateUser();
+
+  window.addEventListener("userUpdated", updateUser);
+
+  return () => {
+    window.removeEventListener("userUpdated", updateUser);
+  };
+}, [isOpen]);
 
   const isLogin = !token;
 
