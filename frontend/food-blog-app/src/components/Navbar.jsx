@@ -12,11 +12,14 @@ import { FiLogOut } from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "../context/ThemeContext";
 import { RiMoonClearLine, RiSunLine } from "react-icons/ri";
+import { FaUserCircle } from "react-icons/fa";
 
 
 
 export default function Navbar() {
+
   const [isOpen, setIsOpen] = useState(false);
+  const [profileMenu, setProfileMenu] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const { darkMode, toggleTheme } = useTheme();
 
@@ -114,14 +117,71 @@ const mobileLinkClass = ({ isActive }) =>
 </NavLink>
 
             <ThemeToggle />
-            <button
-              onClick={checkLogin}
-              className="ml-4 bg-slate-900 dark:bg-emerald-500 hover:bg-slate-800 dark:hover:bg-emerald-600 text-white px-5 py-2 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300"
-            >
-              {isLogin
-                ? "Login"
-                : `Logout (${user?.name})`}
-            </button>
+         {isLogin ? (
+  <button
+    onClick={checkLogin}
+    className="ml-4 bg-slate-900 dark:bg-emerald-500 hover:bg-slate-800 dark:hover:bg-emerald-600 text-white px-5 py-2 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300"
+  >
+    Login
+  </button>
+) : (
+  <div className="relative ml-4">
+
+    {/* Profile Button */}
+    <button
+      onClick={() => setProfileMenu((prev) => !prev)}
+      className="flex items-center gap-2 bg-slate-900 dark:bg-emerald-500 hover:bg-slate-800 dark:hover:bg-emerald-600 text-white px-5 py-2 rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300"
+    >
+      <FaUserCircle className="text-xl" />
+      <span>{user?.name}</span>
+
+      <span className="text-sm">
+        {profileMenu ? "▲" : "▼"}
+      </span>
+    </button>
+
+    {/* Profile Dropdown */}
+    {profileMenu && (
+      <div className="absolute right-0 mt-3 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden z-[100]">
+
+        {/* User Info */}
+        <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
+          <p className="font-semibold text-slate-900 dark:text-white">
+            {user?.name}
+          </p>
+
+          <p className="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
+             {user?.email}
+         </p>
+        </div>
+
+        {/* View Profile */}
+        <NavLink
+          to="/profile"
+          onClick={() => setProfileMenu(false)}
+          className="flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+        >
+          <FaUserCircle className="text-emerald-500" />
+          View Profile
+        </NavLink>
+
+        {/* Logout */}
+        <button
+          onClick={() => {
+            setProfileMenu(false);
+            checkLogin();
+          }}
+          className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition"
+        >
+          <FiLogOut />
+          Logout
+        </button>
+
+      </div>
+    )}
+
+  </div>
+)}
 
             
 
@@ -181,6 +241,15 @@ const mobileLinkClass = ({ isActive }) =>
     <p className="text-xs text-slate-400 break-all leading-5">
       {user?.email}
     </p>
+
+    <NavLink
+  to="/profile"
+  onClick={() => setMobileMenu(false)}
+  className="mt-3 flex items-center justify-center gap-2 w-full bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 py-2 rounded-lg font-semibold hover:bg-emerald-50 dark:hover:bg-slate-700 transition"
+>
+  <FaUserCircle className="text-lg" />
+  View Profile
+</NavLink>
   </div>
 )}
 

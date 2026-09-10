@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {userLogin,userSignUp,getUser,addFavourites,removeFavourites,getFavourites} = require("../controller/user");
+const {userLogin,userSignUp,getUser,updateProfile,addFavourites,removeFavourites,getFavourites} = require("../controller/user");
 
 const verifyToken = require("../middleware/auth");
 
@@ -16,5 +16,6 @@ router.delete("/user/favourites/:recipeId", verifyToken, removeFavourites);
 
 // User
 router.get("/user/:id", getUser);
+router.put("/user/profile", verifyToken, updateProfile);
 
 module.exports = router;

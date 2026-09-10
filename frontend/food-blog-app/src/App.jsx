@@ -9,6 +9,7 @@ import EditRecipe from './Pages/EditRecipe'
 import RecipeDetails from './Pages/RecipeDetails.jsx'
 import NotFound from './Pages/NotFound';
 import BackToTop from "./components/BackToTop";
+import Profile from "./Pages/Profile";
 
 const API_URL = "https://food-recipe-planner.onrender.com";
 
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       }
     ]
   }
