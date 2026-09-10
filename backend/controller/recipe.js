@@ -46,6 +46,24 @@ const getMyRecipeCount = async (req, res) => {
     }
 };
 
+const getMyRatingCount = async (req, res) => {
+    try {
+        const count = await Recipes.countDocuments({
+            "ratings.userId": req.user.id
+        });
+
+        return res.status(200).json({
+            count
+        });
+    } catch (err) {
+        console.error(err);
+
+        return res.status(500).json({
+            message: err.message
+        });
+    }
+};
+
 const addRecipe = async (req, res) => {
     try {
         console.log("Body:", req.body);
@@ -347,4 +365,4 @@ const deleteComment = async (req, res) => {
     });
   }
 };
-module.exports={getRecipes,getRecipe,getMyRecipeCount,addRecipe,editRecipe,deleteRecipe,addRating, addComment, updateComment,deleteComment,upload}
+module.exports={getRecipes,getRecipe,getMyRecipeCount,getMyRatingCount,addRecipe,editRecipe,deleteRecipe,addRating, addComment, updateComment,deleteComment,upload}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FaUserCircle, FaEdit } from "react-icons/fa";
@@ -11,6 +11,45 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user?.name || "");
   const [saving, setSaving] = useState(false);
+  const [myRecipeCount, setMyRecipeCount] = useState(0);
+  const [favouriteCount, setFavouriteCount] = useState(0);
+
+useEffect(() => {
+  const fetchActivityStats = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      // My Recipes count
+      const recipeRes = await axios.get(
+        "https://food-recipe-planner.onrender.com/recipe/my/count",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setMyRecipeCount(recipeRes.data.count);
+
+      // Favourites count
+      const favRes = await axios.get(
+        "https://food-recipe-planner.onrender.com/user/favourites",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setFavouriteCount(favRes.data.length);
+
+    } catch (error) {
+      console.error("Failed to fetch activity stats:", error);
+    }
+  };
+
+  fetchActivityStats();
+}, []);
   
 
 const handleUpdateProfile = async () => {
@@ -170,6 +209,55 @@ const handleUpdateProfile = async () => {
         })
       : "Not available"}
   </p>
+</div>
+{/* Activity */}
+<div className="mt-8">
+  <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-4">
+    Activity
+  </h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+    {/* My Recipes */}
+    <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 text-center">
+      <div className="text-3xl mb-2">🍳</div>
+
+      <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
+        {myRecipeCount}
+      </p>
+
+      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">
+        My Recipes
+      </p>
+    </div>
+
+    {/* Favourites */}
+    <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 text-center">
+      <div className="text-3xl mb-2">❤️</div>
+
+      <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
+        {favouriteCount}
+      </p>
+
+      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">
+        Favourites
+      </p>
+    </div>
+
+    {/* Ratings */}
+    <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 text-center">
+      <div className="text-3xl mb-2">⭐</div>
+
+      <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
+        0
+      </p>
+
+      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">
+        Ratings
+      </p>
+    </div>
+
+  </div>
 </div>
         </div>
 
