@@ -233,7 +233,7 @@ const addComment = async (req, res) => {
     // Add review
     recipe.comments.push({
       userId: user._id,
-      userName: user.name,,
+      userName: user.name,
       rating,
       comment,
     });
