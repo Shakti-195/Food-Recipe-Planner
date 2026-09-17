@@ -26,6 +26,7 @@ export default function RecipeItems({ search }) {
   const path = window.location.pathname === "/myRecipe";
   const [favItems, setFavItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [pendingFavs, setPendingFavs] = useState(new Set());
 
 useEffect(() => {
   const loadData = async () => {
@@ -85,11 +86,39 @@ const favRecipe = async (item) => {
     return;
   }
 
+  const recipeId = String(item._id);
+
+  // Prevent multiple rapid clicks on same recipe
+  if (pendingFavs.has(recipeId)) {
+    return;
+  }
+
   const alreadyExists = favItems.some(
-  (recipe) => String(recipe._id) === String(item._id)
-);
-  try {
-    if (alreadyExists) {
+    (recipe) => String(recipe._id) === recipeId
+  );
+
+  // Mark request as pending
+  setPendingFavs((prev) => {
+    const next = new Set(prev);
+    next.add(recipeId);
+    return next;
+  });
+
+  // 🚀 INSTANT UI UPDATE
+  if (alreadyExists) {
+    setFavItems((prev) =>
+      prev.filter((recipe) => String(recipe._id) !== recipeId)
+    );
+
+    if (window.location.pathname === "/favRecipe") {
+      setAllRecipes((prev) =>
+        prev.filter((recipe) => String(recipe._id) !== recipeId)
+      );
+    }
+
+    toast("Removed from favorites 💔");
+
+    try {
       await axios.delete(
         `${API_URL}/user/favourites/${item._id}`,
         {
@@ -98,20 +127,28 @@ const favRecipe = async (item) => {
           },
         }
       );
+    } catch (err) {
+      console.error(err);
 
-      const updatedFavs = favItems.filter(
-        (recipe) => recipe._id !== item._id
-      );
-
-      setFavItems(updatedFavs);
-      
+      // Rollback if API fails
+      setFavItems((prev) => [...prev, item]);
 
       if (window.location.pathname === "/favRecipe") {
-        setAllRecipes(updatedFavs);
+        setAllRecipes((prev) => [...prev, item]);
       }
 
-      toast("Removed from favorites 💔");
-    } else {
+      toast.error("Failed to remove from favorites.");
+    }
+  } else {
+    setFavItems((prev) => [...prev, item]);
+
+    if (window.location.pathname === "/favRecipe") {
+      setAllRecipes((prev) => [...prev, item]);
+    }
+
+    toast.success("Added to favorites ❤️");
+
+    try {
       await axios.post(
         `${API_URL}/user/favourites/${item._id}`,
         {},
@@ -121,20 +158,30 @@ const favRecipe = async (item) => {
           },
         }
       );
+    } catch (err) {
+      console.error(err);
 
-      const updatedFavs = [...favItems, item];
-setFavItems(updatedFavs);
+      // Rollback if API fails
+      setFavItems((prev) =>
+        prev.filter((recipe) => String(recipe._id) !== recipeId)
+      );
 
-if (window.location.pathname === "/favRecipe") {
-  setAllRecipes(updatedFavs);
-}
+      if (window.location.pathname === "/favRecipe") {
+        setAllRecipes((prev) =>
+          prev.filter((recipe) => String(recipe._id) !== recipeId)
+        );
+      }
 
-      toast.success("Added to favorites ❤️");
+      toast.error("Failed to add to favorites.");
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Failed to update favorites.");
   }
+
+  // Request finished
+  setPendingFavs((prev) => {
+    const next = new Set(prev);
+    next.delete(recipeId);
+    return next;
+  });
 };
 if (loading) {
   return (
@@ -237,17 +284,18 @@ if (!token) {
 
                 {!path ? (
                   <FaHeart
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      favRecipe(item);
-                    }}
-                    className={`text-2xl md:text-3xl transition-all duration-300 ${
-  favItems.some(
-    (recipe) => String(recipe._id) === String(item._id)
-  )
-    ? "text-red-500"
-    : "text-slate-400 hover:text-red-500"
-}`}             />
+  onClick={(e) => {
+    e.stopPropagation();
+    favRecipe(item);
+  }}
+  className={`text-2xl md:text-3xl transition-all duration-200 cursor-pointer ${
+    favItems.some(
+      (recipe) => String(recipe._id) === String(item._id)
+    )
+      ? "text-red-500 scale-110"
+      : "text-slate-400 hover:text-red-500 hover:scale-110"
+  }`}
+/>
                 ) : (
                   <div className="flex items-center gap-4">
 
