@@ -35,11 +35,11 @@ const getMyRecipes = async () => {
 
     let allRecipes = await getAllRecipes();
 
-    console.log("User ID:", user._id);
+    console.log("User ID:", user.id);
     console.log("All Recipes:", allRecipes);
 
     const myRecipes = allRecipes.filter(
-      item => String(item.createdBy) === String(user._id)
+      item => String(item.createdBy) === String(user.id)
     );
 
     console.log("My Recipes:", myRecipes);
