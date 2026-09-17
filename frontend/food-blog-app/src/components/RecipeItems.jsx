@@ -151,7 +151,7 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
 
   return (
   <div className="w-full bg-white dark:bg-slate-950 transition-colors duration-300 min-h-screen">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+    <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 py-8 md:py-10">
       {filteredRecipes.length === 0 && isFavoritesPage ? (
  <div className="flex flex-col items-center justify-center py-20 text-center">
 
@@ -176,7 +176,7 @@ const isFavoritesPage = window.location.pathname === "/favRecipe";
   </div>
 ) : (
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 md:gap-8">
 
         {filteredRecipes.map((item) => (
           <div

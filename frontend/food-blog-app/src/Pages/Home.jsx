@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-6 md:py-12 lg:py-20 px-4 bg-white dark:bg-slate-950 transition-all duration-300">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center py-6 md:py-12 lg:py-10 px-4 lg:px-8 xl:px-10 bg-white dark:bg-slate-950 transition-all duration-300">
 
         {/* Left */}
         <div className="flex flex-col justify-center lg:pt-10">
@@ -75,19 +75,20 @@ export default function Home() {
         </div>
 
         {/* Right */}
-        <div className="flex justify-center">
-          <img
-            src={foodRecipe}
-            alt="Food"
-            className="rounded-[28px] shadow-xl border border-slate-200 dark:border-slate-700 w-full max-w-sm sm:max-w-md object-cover hover:scale-105 hover:shadow-2xl transition-all duration-500"
-          />
-        </div>
+        
+<div className="flex justify-center lg:justify-end">
+  <img
+    src={foodRecipe}
+    alt="Food"
+    className="rounded-[28px] shadow-xl border border-slate-200 dark:border-slate-700 w-full max-w-sm sm:max-w-md lg:max-w-4xl object-cover hover:scale-105 hover:shadow-2xl transition-all duration-500"
+  />
+</div>
       </section>
 
       {/* Section Heading */}
-      <div
+   <div
   ref={recipeSectionRef}
-  className="text-center py-16 bg-white dark:bg-slate-950 transition-all duration-300"
+  className="text-center pt-8 md:pt-10 lg:pt-6 pb-16 bg-white dark:bg-slate-950 transition-all duration-300"
 >
         <h2 className="flex items-center justify-center gap-3 text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white transition-colors duration-300">
   <RiBookOpenLine className="text-emerald-500 text-3xl md:text-4xl" />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Modal from "./Modal";
 import InputForm from "./InputForm";
@@ -21,6 +21,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const profileRef = useRef(null);
   const { darkMode, toggleTheme } = useTheme();
 
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -28,7 +29,7 @@ export default function Navbar() {
     JSON.parse(localStorage.getItem("user"))
   );
 
- useEffect(() => {
+useEffect(() => {
   const updateUser = () => {
     setToken(localStorage.getItem("token"));
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -43,6 +44,23 @@ export default function Navbar() {
   };
 }, [isOpen]);
 
+
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      profileRef.current &&
+      !profileRef.current.contains(event.target)
+    ) {
+      setProfileMenu(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
   const isLogin = !token;
 
   const checkLogin = () => {
@@ -135,7 +153,7 @@ const mobileLinkClass = ({ isActive }) =>
     Login
   </button>
 ) : (
-  <div className="relative ml-4">
+  <div  ref={profileRef} className="relative ml-4">
 
     {/* Profile Button */}
     <button
