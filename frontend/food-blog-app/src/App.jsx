@@ -29,17 +29,25 @@ const getAllRecipes = async () => {
 
 const getMyRecipes = async () => {
   try {
-    let user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user) return [];
 
-    let allRecipes = await getAllRecipes();
+    // Support both user ID formats
+    const userId = user._id || user.id;
 
-    console.log("User ID:", user.id);
+    if (!userId) {
+      console.error("User ID not found:", user);
+      return [];
+    }
+
+    const allRecipes = await getAllRecipes();
+
+    console.log("User ID:", userId);
     console.log("All Recipes:", allRecipes);
 
     const myRecipes = allRecipes.filter(
-      item => String(item.createdBy) === String(user.id)
+      item => String(item.createdBy) === String(userId)
     );
 
     console.log("My Recipes:", myRecipes);
@@ -50,7 +58,7 @@ const getMyRecipes = async () => {
     console.error("Error fetching my recipes:", err);
     return [];
   }
-}
+};
 
 const getFavRecipes = async () => {
   try {

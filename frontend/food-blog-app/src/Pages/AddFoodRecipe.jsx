@@ -16,6 +16,8 @@ export default function AddFoodRecipe() {
     file: null,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const navigate = useNavigate();
 
   const onHandleChange = (e) => {
@@ -32,36 +34,52 @@ export default function AddFoodRecipe() {
     }));
   };
 
-  const onHandleSubmit = async (e) => {
-    e.preventDefault();
+ const onHandleSubmit = async (e) => {
+  e.preventDefault();
 
-    const formData = new FormData();
+  // Prevent double submission
+  if (isSubmitting) return;
 
-    formData.append("title", recipeData.title);
-    formData.append("time", recipeData.time);
-    formData.append("ingredients", recipeData.ingredients);
-    formData.append("instructions", recipeData.instructions);
-    formData.append("file", recipeData.file);
+  setIsSubmitting(true);
 
-    try {
-      const res = await axios.post(
-        `${API_URL}/recipe`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+  // Show instant feedback
+  const toastId = toast.loading("Adding recipe...");
 
-      toast.success("Recipe added successfully!");
-      navigate("/");
-    } catch (err) {
-      console.log(err.response?.data);
-      toast.error("Failed to add recipe.");
-      console.log(err);
-    }
-  };
+  const formData = new FormData();
+
+  formData.append("title", recipeData.title);
+  formData.append("time", recipeData.time);
+  formData.append("ingredients", recipeData.ingredients);
+  formData.append("instructions", recipeData.instructions);
+  formData.append("file", recipeData.file);
+
+  try {
+    const res = await axios.post(
+      `${API_URL}/recipe`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    toast.success("Recipe added successfully!", {
+      id: toastId,
+    });
+
+    navigate("/");
+  } catch (err) {
+    console.log(err.response?.data);
+    console.log(err);
+
+    toast.error("Failed to add recipe.", {
+      id: toastId,
+    });
+
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-slate-50 dark:bg-slate-950 py-8 md:py-16 px-4 transition-colors duration-300">
@@ -198,12 +216,17 @@ export default function AddFoodRecipe() {
 
           {/* Button */}
 
-         <button
+        <button
   type="submit"
-className="w-full bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 text-white text-base md:text-lg font-semibold py-3 md:py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
+  disabled={isSubmitting}
+  className={`w-full text-white text-base md:text-lg font-semibold py-3 md:py-4 rounded-2xl transition-all duration-300 shadow-lg flex items-center justify-center gap-2 ${
+    isSubmitting
+      ? "bg-slate-500 dark:bg-emerald-800 cursor-not-allowed"
+      : "bg-slate-900 dark:bg-emerald-600 hover:bg-black dark:hover:bg-emerald-700 hover:shadow-2xl hover:-translate-y-1"
+  }`}
 >
   <IoAddCircleSharp className="text-2xl" />
-  Add Recipe
+  {isSubmitting ? "Adding Recipe..." : "Add Recipe"}
 </button>
 
         </form>
